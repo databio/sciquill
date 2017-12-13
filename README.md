@@ -11,7 +11,7 @@ markdown](http://databio.org/posts/markdown_style.html).
 
 To add page numbers:
 
-1. put the PDF document into the `addpages.tex file.
+1. put the PDF document into the `tex_utilities/addpages.tex` file.
 2. Run: `pdflatex addpages.tex`
 3. Page numbers are added at addpages.pdf!
 
