@@ -1,0 +1,19 @@
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+\documentclass{article}
+\RequirePackage[top=2cm,left=2cm,right=2cm,bottom=2cm]{geometry}
+
+\usepackage{pdfpages}
+\usepackage{fancyhdr}
+
+\begin{document}
+\pagestyle{fancy}
+\fancyhead[RO]{Sheffield \thepage}
+\fancyfoot{} % empty out the default, which is page number in center
+
+\renewcommand{\headrulewidth}{0pt}
+%  \includepdf[pagecommand={\thispagestyle{empty}},pages=1-2 ]{grant_merged.pdf}
+ % \includepdf[pagecommand={\thispagestyle{fancy}},pages=3-]{grant_merged.pdf}
+  \includepdf[pagecommand={\thispagestyle{fancy}},pages=1-]{merge_tmp.pdf}
+
+\end{document}
