@@ -15,6 +15,44 @@ To add page numbers:
 2. Run: `pdflatex addpages.tex`
 3. Page numbers are added at addpages.pdf!
 
+## Separate citation lists (how to separate bibliography into its own file)
+
+Some grants want a separate reference list; other grants want references just
+right at the end of the document that references them. The latter is the
+default, but for the former, we need to do 2 things: 1) make a bibliography-only
+file; 2) suppress the bibliography in the main file.
+
+1. make a bibliography-only file
+
+I wrote a script that does this: [bin/getrefs](bin/getrefs)
+
+Just run getrefs on your markdown files, and pipe the results pandoc:
+
+``` getrefs document.md | pandoc ...```
+
+For example, add this to your Makefile:
+
+```
+refs:
+	$(getrefs) src/* | \
+	pandoc \
+	-o output/references.pdf \
+	--filter ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py \
+	--template $(textemplate) \
+	--bibliography $(bib) \
+	--csl $(csl)
+```
+
+
+2. Suppress the bibliography in the main md files. In the file itself, put in a yaml header:
+
+---
+suppress-bibliography: True	
+---
+
+Done!
+
+
 ## Citation styles
 
 The citation styles in [/csl](/csl) are derived from the
