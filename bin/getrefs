@@ -1,5 +1,6 @@
 #! /bin/bash
 
+# This script produces reference-only documents.
 echo -ne "---\nnocite: |\n  " 
 perl -n -e'while (/(@[[:alnum:]]*?)[\]; ]/g) { print "$1, "}'  \
 $@ 

@@ -1,0 +1,9 @@
+#! /bin/bash
+
+# Builds figures from svg to png for output in PDFs using pandoc.
+
+for svgfile in "$@"
+do
+	pngfile="${svgfile/svg/png}"
+	inkscape --export-dpi=300 --export-png $pngfile $svgfile
+done
