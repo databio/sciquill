@@ -7,14 +7,10 @@ markdown to complete separate content from style, as explained in my blog post
 [on content and style: the beauty of
 markdown](http://databio.org/posts/markdown_style.html).
 
-If you write your paper in markdown format, you can use [pandoc-
-citeproc](https://github.com/jgm/pandoc-citeproc) to automatically generate a
-nice bibliography and seamlessly convert from one style to another for journal
-submission.
-
-
-* [citation-style-language/styles](https://github.com/citation-style-language/styles) - optional, for additional styles
-
+If you write your paper/grant/blog/whatever in markdown format, you can use
+[pandoc- citeproc](https://github.com/jgm/pandoc-citeproc) to automatically
+generate a nice bibliography and seamlessly convert from one style to another
+for journal submission.
 
 ## Getting started
 
@@ -46,7 +42,7 @@ You will need:
 	because it's free, uses BibTeX as its native file format, and actively
 	developed.
 
-4. **Citation style file**. (See above)
+4. **Citation style file**.
 
 	In this repository are some citation styles in [/csl](/csl), which  are
 	derived from the [citationstyles](http://citationstyles.org/) project
