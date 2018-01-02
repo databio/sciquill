@@ -7,6 +7,69 @@ markdown to complete separate content from style, as explained in my blog post
 [on content and style: the beauty of
 markdown](http://databio.org/posts/markdown_style.html).
 
+If you write your paper in markdown format, you can use [pandoc-
+citeproc](https://github.com/jgm/pandoc-citeproc) to automatically generate a
+nice bibliography and seamlessly convert from one style to another for journal
+submission.
+
+
+* [citation-style-language/styles](https://github.com/citation-style-language/styles) - optional, for additional styles
+
+
+## Getting started
+
+You will need:
+
+1. **Software prerequisites**.
+
+	* [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository)
+	* [pandoc](https://pandoc.org/) to convert from source
+	* [nsheff/pandoc-wrapfig](http://github.com/nsheff/pandoc-wrapfig) to wrap figures concisely in PDFs
+
+	Set an environment variable `$CODEBASE` to where you will store the above git
+	repositories
+
+	```
+	export CODEBASE=`pwd`/
+	git clone git@github.com:nsheff/mediabuilder.git
+	git clone git@github.com:nsheff/pandoc-wrapfig.git
+	```
+
+2. **Markdown file**. 
+
+	Your markdown file, with citations encoded using the Bibtex key, like
+	"[@Sheffield2017]".
+
+3. **BibTeX database**. 
+
+	My favorite BibTeX management software is [JabRef](http://www.jabref.org),
+	because it's free, uses BibTeX as its native file format, and actively
+	developed.
+
+4. **Citation style file**. (See above)
+
+	In this repository are some citation styles in [/csl](/csl), which  are
+	derived from the [citationstyles](http://citationstyles.org/) project
+	repository (https://github.com/citation-style-language/styles); it's the set
+	of styles I use frequently, with some possible additions or adjustments for
+	particular things I need. You can use any style from that repository or
+	define your own
+
+
+## How to use pandoc:
+
+Pass the Bibtex database as your entry to `--bibliography`, and pass the
+appropriate style file from the CSL repository to `--csl` like this. For
+example, this command will create a PDF output using a latex template I made:
+
+```
+pandoc document.md -o output/document.pdf \
+--filter ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py \
+--template ${CODEBASE}mediabuilder/textemplate_paper.tex \
+--bibliography ~/code/papers/sheffield.bib \
+--csl path/to/style.csl
+```
+
 ## Adding page numbers
 
 To add page numbers:
@@ -21,6 +84,7 @@ Some grants want a separate reference list; other grants want references just
 right at the end of the document that references them. The latter is the
 default, but for the former, we need to do 2 things: 1) make a bibliography-only
 file; 2) suppress the bibliography in the main file.
+
 
 1. make a bibliography-only file
 
@@ -52,11 +116,3 @@ suppress-bibliography: True
 
 Done!
 
-
-## Citation styles
-
-The citation styles in [/csl](/csl) are derived from the
-[citationstyles](http://citationstyles.org/) project repository
-(https://github.com/citation-style-language/styles); it's the set of styles I
-use frequently, with some possible additions or adjustments for particular
-things I need.
