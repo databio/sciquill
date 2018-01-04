@@ -93,8 +93,9 @@ Just run getrefs on your markdown files, and pipe the results pandoc:
 For example, add this to your Makefile:
 
 ```
+mbin=${CODEBASE}mediabuilder/bin
 refs:
-	$(getrefs) src/* | \
+	$(mbin)/getrefs src/* | \
 	pandoc \
 	-o output/references.pdf \
 	--filter ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py \

@@ -2,6 +2,7 @@
 
 # This script produces reference-only documents.
 echo -ne "---\nnocite: |\n  " 
-perl -n -e'while (/(@[[:alnum:]]*?)[\]; ]/g) { print "$1, "}'  \
+perl -n -e'while (/(@[[:alnum:]-]*?)[\]; ]/g) { print "$1, "}'  \
 $@ 
 echo -e "null\n---\n# References" 
+echo -e "\pagenumbering{gobble}"
