@@ -1,0 +1,5 @@
+#! /bin/bash
+
+# This script produces no bibliography documents.
+echo -ne "---\nsuppress-bibliography: True\n---\n" 
+cat $@

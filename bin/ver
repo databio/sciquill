@@ -1,0 +1,6 @@
+#! /bin/bash
+
+for code in "$@"
+do
+	ls -1vr "$code"* | head -n 1
+done

@@ -1,0 +1,6 @@
+#! /bin/bash
+
+# This script produces no bibliography documents.
+
+echo -e "\pagenumbering{gobble}"
+cat $@
