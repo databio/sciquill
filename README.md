@@ -1,34 +1,35 @@
 # mediabuilder
 
-This repository contains some assets (*e.g.* templates, style files) that are
+This repository provides templates, style files, and helper scripts that are
 useful for building grants, papers, or other media output from `markdown` files.
-This helps bring us closer to the goal of authoring scientific documents in
-markdown to complete separate content from style, as explained in my blog post
-[on content and style: the beauty of
-markdown](http://databio.org/posts/markdown_style.html).
-
-If you write your paper/grant/blog/whatever in markdown format, you can use
-[pandoc- citeproc](https://github.com/jgm/pandoc-citeproc) to automatically
+Write your academic grant or paper in markdown. This repository bring us closer
+to the goal of authoring scientific documents in markdown to completely
+[separate content from style](http://databio.org/posts/markdown_style.html). It
+uses [pandoc-citeproc](https://github.com/jgm/pandoc-citeproc) to automatically
 generate a nice bibliography and seamlessly convert from one style to another
-for journal submission.
+for journal submission or publication.
 
-## Getting started
+## Quick start
+
+Check out the [newgrant repository](https://github.com/nsheff/newgrant) for a
+template for a new grant or paper that uses mediabuilder. There, you will find a
+basic [Makefile](https://github.com/nsheff/newgrant/blob/master/Makefile).
 
 You will need:
 
 1. **Software prerequisites**.
 
-	* [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository)
 	* [pandoc](https://pandoc.org/) to convert from source
-	* [nsheff/pandoc-wrapfig](http://github.com/nsheff/pandoc-wrapfig) to wrap figures concisely in PDFs
+	* [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository)
 
-	Set an environment variable `$CODEBASE` to where you will store the above git
-	repositories
+	This repository contains a submodule for [nsheff/pandoc-
+	wrapfig](http://github.com/nsheff/pandoc-wrapfig); To be complete, you will
+	need to clone this repository with `--recursive`. Then, set an environment
+	variable `$CODEBASE` to where you will store this repo:
 
 	```
 	export CODEBASE=`pwd`/
-	git clone git@github.com:nsheff/mediabuilder.git
-	git clone git@github.com:nsheff/pandoc-wrapfig.git
+	git clone git@github.com:nsheff/mediabuilder.git --recursive
 	```
 
 2. **Markdown file**. 
@@ -52,10 +53,6 @@ You will need:
 	define your own
 
 ## Recipes
-
-Setting up a Makefile:
-
-Use the [Makefile](/Makefile) template.
 
 Converting an `.xls` file to `.pdf` with `libreoffice`:
 
@@ -132,9 +129,11 @@ refs:
 
 2. Suppress the bibliography in the main md files. In the file itself, put in a yaml header:
 
+```{yaml}
 ---
 suppress-bibliography: True	
 ---
+```
 
 Done!
 
