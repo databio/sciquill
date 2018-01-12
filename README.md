@@ -51,8 +51,33 @@ You will need:
 	particular things I need. You can use any style from that repository or
 	define your own
 
+## Recipes
 
-## How to use pandoc:
+Setting up a Makefile:
+
+Use the [Makefile](/Makefile) template.
+
+Converting an `.xls` file to `.pdf` with `libreoffice`:
+
+```{Makefile}
+budget:
+	echo "Make sure libreoffice isn't already open"
+	libreoffice --headless --invisible --convert-to pdf \
+	--outdir output \
+	src/budget_worksheet.xlsx
+```
+
+Merging PDFs with `ghostscript`:
+
+```
+merge:
+	$(mbin)/mergepdf output/merged.pdf \
+	output/title_page.pdf \
+	output/research_proposal.pdf \
+	output/assembly_plan.pdf
+```
+
+## How to use pandoc
 
 Pass the Bibtex database as your entry to `--bibliography`, and pass the
 appropriate style file from the CSL repository to `--csl` like this. For

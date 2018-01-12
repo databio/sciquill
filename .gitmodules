@@ -1,0 +1,3 @@
+[submodule "pandoc-wrapfig"]
+	path = pandoc-wrapfig
+	url = git@github.com:nsheff/pandoc-wrapfig.git
