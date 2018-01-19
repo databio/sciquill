@@ -71,10 +71,10 @@ assets to help build your output.
 
 Start pandoc with these options:
 
-*`--filter`: ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py
-*`--template`: Choose a template from `mediabuilder/tex_templates`
-*`--bibliography`: Use your bibtex database
-*`--csl`: Choose a `csl` file from `mediabuilder/csl`
+* `--filter`: ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py
+* `--template`: Choose a template from `mediabuilder/tex_templates`
+* `--bibliography`: Use your bibtex database
+* `--csl`: Choose a `csl` file from `mediabuilder/csl`
 
 For example, this command will create a PDF output:
 
