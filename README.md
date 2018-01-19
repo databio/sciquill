@@ -1,19 +1,38 @@
 # mediabuilder
 
-This repository provides templates, style files, and helper scripts that are
-useful for building grants, papers, or other media output from `markdown` files.
-Write your academic grant or paper in markdown. This repository bring us closer
-to the goal of authoring scientific documents in markdown to completely
-[separate content from style](http://databio.org/posts/markdown_style.html). It
-uses [pandoc-citeproc](https://github.com/jgm/pandoc-citeproc) to automatically
-generate a nice bibliography and seamlessly convert from one style to another
-for journal submission or publication.
+This repository helps you write your academic grant or paper in markdown. It
+provides templates, style files, and helper scripts that are useful for building
+grants, papers, or other media output from `markdown` files. This repository
+bring us closer to the goal of authoring scientific documents in markdown to
+completely [separate content from
+style](http://databio.org/posts/markdown_style.html). It uses [pandoc-
+citeproc](https://github.com/jgm/pandoc-citeproc) to automatically generate a
+nice bibliography and seamlessly convert from one style to another for journal
+submission or publication.
+
+## Mediabuilder assets
+
+This repository contains:
+
+* [tex_templates](/tex_templates) - a collection of tex templates for, *e.g.*
+  NIH grants.
+* [tex_utilities](/tex_utilities) - some bonus tex software to do things like
+  add page numbers
+* [bin](/bin) - Small scripted utilities to build figures, extract
+  bibliographies, suppress page numbers, merge PDFs, select versions of grant
+  source files, etc. More documentation to come.
+* [csl](/csl) - Contains some citation styles, which are derived from the
+  [citationstyles](http://citationstyles.org/) project repository
+  (https://github.com/citation-style-language/styles); it's the set of styles I
+  use frequently, with some possible additions or adjustments for particular
+  things I need. You can use any style from that repository or define your own
 
 ## Quick start
 
 Check out the [newgrant repository](https://github.com/nsheff/newgrant) for a
 template for a new grant or paper that uses mediabuilder. There, you will find a
-basic [Makefile](https://github.com/nsheff/newgrant/blob/master/Makefile).
+basic [Makefile](https://github.com/nsheff/newgrant/blob/master/Makefile), which
+provides examples of recipes for building grants.
 
 You will need:
 
@@ -43,16 +62,30 @@ You will need:
 	because it's free, uses BibTeX as its native file format, and actively
 	developed.
 
-4. **Citation style file**.
-
-	In this repository are some citation styles in [/csl](/csl), which  are
-	derived from the [citationstyles](http://citationstyles.org/) project
-	repository (https://github.com/citation-style-language/styles); it's the set
-	of styles I use frequently, with some possible additions or adjustments for
-	particular things I need. You can use any style from that repository or
-	define your own
+With these items, just follow some of the recipes below to use the mediabuilder
+assets to help build your output.
 
 ## Recipes
+
+### How to use pandoc with mediabuilder assets
+
+Start pandoc with these options:
+
+*`--filter`: ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py
+*`--template`: Choose a template from `mediabuilder/tex_templates`
+*`--bibliography`: Use your bibtex database
+*`--csl`: Choose a `csl` file from `mediabuilder/csl`
+
+For example, this command will create a PDF output:
+
+```
+pandoc document.md -o output/document.pdf \
+--filter ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py \
+--template ${CODEBASE}mediabuilder/textemplate_paper.tex \
+--bibliography ~/code/papers/sheffield.bib \
+--csl path/to/style.csl
+```
+
 
 ### Converting an `.xls` file to `.pdf` with `libreoffice`:
 
@@ -81,22 +114,6 @@ To add page numbers:
 1. put the PDF document into the `tex_utilities/addpages.tex` file.
 2. Run: `pdflatex addpages.tex`
 3. Page numbers are added at addpages.pdf!
-
-
-### How to use pandoc
-
-Pass the Bibtex database as your entry to `--bibliography`, and pass the
-appropriate style file from the CSL repository to `--csl` like this. For
-example, this command will create a PDF output using a latex template I made:
-
-```
-pandoc document.md -o output/document.pdf \
---filter ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py \
---template ${CODEBASE}mediabuilder/textemplate_paper.tex \
---bibliography ~/code/papers/sheffield.bib \
---csl path/to/style.csl
-```
-
 
 
 ## Separate citation lists (how to separate bibliography into its own file)
