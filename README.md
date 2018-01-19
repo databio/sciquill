@@ -54,7 +54,7 @@ You will need:
 
 ## Recipes
 
-Converting an `.xls` file to `.pdf` with `libreoffice`:
+### Converting an `.xls` file to `.pdf` with `libreoffice`:
 
 ```{Makefile}
 budget:
@@ -64,7 +64,7 @@ budget:
 	src/budget_worksheet.xlsx
 ```
 
-Merging PDFs with `ghostscript`:
+### Merging PDFs with `ghostscript`:
 
 ```
 merge:
@@ -74,7 +74,16 @@ merge:
 	output/assembly_plan.pdf
 ```
 
-## How to use pandoc
+### Adding page numbers
+
+To add page numbers:
+
+1. put the PDF document into the `tex_utilities/addpages.tex` file.
+2. Run: `pdflatex addpages.tex`
+3. Page numbers are added at addpages.pdf!
+
+
+### How to use pandoc
 
 Pass the Bibtex database as your entry to `--bibliography`, and pass the
 appropriate style file from the CSL repository to `--csl` like this. For
@@ -88,20 +97,14 @@ pandoc document.md -o output/document.pdf \
 --csl path/to/style.csl
 ```
 
-## Adding page numbers
 
-To add page numbers:
-
-1. put the PDF document into the `tex_utilities/addpages.tex` file.
-2. Run: `pdflatex addpages.tex`
-3. Page numbers are added at addpages.pdf!
 
 ## Separate citation lists (how to separate bibliography into its own file)
 
-Some grants want a separate reference list; other grants want references just
-right at the end of the document that references them. The latter is the
-default, but for the former, we need to do 2 things: 1) make a bibliography-only
-file; 2) suppress the bibliography in the main file.
+By default, pandoc will include your references cited just right at the end of
+the document. That works for some grants, but others want a separate reference
+list. To do this, we need to do 2 things: 1) make a bibliography-only file; 2)
+suppress the bibliography in the main file.
 
 
 1. make a bibliography-only file
@@ -127,7 +130,12 @@ refs:
 ```
 
 
-2. Suppress the bibliography in the main md files. In the file itself, put in a yaml header:
+2. Suppress the bibliography in the main `.md` files. 
+
+One way to do this is to use a `csl` file that doesn't have a style for a
+bibliography. I don't like that, though, because it requires mucking around with
+style files, and you may want to produce a document with the bibliography some
+time. The better alternative is this: In the file itself, put in a yaml header:
 
 ```{yaml}
 ---
@@ -135,5 +143,13 @@ suppress-bibliography: True
 ---
 ```
 
-Done!
+Or, I also wrote a little helper script that will do this for you on-the-fly:
+[bin/nobib](bin/nobib). Use it like getrefs:
+```
+$(mbin)/nobib file.md | \
+pandoc \
+-o output/approach.pdf \
+```
+
+That will suppress the bibliography in the output. Done!
 
