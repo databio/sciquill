@@ -22,10 +22,17 @@ This repository contains:
   bibliographies, suppress page numbers, merge PDFs, select versions of grant
   source files, etc. More documentation to come.
 * [csl](/csl) - Contains some citation styles, which are derived from the
-  [citationstyles](http://citationstyles.org/) project repository
+  [citationstyles](http://citationstyles.org/) project repository, or from [Zotero collection](https://www.zotero.org/styles)
   (https://github.com/citation-style-language/styles); it's the set of styles I
   use frequently, with some possible additions or adjustments for particular
   things I need. You can use any style from that repository or define your own
+* [styles.doc](/styles.doc) - Word document templates for different grant agencies. To be used in YAML RMarkdown header as 
+
+```
+output:
+  word_document:
+    reference_docx: styles.doc/NSF_grant_style.docx
+```
 
 ## Quick start
 
