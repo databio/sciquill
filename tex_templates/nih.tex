@@ -15,7 +15,7 @@
 \usepackage{fancyhdr}
 
 \usepackage{wrapfig}
-\usepackage[skip=3pt]{caption}
+\usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
 
 % longtable is required for markdown-format tables to be rendered in latex
 \usepackage{longtable}
@@ -134,7 +134,7 @@ $endif$
 \fancyhead{} % empty
 \fancyfoot{} % empty out the default, which is page number in center
 \renewcommand{\headrulewidth}{0pt}
-
+\pagenumbering{gobble}
 
 \usepackage{titlesec}
 
@@ -150,18 +150,18 @@ $endif$
 \linespread{1.0}
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
+  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
 
 \titleformat{\subsection}
   {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing\section{0pt}{1pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing\subsection{0pt}{1pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{11pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
 \titlespacing\subsubsection{0pt}{0pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
 
 
