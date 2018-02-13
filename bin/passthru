@@ -1,0 +1,4 @@
+#! /bin/bash
+
+# This script just passes it right through.
+cat $@
