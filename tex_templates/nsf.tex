@@ -8,13 +8,15 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
   
-\documentclass[11pt]{article}
+% \documentclass[11pt]{article}
+\documentclass$if(fontsize)$[$fontsize$]$endif${article}
 \RequirePackage[top=1in,left=1in,right=1in,bottom=1in]{geometry}
 
 \usepackage{pdfpages}
 \usepackage{fancyhdr}
 
 \usepackage{wrapfig}
+\usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
 
 % longtable is required for markdown-format tables to be rendered in latex
 \usepackage{longtable}
@@ -142,19 +144,20 @@ $endif$
 \definecolor{bluehaze}{RGB}{54,95,145}
 \definecolor{maroonhaze}{RGB}{148,54,52}
 \definecolor{orangehaze}{RGB}{227,108,10}
+\definecolor{bluetint}{RGB}{0,50,100}
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
 \linespread{1.0}
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluehaze}}{\thesection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{1.1em}{1.1em}\selectfont\color{bluetint}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{phv}\fontsize{10pt}{10pt}\selectfont\color{maroonhaze}}{\thesubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\selectfont\color{bluetint}\itshape}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\fontsize{10pt}{10pt}\selectfont\color{orangehaze}}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\selectfont\color{black}}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
@@ -214,8 +217,8 @@ $endfor$
 
 
 \end{document}
-%\documentclass$if(fontsize)$[$fontsize$]$endif${article}
-\documentclass[11pt]{article}
+\documentclass$if(fontsize)$[$fontsize$]$endif${article}
+%\documentclass[11pt]{article}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifxetex
