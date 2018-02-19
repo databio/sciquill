@@ -6,8 +6,6 @@
 
  \let\tightlist\relax
 
-
- 
 \documentclass[11pt]{article}
 \RequirePackage[top=0.5in,left=0.5in,right=0.5in,bottom=0.5in]{geometry}
 
@@ -33,6 +31,16 @@
     \usepackage[utf8]{inputenc}
   \fi
 \fi
+
+
+
+\definecolor{bluehaze}{RGB}{54,95,145}
+\definecolor{maroonhaze}{RGB}{148,54,52}
+\definecolor{orangehaze}{RGB}{227,108,10}
+\definecolor{black}{RGB}{0,0,0}
+ 
+
+
 $if(natbib)$
 \usepackage{natbib}
 \bibliographystyle{plainnat}
@@ -91,7 +99,8 @@ $endif$
 \else
   \usepackage[unicode=true]{hyperref}
 \fi
-\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze}
+
 $if(strikeout)$
 \usepackage[normalem]{ulem}
 % avoid problems with \sout in headers with hyperref:
@@ -142,10 +151,7 @@ $endif$
 
 
 % colors
-\definecolor{bluehaze}{RGB}{54,95,145}
-\definecolor{maroonhaze}{RGB}{148,54,52}
-\definecolor{orangehaze}{RGB}{227,108,10}
-\definecolor{black}{RGB}{0,0,0}
+
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
