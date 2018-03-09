@@ -5,5 +5,11 @@
 for svgfile in "$@"
 do
 	pngfile="${svgfile/svg/png}"
+	srcdate=`stat -c %Y $svgfile`
+	destdate=`stat -c %Y $pngfile`
+	if [ ! -f $pngfile ] || [ ${srcdate} -ge ${destdate} ];
+	then
+	echo "Detected change in $svgfile"
 	inkscape --export-dpi=300 --export-png $pngfile $svgfile
+fi
 done
