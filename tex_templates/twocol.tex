@@ -1,26 +1,60 @@
-% This latex/pandoc NIH biosketch template has borrowed components from pmagwene's
-% latex version of the NIH biosketch.
-% Thanks to pmagwene for sharing and inspiring this rendition
 
-\renewcommand{\rmdefault}{phv} % Arial
-\renewcommand{\sfdefault}{phv} % Arial
 
  \let\tightlist\relax
 
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+  
 \documentclass[11pt]{article}
-\RequirePackage[top=0.5in,left=0.5in,right=0.5in,bottom=0.5in]{geometry}
+\RequirePackage[top=0.8in,left=0.8in,right=0.8in,bottom=0.8in]{geometry}
+
+
+\usepackage{authblk}
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+
+\renewcommand{\rmdefault}{bch} % Charter
+\renewcommand{\sfdefault}{bch} % Charter
+
+
+\usepackage{multicol}
+
 
 \usepackage{pdfpages}
 \usepackage{fancyhdr}
-\RequirePackage{tabu}
+
 \usepackage{wrapfig}
 \usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
 
 % longtable is required for markdown-format tables to be rendered in latex
 \usepackage{longtable}
+% \usepackage{xtab}
+
+
+
 
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
+
+% colors
+\definecolor{bluehaze}{RGB}{54,95,145}
+\definecolor{maroonhaze}{RGB}{148,54,52}
+\definecolor{orangehaze}{RGB}{227,108,10}
+\definecolor{black}{RGB}{0,0,0}
+\definecolor{bluetint}{RGB}{0,50,100}
+\definecolor{graytint}{RGB}{175,175,175}
+\definecolor{graybit}{RGB}{245,245,245}
+
+
+% Turn on shading??
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+
+
 \ifxetex
   \usepackage{fontspec,xltxtra,xunicode}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
@@ -32,16 +66,6 @@
     \usepackage[utf8]{inputenc}
   \fi
 \fi
-
-
-
-\definecolor{bluehaze}{RGB}{54,95,145}
-\definecolor{maroonhaze}{RGB}{148,54,52}
-\definecolor{orangehaze}{RGB}{227,108,10}
-\definecolor{black}{RGB}{0,0,0}
- 
-
-
 $if(natbib)$
 \usepackage{natbib}
 \bibliographystyle{plainnat}
@@ -67,14 +91,15 @@ $if(fancy-enums)$
     {\setlength{\labelwidth}{4em}}
 }\makeatother
 \usepackage{enumerate}
+
+% Attempt to smash lists together
+\setlist[enumerate]{itemsep=1mm}
+
 $endif$
 $if(tables)$
 \usepackage{ctable}
-
 \usepackage{float} % provides the H option for float placement
-
 $endif$
-
 $if(url)$
 \usepackage{url}
 $endif$
@@ -101,9 +126,7 @@ $endif$
   \usepackage[unicode=true]{hyperref}
 \fi
 
-% link color
 \hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze}
-
 $if(strikeout)$
 \usepackage[normalem]{ulem}
 % avoid problems with \sout in headers with hyperref:
@@ -132,28 +155,31 @@ $endfor$
 $if(title)$
 \title{$title$}
 $endif$
-$if(author)$
-\author{$for(author)$$author$$sep$ \and $endfor$}
-\name{$for(author)$$author$$sep$ \and $endfor$}
-$endif$
+% $if(author)$
+% \author{$for(author)$$author$$sep$ \and $endfor$}
+% $endif$
 $if(date)$
 \date{$date$}
 $endif$
+
+
 
 % my page number
 %\pagestyle{fancy}
 %\fancyhead[RO]{Sheffield \thepage}
 \fancyhead{} % empty
 \fancyfoot{} % empty out the default, which is page number in center
-\renewcommand{\headrulewidth}{0pt}
-\pagenumbering{gobble}
-
+\def\middot{\textperiodcentered~}
+\lfoot{\scriptsize \thepage \middot \textit{Databio Proceedings} \middot $if(date)$ \textsl{$date$} $endif$ \textcopyright The Authors}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
 \usepackage{titlesec}
 
 
 
+\usepackage{mdframed}   % for framing
 
-% colors
+\newmdenv[linecolor=white, fontcolor=bluetint, backgroundcolor=graybit, leftmargin=8, rightmargin=8, innertopmargin=8, innerbottommargin=8, innerleftmargin=12, innerrightmargin=12, roundcorner=10pt]{infobox}
 
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
@@ -161,20 +187,70 @@ $endif$
 \linespread{1.0}
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing\section{0pt}{10pt plus 4pt minus 4pt}{-4pt plus 4pt minus 4pt}
-\titlespacing\subsection{0pt}{10pt plus 4pt minus 4pt}{-4pt plus 4pt minus 4pt}
-\titlespacing\subsubsection{0pt}{10pt plus 4pt minus 4pt}{-4pt plus 4pt minus 4pt}
+\titlespacing\section{0pt}{12pt plus 2pt minus 1pt}{-2pt plus 1pt minus 1pt}
+\titlespacing\subsection{0pt}{11pt plus 2pt minus 1pt}{-2pt plus 1pt minus 1pt}
+\titlespacing\subsubsection{0pt}{0pt plus 2pt minus 1pt}{-2pt plus 2pt minus 2pt}
 
+
+$for(author)$
+$if(author.name)$
+  $if(author.correspondence)$
+    \author[$author.affiliation$,*]{$author.name$}
+  $else$
+    \author[$author.affiliation$]{$author.name$}
+  $endif$
+$else$
+\author{$author$}
+$endif$
+$endfor$
+
+% institutions must come after \author definitions so that corresponding tag comes last.
+$for(institutions)$
+$if(institutions.name)$
+\affil[$institutions.key$]{$institutions.name$}
+$endif$
+$endfor$
+
+$for(author)$
+  $if(author.correspondence)$
+    \affil[*]{Correspondence: \href{mailto:$author.correspondence$}{$author.correspondence$}}
+$endif$
+$endfor$
+
+
+% bring affils a little closer to author.
+\setlength{\affilsep}{0.5em}
+
+\usepackage{titling}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\Affilfont}{\scriptsize}
+\makeatletter
+\renewcommand{\maketitle}{%
+
+$if(class)$
+  \begin{flushright}{\huge{\color{graytint}\textbf{\MakeUppercase{$class$}}}}\end{flushright}\vspace{-0.5em}
+  {\color{graytint}\hrule}
+  $endif$
+  \begin{raggedright} 
+  \textbf{\huge{\@title}}
+        \par \vspace{.5ex}
+        % $for(author)$$author$$sep$ \and $endfor$
+      {\ignorespaces\@author\newline\href{http://databio.org$permalink$}{http://databio.org$permalink$}\par}
+       % \hrule
+         \vspace{1ex}
+        \end{raggedright}            
+}   
+\makeatother
 
 %\subsectionfont{\color{maroonhaze}}
 %\subsubsectionfont{\color{orangehaze}}
@@ -183,57 +259,40 @@ $endif$
 % this code uses titles.sty to make a pagebreak with every header 1
 % so each section will begin on a new page.
 %\newcommand{\sectionbreak}{\clearpage}
-\newcommand{\pgline}{\vspace{-6pt}\noindent\makebox[\linewidth]{\rule{\textwidth}{0.6pt}}\newline}
 
 
-\newcommand{\piinfo}
-{\pgline
-{\centering
-\textbf{BIOGRAPHICAL SKETCH}\\
-{\footnotesize
-Provide the following information for the Senior/key personnel and other significant contributors.\\
-Follow this format for each person.  \textbf{DO NOT EXCEED FIVE PAGES}.\\}}
-\pgline
-NAME: $name$\vspace{0.5em}\\
-eRA COMMONS USER NAME (credential, e.g., agency login): $eracommons$\vspace{0.5em}\\
-POSITION TITLE: $position$\vspace{0.5em}\\
-EDUCATION/TRAINING (\textit{Begin with baccalaureate or other initial professional education, such as nursing, include postdoctoral training and residency training if applicable. Add/delete rows as necessary.})\vspace{0.5em}\\}
+\graphicspath{{/home/nsheff/code/databio.github.io/}}
 
-\newenvironment{education}
-{%
-\bgroup\centering
-\tabulinesep=1.5mm
-\begin{tabu} to \textwidth {X[3.53,l,m]|X[1,c,m]|X[1,c,m]|X[2.15,l,m]}
-\hline
-\rowfont[c]{}               % for the header only we want all the text centered
-INSTITUTION AND LOCATION &
-DEGREE & 
-Completion Date & 
-FIELD OF STUDY\\
-\hline}
-{\end{tabu}\egroup}
-
-
-% make bullets smaller
-\def\labelitemi{}
-% this itemindent code adjusts the indentation of bullet lists.
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-26pt} 
+% Redefine the figure environment so there's no float (what pandoc does by default)
+% to make it compatible with the multicol package
+\usepackage{float}
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][2] {
+    \expandafter\origfigure\expandafter[H]
+} {
+    \endorigfigure
 }
 
-\usepackage{enumitem}
-% Attempt to smash lists together
-\setlist[enumerate]{wide, itemsep=0.5mm, labelindent=0pt, leftmargin=0pt, labelwidth=!, itemindent=0pt, font=\itshape}
+
+
+
 
 \begin{document}
+
 
 $if(title)$
 \maketitle
 $endif$
-\piinfo
-% \begin{education}
-% $education$
-% \end{education}
+
+$if(abstract)$
+\begin{infobox}
+$abstract$
+\end{infobox}
+$endif$
+
+
+
 $for(include-before)$
 $include-before$
 
@@ -242,7 +301,10 @@ $if(toc)$
 \tableofcontents
 
 $endif$
+
+\begin{multicols}{2}
 $body$
+\end{multicols}
 
 $if(natbib)$
 $if(biblio-files)$
@@ -368,9 +430,9 @@ $endfor$
 $if(title)$
 \title{$title$}
 $endif$
-$if(author)$
-\author{$for(author)$$author$$sep$ \and $endfor$}
-$endif$
+% $if(author)$
+% \author{$for(author)$$author$$sep$ \and $endfor$}
+% $endif$
 $if(date)$
 \date{$date$}
 $endif$
@@ -412,3 +474,5 @@ $include-after$
 
 $endfor$
 \end{document}
+
+

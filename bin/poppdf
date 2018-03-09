@@ -1,0 +1,14 @@
+#! /bin/bash
+
+# This shell script "pops" the first page out of the PDF in $infile, and saves
+# a new PDF (sans page 1) in $outfile
+
+infile=$1
+outfile=$2
+
+gs -sDEVICE=pdfwrite \
+   -q -dNOPAUSE -dBATCH \
+   -sOutputFile=$outfile \
+   -dFirstPage=2 \
+   $infile
+
