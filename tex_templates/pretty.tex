@@ -1,5 +1,5 @@
-\renewcommand{\rmdefault}{phv} % Arial
-\renewcommand{\sfdefault}{phv} % Arial
+\renewcommand{\rmdefault}{bch} % Charter
+\renewcommand{\sfdefault}{bch} % Charter
 
  \let\tightlist\relax
 
@@ -9,7 +9,7 @@
 
   
 \documentclass[11pt]{article}
-\RequirePackage[top=0.5in,left=0.5in,right=0.5in,bottom=0.5in]{geometry}
+\RequirePackage[top=0.75in,left=0.75in,right=0.75in,bottom=0.75in]{geometry}
 
 
 \usepackage{pdfpages}
@@ -155,13 +155,13 @@ $endif$
 \linespread{1.0}
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{}
+  {\normalfont\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
+  {\normalfont\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
+  {\normalfont\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
@@ -181,6 +181,22 @@ $endif$
 
 \widowpenalty=1000
 \clubpenalty=1000
+
+% make bullets smaller
+\def\middot{\textbf{\textperiodcentered~}}
+\def\labelitemi{\boldmath$$\cdot$$}
+
+\usepackage{enumitem}
+% Attempt to smash lists together
+\setlist[enumerate]{wide, itemsep=0.5mm, labelindent=0pt, leftmargin=0pt, labelwidth=!, itemindent=0pt, font=\itshape}
+
+
+
+% this itemindent code adjusts the indentation of bullet lists.
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-26pt} 
+}
+
 
 \begin{document}
 
