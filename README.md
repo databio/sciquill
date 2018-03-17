@@ -17,7 +17,7 @@ This repository contains:
 * [tex_templates](/tex_templates) - a collection of tex templates for, *e.g.*
   NIH grants.
 * [tex_utilities](/tex_utilities) - some bonus tex software to do things like
-  add page numbers
+  add page numbers to an existing PDF
 * [bin](/bin) - Small scripted utilities to build figures, extract
   bibliographies, suppress page numbers, merge PDFs, select versions of grant
   source files, etc. More documentation to come.
@@ -36,38 +36,25 @@ output:
 
 ## Quick start
 
-Check out the [newgrant repository](https://github.com/nsheff/newgrant) for a
-template for a new grant or paper that uses mediabuilder. There, you will find a
-basic [Makefile](https://github.com/nsheff/newgrant/blob/master/Makefile), which
-provides examples of recipes for building grants.
+1. Install and configurethe **software prerequisites**.
 
-You will need:
-
-1. **Software prerequisites**.
-
-	* [pandoc](https://pandoc.org/) to convert from source
-	* [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository)
-
-	This repository contains a submodule for [nsheff/pandoc-
-	wrapfig](http://github.com/nsheff/pandoc-wrapfig); To be complete, you will
-	need to clone this repository with `--recursive`. Then, set an environment
-	variable `$CODEBASE` to where you will store this repo:
+	* Install [pandoc](https://pandoc.org/) to convert from source
+	* Clone [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository, cloned with `--recursive` to get the [nsheff/pandoc-wrapfig](http://github.com/nsheff/pandoc-wrapfig) submodule)
+	* Configure `mediabuilder`. The examples use an environment variable `$CODEBASE`, to where you will store this repo:
 
 	```
 	export CODEBASE=`pwd`/
 	git clone git@github.com:nsheff/mediabuilder.git --recursive
 	```
 
-2. **Markdown file**. 
+2. Produce your content in **markdown** format. 
 
-	Your markdown file, with citations encoded using the Bibtex key, like
-	"[@Sheffield2017]".
+There are working examples of different media types in the [examples folder](/examples). There you can find a [grant](/examples/grant), paper (pending), CV (pending). For each example there is a
+basic `Makefile`, which provides examples of recipes for building different media types. For these to work, you will need:	
 
-3. **BibTeX database**. 
+3. **BibTeX database** (optional).
 
-	My favorite BibTeX management software is [JabRef](http://www.jabref.org),
-	because it's free, uses BibTeX as its native file format, and actively
-	developed.
+	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it's free, uses BibTeX as its native file format, and actively developed.
 
 With these items, just follow some of the recipes below to use the mediabuilder
 assets to help build your output.
