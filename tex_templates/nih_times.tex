@@ -1,5 +1,5 @@
-\renewcommand{\rmdefault}{phv} % Arial
-\renewcommand{\sfdefault}{phv} % Arial
+\renewcommand{\rmdefault}{ptm} % Arial
+\renewcommand{\sfdefault}{ptm} % Arial
 
  \let\tightlist\relax
 
@@ -138,6 +138,9 @@ $endif$
 
 \usepackage{titlesec}
 
+\pdfminorversion=5
+\pdfcompresslevel=9
+\pdfobjcompresslevel=3
 
 % colors
 \definecolor{bluehaze}{RGB}{54,95,145}
@@ -147,22 +150,22 @@ $endif$
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
-\linespread{1.0}
+\linespread{0.98}
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
+  {\normalfont\fontfamily{ptm}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
+  {\normalfont\fontfamily{ptm}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{ptm}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing{\subsection}{0pt}{12pt plus 40pt minus 2pt}{-2pt plus 2pt minus 2pt}
-\titlespacing{\subsubsection}{0pt}{1pt plus 4pt minus 2pt}{-4pt plus 2pt minus 4pt}
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{11pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{0pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
 
 
 %\subsectionfont{\color{maroonhaze}}

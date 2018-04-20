@@ -1,0 +1,3 @@
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
+	-dOptimize=true \
+	-dNOPAUSE -dQUIET -dBATCH -sOutputFile=$1 -
