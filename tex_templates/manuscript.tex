@@ -31,6 +31,8 @@
 \definecolor{black}{RGB}{0,0,0}
 
 
+
+
 \ifxetex
   \usepackage{fontspec,xltxtra,xunicode}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
@@ -101,7 +103,7 @@ $endif$
 \else
   \usepackage[unicode=true]{hyperref}
 \fi
-\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze}
+\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze, linkcolor=bluehaze}
 $if(strikeout)$
 \usepackage[normalem]{ulem}
 % avoid problems with \sout in headers with hyperref:
@@ -177,6 +179,31 @@ $endif$
 % this code uses titles.sty to make a pagebreak with every header 1
 % so each section will begin on a new page.
 %\newcommand{\sectionbreak}{\clearpage}
+
+
+
+% make bullets smaller
+\def\labelitemi{\raisebox{0.5ex}{\tiny\textbullet}}
+% this itemindent code adjusts the indentation of bullet lists.
+
+
+\usepackage{csquotes}
+\AtBeginEnvironment{quote}{\itshape\color{bluehaze}\vspace{-1.5\baselineskip}}
+\AtEndEnvironment{quote}{\vspace{-1\baselineskip}}
+
+
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
+
+\let\tightlist\relax
+\providecommand{\tightlist}{%
+
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-20pt}\addtolength{\leftmargin}{-20pt}\setlength{\parindent}{-26pt}
+\setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+
+}
+
 
 
 \widowpenalty=1000

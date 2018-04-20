@@ -36,7 +36,7 @@ abstract:
 
 # Auto-build svg figures that have changed since last render
 figs:
-	$(mbin)/buildfigs fig/*.svg
+	$(mbin)/buildfigpdfs fig/*.svg
 
 # Produces just the specific aims.
 aims: figs

@@ -110,6 +110,21 @@ To add page numbers:
 3. Page numbers are added at addpages.pdf!
 
 
+## Authoring
+
+Tops for creating media in markdown:
+
+### Figures
+
+You can refer to figures by label instead of by number, which makes renumbering figures automatic.
+```
+![\label{abstract}Fig. \ref{abstract}: Example figure](fig/example_figure.png) 
+```
+
+Refer to figures with `\ref{label}`.
+
+
+
 ## Separate citation lists (how to separate bibliography into its own file)
 
 By default, pandoc will include your references cited just right at the end of

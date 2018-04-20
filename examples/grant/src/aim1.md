@@ -4,7 +4,8 @@
 
 ## Aim 1
 
-![Fig. 1: example figure](fig/example_figure.png)
+![\label{abstract}Fig. \ref{abstract}: Example figure](fig/example_figure.png) 
+
 
 Example citation [@Sheffield2016]. Lorem ipsum dolor sit amet, consectetur
 adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna

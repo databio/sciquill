@@ -20,3 +20,13 @@ You can build the entire [final merged output](/output/merged.pdf) by typing:
 ```
 make all
 ```
+
+
+## Figures
+
+You can refer to figures by label instead of by number, which makes renumbering figures automatic.
+```
+![\label{abstract}Fig. \ref{abstract}: Example figure](fig/example_figure.png) 
+```
+
+Refer to figures with `\ref{label}`.
