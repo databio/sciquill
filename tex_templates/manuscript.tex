@@ -9,7 +9,7 @@
 
   
 \documentclass[11pt]{article}
-\RequirePackage[top=0.5in,left=0.5in,right=0.5in,bottom=0.5in]{geometry}
+\RequirePackage[top=0.75in,left=0.75in,right=0.75in,bottom=0.75in]{geometry}
 
 
 \usepackage{pdfpages}
@@ -187,23 +187,42 @@ $endif$
 % this itemindent code adjusts the indentation of bullet lists.
 
 
+
 \usepackage{csquotes}
-\AtBeginEnvironment{quote}{\itshape\color{bluehaze}\vspace{-1.5\baselineskip}}
-\AtEndEnvironment{quote}{\vspace{-1\baselineskip}}
+% I use quotes for response to reviewers. this messes with paragraph spacing.
+\AtBeginEnvironment{quote}{\itshape\color{bluehaze}\vspace{-1em}}
+\AtEndEnvironment{quote}{\vspace{0em}}
+
+
+\setlength{\topsep}{0em}
+\setlength{\parskip}{0.6em}
+\setlength{\partopsep}{0em}
+
 
 
 \usepackage{enumitem}
 \setlist[itemize]{leftmargin=*}
 
+
+
+
 \let\tightlist\relax
 \providecommand{\tightlist}{%
-
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-20pt}\addtolength{\leftmargin}{-20pt}\setlength{\parindent}{-26pt}
-\setlength{\itemindent}{0pt}
+  \setlength{\topsep}{1em}
+  \setlength{\partopsep}{1em}
+  \setlength{\parskip}{1em}
+  \setlength{\parsep}{1em}
+  \setlength{\parindent}{0pt}
+  \setlength{\itemsep}{0pt}
+  \setlength{\itemindent}{0pt}
   \setlength{\leftmargin}{0pt}
-
 }
 
+
+% \usepackage{etoolbox}
+% \makeatletter
+% \AtBeginEnvironment{quote}{\appto\@listi{\parsep\z@ \topsep\z@ \itemsep\z@}}
+% \makeatother
 
 
 \widowpenalty=1000
