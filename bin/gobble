@@ -2,5 +2,5 @@
 
 # This script produces no page numbering.
 
-echo -e "\pagenumbering{gobble}"
+echo -e "\pagenumbering{gobble}\n"
 cat $@
