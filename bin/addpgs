@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Adds page numbers
+# Usage: addpgs input.pdf output
+
+sed "s|PDFDOCVAR|$1|g" "${BASH_SOURCE%/*}/../tex_utilities/addpages.tex" | pdflatex -jobname $2

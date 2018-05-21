@@ -95,3 +95,8 @@ budget:
 	-o $(budgetdir)/personnel_justification.pdf $(PANDOC_FLAGS)
 	pandoc $(budgetdir)/consortium_justification.md \
 	-o $(budgetdir)/consortium_justification.pdf $(PANDOC_FLAGS)
+
+# Produce a PDF from a docx using libreoffice
+pdf:
+	soffice --convert-to pdf output/toc.docx \
+	--outdir output
