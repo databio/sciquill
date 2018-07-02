@@ -43,10 +43,15 @@ aims: figs
 	$(mbin)/nobib `$(mbin)/ver src/specific_aims` | \
 	pandoc -o output/specific_aims.pdf $(PANDOC_FLAGS)
 
+# Produce just the introduction + aims
+intro_aims: 
+	$(mbin)/addrefsec `$(mbin)/ver src/introduction src/specific_aims` | \
+	pandoc -o output/intro_aims.pdf $(PANDOC_FLAGS)
+
 # Render the entire research plan (including aims, significance, innovation, and
 # approach). These must be rendered together so citations are numbered across
 # the whole document (dividing them throws the citation numbering off)
-plan: figs
+plan: figs bib
 	$(mbin)/nobib `$(mbin)/ver src/specific_aims` \
 	`$(mbin)/ver src/significance_innovation` \
 	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
@@ -100,3 +105,7 @@ budget:
 pdf:
 	soffice --convert-to pdf output/toc.docx \
 	--outdir output
+
+# Contact all refs into refs.bib
+bib:
+	cat references/*.bib > output/refs.bib
