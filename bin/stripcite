@@ -1,0 +1,4 @@
+#! /bin/bash
+
+# Removes all citation information
+sed -E 's/(@[[:alnum:]-]*?;? ?)*//g' $@ | sed -E 's/ ?\[\]//g'
