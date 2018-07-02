@@ -64,12 +64,22 @@ split:
 	$(mbin)/poppdf output/research_plan.pdf output/research_plan_noaims.pdf
 
 # Produces the references from all
+# WARNING: This will also pull commented references.
 refs:
 	$(mbin)/getrefs `$(mbin)/ver src/specific_aims` \
 	`$(mbin)/ver src/significance_innovation` \
 	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
 	pandoc -o output/references.pdf $(PANDOC_FLAGS)
-	
+
+# Produce references from all, but strip commented references
+# Requires pandoc 2 with --strip-comments implemented
+refs_nocomment:
+	pandocker --strip-comments -t markdown `$(mbin)/ver src/specific_aims` \
+	`$(mbin)/ver src/significance_innovation` \
+	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
+	$(mbin)/getrefs | \
+	pandoc -o output/references.pdf $(PANDOC_FLAGS)
+
 # Merge in the references PDF to the end of the combined research_plan
 merge:
 	$(mbin)/mergepdf output/research_plan_refs.pdf \
