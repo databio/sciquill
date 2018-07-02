@@ -1,25 +1,20 @@
+% This latex/pandoc NIH biosketch template has borrowed components from pmagwene's
+% latex version of the NIH biosketch.
+% Thanks to pmagwene for sharing and inspiring this rendition
+
 \renewcommand{\rmdefault}{phv} % Arial
 \renewcommand{\sfdefault}{phv} % Arial
 
  \let\tightlist\relax
 
-% \include{ncs_defs.tex}
-
-
-% this itemindent code adjusts the indentation of bullet lists.
-
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-12pt} 
-}
-
-
-\documentclass$if(fontsize)$[$fontsize$]$endif${article}
-\RequirePackage[top=0.75in,left=0.75in,right=0.75in,bottom=0.75in]{geometry}
+\documentclass[11pt]{article}
+\RequirePackage[top=0.5in,left=0.5in,right=0.5in,bottom=0.5in]{geometry}
 
 \usepackage{pdfpages}
 \usepackage{fancyhdr}
-
+\RequirePackage{tabu}
 \usepackage{wrapfig}
+\usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
 
 % longtable is required for markdown-format tables to be rendered in latex
 \usepackage{longtable}
@@ -37,6 +32,15 @@
     \usepackage[utf8]{inputenc}
   \fi
 \fi
+
+
+
+\definecolor{bluehaze}{RGB}{54,95,145}
+\definecolor{maroonhaze}{RGB}{148,54,52}
+\definecolor{orangehaze}{RGB}{227,108,10}
+\definecolor{black}{RGB}{0,0,0}
+ 
+
 $if(natbib)$
 \usepackage{natbib}
 \bibliographystyle{plainnat}
@@ -62,15 +66,14 @@ $if(fancy-enums)$
     {\setlength{\labelwidth}{4em}}
 }\makeatother
 \usepackage{enumerate}
-
-% Attempt to smash lists together
-\setlist[enumerate]{itemsep=1mm}
-
 $endif$
 $if(tables)$
 \usepackage{ctable}
+
 \usepackage{float} % provides the H option for float placement
+
 $endif$
+
 $if(url)$
 \usepackage{url}
 $endif$
@@ -96,7 +99,10 @@ $endif$
 \else
   \usepackage[unicode=true]{hyperref}
 \fi
-\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+
+% link color
+\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze}
+
 $if(strikeout)$
 \usepackage[normalem]{ulem}
 % avoid problems with \sout in headers with hyperref:
@@ -127,6 +133,7 @@ $if(title)$
 $endif$
 $if(author)$
 \author{$for(author)$$author$$sep$ \and $endfor$}
+\name{$for(author)$$author$$sep$ \and $endfor$}
 $endif$
 $if(date)$
 \date{$date$}
@@ -138,57 +145,34 @@ $endif$
 \fancyhead{} % empty
 \fancyfoot{} % empty out the default, which is page number in center
 \renewcommand{\headrulewidth}{0pt}
+\pagenumbering{gobble}
+
+\usepackage[nobottomtitles*]{titlesec}
 
 
-\usepackage{titlesec}
 
 
 % colors
-\definecolor{bluehaze}{RGB}{54,95,145}
-\definecolor{maroonhaze}{RGB}{148,54,52}
-\definecolor{orangehaze}{RGB}{227,108,10}
-\definecolor{bluetint}{RGB}{0,35,75}
+
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
-
-% make hyperlinks colorful
-\hypersetup{
-  colorlinks=true,
-  linkcolor=bluehaze,
-  urlcolor=bluehaze
-}
-
 \linespread{1.0}
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{10pt}{10pt}\selectfont\color{bluetint}\bfseries}{\thesection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{phv}\fontsize{10pt}{10pt}\selectfont\color{bluetint}\itshape}{\thesubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\fontsize{10pt}{10pt}\selectfont\color{bluetint}}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing\section{0pt}{1pt plus 10pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing\subsection{0pt}{1pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing\subsubsection{0pt}{0pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
-
-
-
-
-% This chunk removes some of the space and reduces size of the "title" name
-
-\usepackage{titling}
-\pretitle{\begin{center}\large}
-\posttitle{\end{center}\vspace{-3ex}}
-\preauthor{\begin{center}\fontsize{10pt}{10pt}}
-\postauthor{\end{center}\vspace{-3ex}}
-\predate{\begin{center}}
-\postdate{\end{center}\vspace{-3ex}}
-\setlength{\droptitle}{-40pt}
+\titlespacing\section{0pt}{10pt plus 4pt minus 4pt}{-4pt plus 4pt minus 4pt}
+\titlespacing\subsection{0pt}{10pt plus 4pt minus 4pt}{-4pt plus 4pt minus 4pt}
+\titlespacing\subsubsection{0pt}{10pt plus 4pt minus 4pt}{-4pt plus 4pt minus 4pt}
 
 
 %\subsectionfont{\color{maroonhaze}}
@@ -198,52 +182,56 @@ $endif$
 % this code uses titles.sty to make a pagebreak with every header 1
 % so each section will begin on a new page.
 %\newcommand{\sectionbreak}{\clearpage}
+\newcommand{\pgline}{\vspace{-6pt}\noindent\makebox[\linewidth]{\rule{\textwidth}{0.6pt}}\newline}
 
 
-% #\renewcommand{\labelitemi}{\tiny\textbullet} # this doesn't work right; needs raisebox
+\newcommand{\piinfo}
+{\begin{footnotesize}\begin{flushright}OMB No. 0925-0001 and 0925-0002 (Rev. 09/17 Approved Through 03/31/2020)\end{flushright}\end{footnotesize}\vspace{-1em}\pgline
+{\centering
+\textbf{BIOGRAPHICAL SKETCH}\\
+{\footnotesize
+Provide the following information for the Senior/key personnel and other significant contributors.\\
+Follow this format for each person.  \textbf{DO NOT EXCEED FIVE PAGES}.\\}}
+\pgline
+NAME: $name$\vspace{0.5em}\\
+eRA COMMONS USER NAME (credential, e.g., agency login): $eracommons$\vspace{0.5em}\\
+POSITION TITLE: $position$\vspace{0.5em}\\
+EDUCATION/TRAINING (\textit{Begin with baccalaureate or other initial professional education, such as nursing, include postdoctoral training and residency training if applicable. Add/delete rows as necessary.})\vspace{0.5em}\\}
 
+\newenvironment{education}
+{%
+\bgroup\centering
+\tabulinesep=1.5mm
+\begin{tabu} to \textwidth {X[3.53,l,m]|X[1,c,m]|X[1,c,m]|X[2.15,l,m]}
+\hline
+\rowfont[c]{}               % for the header only we want all the text centered
+INSTITUTION AND LOCATION &
+DEGREE & 
+Completion Date & 
+FIELD OF STUDY\\
+\hline}
+{\end{tabu}\egroup}
 
+% make bullets smaller
+\def\labelitemi{}
+% this itemindent code adjusts the indentation of bullet lists.
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-26pt} 
+}
 
-\makeatletter
-    \def\@maketitle{%
-  \newpage
-  \null
-  % \vskip 2em%
-  \begin{center}%
-  \let \footnote \thanks
-    \@title
-    \hskip 6pt
-    Curriculum vitae
-    \par
-    % \vskip 1.5em%
-    % {
-    %   % \lineskip .5em%
-    %   \begin{tabular}[t]{c}%
-    %     % \@author
-    %   \end{tabular}\par}%
-    %\vskip 1em%
-    %{\large \@date}%
-  \end{center}%
-  \par
-  % \vskip 1.5em
-  }
-\makeatother
-
-
-
-
-
-
-\def\labelitemi{\raisebox{0.5ex}{\tiny\textbullet}}
-
+\usepackage{enumitem}
+% Attempt to smash lists together
+\setlist[enumerate]{wide, itemsep=0.5mm, labelindent=0pt, leftmargin=0pt, labelwidth=!, itemindent=0pt, font=\itshape}
 
 \begin{document}
 
 $if(title)$
 \maketitle
 $endif$
-
-
+\piinfo
+% \begin{education}
+% $education$
+% \end{education}
 $for(include-before)$
 $include-before$
 

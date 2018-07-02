@@ -1,0 +1,4 @@
+#! /bin/bash
+
+# Changes .pdf to .png (so it can be exported to docx format)
+sed -E 's/\.pdf\)/\.png\)/g' $@
