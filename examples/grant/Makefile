@@ -44,9 +44,14 @@ aims: figs
 	pandoc -o output/specific_aims.pdf $(PANDOC_FLAGS)
 
 # Produce just the introduction + aims
-intro_aims: 
+intro_aims: figs
 	$(mbin)/addrefsec `$(mbin)/ver src/introduction src/specific_aims` | \
 	pandoc -o output/intro_aims.pdf $(PANDOC_FLAGS)
+
+# Produces the specific aims with significance, innovation, and refs
+aims_sig_inno: figs
+	$(mbin)/addrefsec `$(mbin)/ver src/specific_aims src/significance_innovation` | \
+	pandoc -o output/specific_aims_refs.pdf $(PANDOC_FLAGS)
 
 # Render the entire research plan (including aims, significance, innovation, and
 # approach). These must be rendered together so citations are numbered across
