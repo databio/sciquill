@@ -11,9 +11,27 @@
 \documentclass[11pt]{article}
 \RequirePackage[top=0.5in,left=0.5in,right=0.5in,bottom=0.5in]{geometry}
 
+% hack for markdown processing. by default, text enclosed between latex \begin
+% and \end tags will *not* be parsed by pandoc. If we *do* want to parse that
+% code (because it's written in markdown), we can just add aliases for \Begin
+% and \End, which are not flagged by pandoc as "avoid parsing". So markdown
+% enclosed by \Begin and \End will be parsed as by pandoc.
+% Use this to define a two-column reference sectiona t the end of your document
+% like this:
+% \Begin{multicols}{2}
+% \tiny
+% \setlength{\parskip}{0.2em}
+% <div id="refs"></div>
+% \End{multicols}
+
+
+\let\Begin\begin
+\let\End\end
+
+
 \usepackage{pdfpages}
 \usepackage{fancyhdr}
-
+\usepackage{multicol}
 \usepackage{wrapfig}
 \usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
 
