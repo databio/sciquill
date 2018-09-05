@@ -165,7 +165,10 @@ $endif$
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
+
+$if(linespread)$\linespread{$linespread$}$else$
 \linespread{1.0}
+$endif$
 
 \titleformat{\section}
   {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
