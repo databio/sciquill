@@ -91,6 +91,22 @@ budget:
 	src/budget_worksheet.xlsx
 ```
 
+To set page printing limits in libreoffice calc:  
+- go to View > Page Break
+- now select the area to print
+- choose: Format > Print Ranges > Define
+
+
+### Converting a `.docx` to `.pdf` with  `libreoffice`:
+```
+pdf:
+	soffice --convert-to pdf output/toc.docx \
+	--outdir output
+```
+Better: use my `libre` docker container so you can run it while the real one is open.
+
+
+
 ### Merging PDFs with `ghostscript`:
 
 ```
@@ -112,11 +128,11 @@ To add page numbers:
 
 ## Authoring
 
-Tops for creating media in markdown:
+Tips for creating media in markdown:
 
 ### Figures
 
-You can refer to figures by label instead of by number, which makes renumbering figures automatic.
+You can refer to figures by label instead of by number, which makes reordering figures within documents easy.  It also makes it possible to move figures from one document to another without renumbering.
 ```
 ![\label{abstract}Fig. \ref{abstract}: Example figure](fig/example_figure.png) 
 ```
