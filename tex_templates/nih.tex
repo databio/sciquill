@@ -167,8 +167,12 @@ $endif$
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
 
+
 % \titleformat{\paragraph}[leftmargin]{\normalfont\normalsize\bfseries\filleft}{\theparagraph}{15pt}{}
+
+$if(linespread)$\linespread{$linespread$}$else$
 \linespread{1.0}
+$endif$
 
 \titleformat{\section}
   {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
