@@ -91,6 +91,11 @@ merge:
 	output/research_plan.pdf \
 	output/references.pdf
 
+research_plan_refs: figs plan refs
+	$(mbin)/mergepdf output/research_plan_refs.pdf \
+	output/research_plan.pdf \
+	output/references.pdf
+
 
 # A few bonus targets that could be useful for reference for particular grants
 

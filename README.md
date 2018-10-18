@@ -195,3 +195,16 @@ pandoc \
 
 That will suppress the bibliography in the output. Done!
 
+
+
+## Grabbing refs while accounting for refs in comments
+
+```
+# Requires pandoc 2 with --strip-comments implemented
+refs_nocomment:
+	pandocker --strip-comments -t markdown `$(mbin)/ver src/specific_aims` \
+	`$(mbin)/ver src/significance_innovation` \
+	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
+	$(mbin)/getrefs | \
+	pandoc -o output/references.pdf $(PANDOC_FLAGS)
+```
