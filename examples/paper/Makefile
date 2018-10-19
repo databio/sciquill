@@ -16,7 +16,7 @@ endif
 figs:
 	$(mbin)/buildfigpdfs fig/*.svg
 
-ms: figs
+manuscript: figs
 	pandoc `$(mbin)/ver src/*manuscript` \
 	-o output/manuscript.pdf \
 	--filter $(wrapfig) \
@@ -24,7 +24,7 @@ ms: figs
 	--template $(textemplate) \
 	--csl $(csl)
 
-msdoc:
+manuscript_docx:
 	$(mbin)/buildfigs fig/*.svg
 	cat `$(mbin)/ver src/*manuscript` | sed 's/\.pdf/\.png/' | pandoc \
 	-o output/manuscript.docx \
@@ -33,7 +33,7 @@ msdoc:
 	--template $(textemplate) \
 	--csl $(csl)
 
-letter:
+cover_letter:
 	pandoc --preserve-tabs \
 	--reference-doc $(docxtemplate) \
 	-o output/cover_letter.docx \
@@ -45,5 +45,7 @@ letter:
 	--wrap=none \
 	src/cover_letter.md
 
-cover_ms:
-	$(mbin)/mergepdf output/merged.pdf output/cover_letter.pdf output/manuscript.pdf
+cover_letter_manuscript:
+	$(mbin)/mergepdf output/merged.pdf \
+	output/cover_letter.pdf \
+	output/manuscript.pdf

@@ -1,32 +1,19 @@
 This repository renders `markdown` source docs with
 [mediabuilder](https://github.com/nsheff/mediabuilder) and
-[pandoc](https://pandoc.org/). See [setup.md](/setup.md) for instructions.
+[pandoc](https://pandoc.org/). See
+[mediabuilder_instructions.md](/mediabuilder_instructions.md) for instructions.
 
-# Grant template
+# Project title
 
-Fork this repository to write a new markdown grant. Leave the above notice
-intact to guide unfamiliar users to instructions for building output.
+Copy this example folder to write a new mediabuilder document. Leave the above
+notice intact to guide unfamiliar users to instructions for building output.
 
 ## Example
 
-You can build the [specific aims](/src/specific_aims.md) document by typing:
+You can build the [manuscript](/src/manuscript.md) document by typing:
 
 ```
-make aims
-```
-
-You can build the entire [final merged output](/output/merged.pdf) by typing:
-
-```
-make all
+make manuscript
 ```
 
 
-## Figures
-
-You can refer to figures by label instead of by number, which makes renumbering figures automatic.
-```
-![\label{abstract}Fig. \ref{abstract}: Example figure](fig/example_figure.png) 
-```
-
-Refer to figures with `\ref{label}`.

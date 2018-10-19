@@ -20,7 +20,7 @@ This repository contains:
   add page numbers to an existing PDF
 * [bin](/bin) - Small scripted utilities to build figures, extract
   bibliographies, suppress page numbers, merge PDFs, select versions of grant
-  source files, etc. More documentation to come.
+  source files, etc. Documented in [/bin/README.md](/bin).
 * [csl](/csl) - Contains some citation styles, which are derived from the
   [citationstyles](http://citationstyles.org/) project repository, or from [Zotero collection](https://www.zotero.org/styles)
   (https://github.com/citation-style-language/styles); it's the set of styles I
@@ -36,7 +36,7 @@ output:
 
 ## Quick start
 
-1. Install and configurethe **software prerequisites**.
+1. Install and configure the **software prerequisites**.
 
 	* Install [pandoc](https://pandoc.org/) to convert from source
 	* Clone [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository, cloned with `--recursive` to get the [nsheff/pandoc-wrapfig](http://github.com/nsheff/pandoc-wrapfig) submodule)
@@ -47,25 +47,41 @@ output:
 	git clone git@github.com:nsheff/mediabuilder.git --recursive
 	```
 
-2. Produce your content in **markdown** format. 
+2. Produce your **content in markdown format**. 
 
-There are working examples of different media types in the [examples folder](/examples). There you can find a [grant](/examples/grant), paper (pending), CV (pending). For each example there is a
-basic `Makefile`, which provides examples of recipes for building different media types. For these to work, you will need:	
+There are working examples of different media types in the [examples folder](/examples). There you can find a [grant](/examples/grant), [paper](/examples/paper), and CV (pending). For each example there is a basic `Makefile`, which provides examples of recipes for building different media types.	
 
-3. **BibTeX database** (optional).
+3. Assemble your **BibTeX database** (optional).
 
-	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it's free, uses BibTeX as its native file format, and actively developed.
+	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it is free, actively developed, and uses BibTeX as its native file format.
 
 With these items, just follow some of the recipes below to use the mediabuilder
 assets to help build your output.
+
+4. Install inkscape and libreoffice (optional).
+
+	If you want to use SVGs as your source image format, it helps to have inkscape installed, because we can use it to produce the PDF outputs needed by pandoc. `libreoffice` can be useful if you need to use Microsoft Word output, which is occasionally desirable.
+
+
+## Docker containers
+
+I've also produced [docker containers](https://github.com/nsheff/docker) for `pandoc`, `inkscape`, `libreoffice` that make this easier if you use docker:
+
+```
+docker pull nsheff/pandocker
+docker pull nsheff/inkscape-docker
+docker pull nsheff/libre
+```
+
+
 
 ## Recipes
 
 ### How to use pandoc with mediabuilder assets
 
-Start pandoc with these options:
+Start `pandoc` with these options:
 
-* `--filter`: ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py
+* `--filter`: mediabuilder/pandoc-wrapfig/pandoc-wrapfig.py
 * `--template`: Choose a template from `mediabuilder/tex_templates`
 * `--bibliography`: Use your bibtex database
 * `--csl`: Choose a `csl` file from `mediabuilder/csl`
@@ -82,6 +98,10 @@ pandoc document.md -o output/document.pdf \
 
 
 ### Converting an `.xls` file to `.pdf` with `libreoffice`:
+Running `libreoffice` on the command-line like this will silently fail if you
+already have `libreoffice` running. If you use a containerized version, you can
+get around that issue. Use my `libre` docker container so you can run it while the real one is open.
+
 
 ```{Makefile}
 budget:
@@ -103,7 +123,6 @@ pdf:
 	soffice --convert-to pdf output/toc.docx \
 	--outdir output
 ```
-Better: use my `libre` docker container so you can run it while the real one is open.
 
 
 
@@ -126,9 +145,6 @@ To add page numbers:
 3. Page numbers are added at addpages.pdf!
 
 
-## Authoring
-
-Tips for creating media in markdown:
 
 ### Figures
 
@@ -141,7 +157,7 @@ Refer to figures with `\ref{label}`.
 
 
 
-## Separate citation lists (how to separate bibliography into its own file)
+### Separate citation lists (how to separate bibliography into its own file)
 
 By default, pandoc will include your references cited just right at the end of
 the document. That works for some grants, but others want a separate reference
@@ -197,7 +213,7 @@ That will suppress the bibliography in the output. Done!
 
 
 
-## Grabbing refs while accounting for refs in comments
+### Grabbing refs while accounting for refs in comments
 
 ```
 # Requires pandoc 2 with --strip-comments implemented
