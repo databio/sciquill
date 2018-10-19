@@ -6,7 +6,7 @@ for svgfile in "$@"
 do
 	pngfile="${svgfile/svg/png}"
 	srcdate=`stat -c %Y $svgfile`
-	destdate=`stat -c %Y $pngfile`
+	destdate=`stat -c %Y $pngfile 2>/dev/null`
 	if [ ! -f $pngfile ] || [ ${srcdate} -ge ${destdate} ];
 	then
 	echo "Detected change in $svgfile"

@@ -1,19 +1,20 @@
-# Contents
+# Mediabuilder instructions
 
 This repository [separates content from
 style](http://databio.org/posts/markdown_style.html) by authoring all documents
 in `markdown` format. It uses a series of tools to render those documents in the
-desired output style. It relies on [pandoc](https://pandoc.org/) for conversion,
+desired output style. It relies on [pandoc](https://pandoc.org/) for document
+format conversion, [inkscape](http://inkscape.org) for SVG conversion,
 [pandoc-citeproc](https://github.com/jgm/pandoc-citeproc) to manage citations,
-and [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) for various
-templates and styles.
+and [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) for templates
+and styles.
 
-This repository contains:
+The repository is organized into these directories:
 * [/assets](/assets) - Misc external built documents (*e.g.* PDFs)
 * [/src](/src) - Markdown source for the documents
 * [/fig](/fig) - `.svg` source for figures
-* [/output](/output) - PDFs (or other formats) rendered from `src` by pandoc
-* [Makefile](Makefile) - recipes for compiling the PDF outputs from `src`
+* [/output](/output) - documents rendered from `src` by pandoc
+* [Makefile](Makefile) - recipes for rendering documents from `src`
 
 # Instructions
 
@@ -30,3 +31,7 @@ outputs or install any additional software to contribute to the source.
 mediabuilder, you can use `make` to build an output (tab-complete or see the
 [Makefile](/Makefile) to view available options).
 
+# Tips
+
+You can find more tips and recipes for how to build nice documents from markdown
+source at [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder).

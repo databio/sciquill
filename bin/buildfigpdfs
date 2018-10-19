@@ -1,6 +1,7 @@
 #! /bin/bash
 
 # Builds figures from svg to pdf for output in PDFs using pandoc.
+# only if the source file was changed more recently than the rendered file.
 
 fileupdate() {
 srcfile=$1
@@ -19,7 +20,7 @@ for svgfile in "$@"
 do
 	pdffile="${svgfile/svg/pdf}"
 	srcdate=`stat -c %Y $svgfile`
-	destdate=`stat -c %Y $pdffile`
+	destdate=`stat -c %Y $pdffile 2>/dev/null`
 	if [ ! -f $pdffile ] || [ ${srcdate} -ge ${destdate} ];
 	then
 	echo "Detected change in $svgfile"
