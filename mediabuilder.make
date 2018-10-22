@@ -55,6 +55,12 @@ endif
 
 # Media type: grant ------------------------------------------------------------
 
+ifeq ($(mbtype),grant_simple)
+
+textemplate = $(mbdir)/tex_templates/nih.tex
+
+endif
+
 ifeq ($(mbtype),grant)
 
 textemplate = $(mbdir)/tex_templates/nih.tex
