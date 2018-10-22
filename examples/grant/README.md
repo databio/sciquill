@@ -1,7 +1,7 @@
 This repository renders `markdown` source docs with
 [mediabuilder](https://github.com/nsheff/mediabuilder) and
 [pandoc](https://pandoc.org/). See
-[mediabuilder_instructions.md](/mediabuilder_instructions.md) for instructions.
+[instructions](/mediabuilder_instructions.md) for details.
 
 # Project title
 

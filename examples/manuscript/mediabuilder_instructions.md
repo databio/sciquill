@@ -10,8 +10,8 @@ and [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) for templates
 and styles.
 
 The repository is organized into these directories:
-* [/assets](/assets) - Misc external built documents (*e.g.* PDFs)
-* [/src](/src) - Markdown source for the documents
+* [/assets](/assets) - misc external built documents (*e.g.* PDFs)
+* [/src](/src) - markdown source for the documents
 * [/fig](/fig) - `.svg` source for figures
 * [/output](/output) - documents rendered from `src` by pandoc
 * [Makefile](Makefile) - recipes for rendering documents from `src`
@@ -19,11 +19,11 @@ The repository is organized into these directories:
 # Instructions
 
 **Viewing**. If you're only interested in viewing the documents (not editing
-them), you can either just view the built versions in the [/output](/output)
-folder, or the markdown text source in the [/src](/src) folder.
+them), you can view rendered output in the [/output](/output)
+folder, or source in the [/src](/src) folder.
 
 **Editing**. If you want to edit the documents, you can contribute changes
-directly into markdown files in [/src](/src). It is not necessarily to build the
+directly into markdown files in [/src](/src). You do not need to build the
 outputs or install any additional software to contribute to the source.
 
 **Building**. To build outputs, follow the setup instructions at
