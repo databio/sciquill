@@ -1,14 +1,11 @@
 # mediabuilder
 
-This repository helps you write your academic grant or paper in markdown. It
-provides templates, style files, and helper scripts that are useful for building
-grants, papers, or other media output from `markdown` files. This repository
-bring us closer to the goal of authoring scientific documents in markdown to
-completely [separate content from
-style](http://databio.org/posts/markdown_style.html). It uses [pandoc-
-citeproc](https://github.com/jgm/pandoc-citeproc) to automatically generate a
-nice bibliography and seamlessly convert from one style to another for journal
-submission or publication.
+This repository helps you write your academic grant, paper, biosketch, or CV in
+`markdown` format. It provides templates, style files, and helper scripts that
+are useful for building media output as PDF from `markdown` files. This
+repository bring us closer to the goal of authoring scientific documents in
+markdown to completely [separate content from
+style](http://databio.org/posts/markdown_style.html).
 
 ## Examples of input/output
 
