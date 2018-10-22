@@ -10,6 +10,14 @@ citeproc](https://github.com/jgm/pandoc-citeproc) to automatically generate a
 nice bibliography and seamlessly convert from one style to another for journal
 submission or publication.
 
+## Examples of input/output
+
+Here are some examples of the output that you can produce with mediabuilder:
+
+* Manuscript: Render the [`.md` manuscript source](examples/manuscript/src/manuscript.md) into [a PDF](examples/manuscript/output/manuscript.pdf)
+* NIH biosketch: Render the [`.md` biosketch source](examples/biosketch_simple/src/nih_biosketch.md) into [a PDF](examples/biosketch_simple/output/nih_biosketch.pdf)
+* NIH R01-formatted grant:  Render the [`.md` grant source](examples/grant/src/grant.md) into [a PDF](examples/grant/output/merged.pdf)
+
 ## Building documents with mediabuilder
 
 1. Install **software prerequisites**:
@@ -79,7 +87,7 @@ This repository contains:
   (https://github.com/citation-style-language/styles); it's the set of styles I
   use frequently, with some possible additions or adjustments for particular
   things I need. You can use any style from that repository or define your own
-* [styles.doc](/styles.doc) - Word document templates for different grant agencies. To be used in YAML RMarkdown header as 
+* [docx_templates](/docx_templates) - Word document templates for different grant agencies. To be used in YAML RMarkdown header as 
 
 ```
 output:

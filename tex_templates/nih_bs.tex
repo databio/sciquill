@@ -34,6 +34,10 @@
 \fi
 
 
+% We use the tabto package to set tabs for the Research support section
+% This sets the tab stop positions.
+\usepackage{tabto}
+\TabPositions{10.5cm,15.25cm}
 
 \definecolor{bluehaze}{RGB}{54,95,145}
 \definecolor{maroonhaze}{RGB}{148,54,52}
@@ -228,7 +232,9 @@ FIELD OF STUDY\\
 $if(title)$
 \maketitle
 $endif$
+$if(piinfo)$
 \piinfo
+$endif$
 % \begin{education}
 % $education$
 % \end{education}
