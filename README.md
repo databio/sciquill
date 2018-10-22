@@ -30,7 +30,11 @@ submission or publication.
 
 3. Assemble your **BibTeX database** (optional).
 
-	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it is free, actively developed, and uses BibTeX as its native file format.
+	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it is free, actively developed, and uses BibTeX as its native file format. The default makefile ([mediabuilder.make](mediabuilder.make)) will use an `${BIBTEXDB}` environment variable to look for your `bibtex` database. You can set it like this:
+
+	```
+	export BIBTEXDB=path/to/db.bib
+	```
 
 4. Produce your **content in markdown format**. 
 
