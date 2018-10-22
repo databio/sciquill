@@ -3,7 +3,7 @@
 mbdir = ${CODEBASE}mediabuilder
 
 # choose a mediabuilder type: 'manuscript', 'cv', or 'grant'
-mbtype = manuscript
+mbtype = grant
 
 # Include the mediabuilder.make file to get access to default recipes and
 # default variables (which can be overridden below)

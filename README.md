@@ -10,7 +10,7 @@ citeproc](https://github.com/jgm/pandoc-citeproc) to automatically generate a
 nice bibliography and seamlessly convert from one style to another for journal
 submission or publication.
 
-## Mediabuilder assets
+## Description of mediabuilder repository
 
 This repository contains:
 
@@ -34,11 +34,15 @@ output:
     reference_docx: styles.doc/NSF_grant_style.docx
 ```
 
-## Quick start
+## Building documents with mediabuilder
 
-1. Install and configure the **software prerequisites**.
+1. Install and configure the **software prerequisites**:
 
-	* Install [pandoc](https://pandoc.org/) to convert from source
+	* Install [pandoc](https://pandoc.org/) to convert markdown to PDF.
+	* Install [inkscape](http://inkscape.org) to convert SVG to PDF.
+	* Install [libreoffice](http:///www.libreoffice.org) (optional) for some recipes that read `xls` or `docx` files.
+
+2. Clone and configure `mediabuilder`:
 	* Clone [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository, cloned with `--recursive` to get the [nsheff/pandoc-wrapfig](http://github.com/nsheff/pandoc-wrapfig) submodule)
 	* Configure `mediabuilder`. The examples use an environment variable `$CODEBASE`, to where you will store this repo:
 
@@ -47,20 +51,24 @@ output:
 	git clone git@github.com:nsheff/mediabuilder.git --recursive
 	```
 
-2. Produce your **content in markdown format**. 
-
-There are working examples of different media types in the [examples folder](/examples). There you can find a [grant](/examples/grant), [paper](/examples/paper), and CV (pending). For each example there is a basic `Makefile`, which provides examples of recipes for building different media types.	
-
 3. Assemble your **BibTeX database** (optional).
 
 	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it is free, actively developed, and uses BibTeX as its native file format.
 
+4. Produce your **content in markdown format**. 
+
+	There are working examples of different media types in the [examples folder](/examples). There you can find a [grant](/examples/grant), [manuscript](/examples/manuscript), and CV (pending). For each example there is a basic `Makefile`, which provides examples of recipes for building different media types. For example, this will render the example manuscript:
+
+	```
+	cd examples/manuscript
+	make manuscript
+	```
+
+	This will render the [`.md` manuscript source](examples/manuscript/src/manuscript.md) into [a PDF](examples/manuscript/output/manuscript.PDF)
+
+
 With these items, just follow some of the recipes below to use the mediabuilder
 assets to help build your output.
-
-4. Install inkscape and libreoffice (optional).
-
-	If you want to use SVGs as your source image format, it helps to have inkscape installed, because we can use it to produce the PDF outputs needed by pandoc. `libreoffice` can be useful if you need to use Microsoft Word output, which is occasionally desirable.
 
 
 ## Docker containers
