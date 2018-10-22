@@ -14,9 +14,9 @@ submission or publication.
 
 Here are some examples of the output that you can produce with mediabuilder:
 
-* Manuscript: Render the [`.md` manuscript source](examples/manuscript/src/manuscript.md) into [a PDF](examples/manuscript/output/manuscript.pdf)
-* NIH biosketch: Render the [`.md` biosketch source](examples/biosketch_simple/src/nih_biosketch.md) into [a PDF](examples/biosketch_simple/output/nih_biosketch.pdf)
-* NIH R01-formatted grant:  Render the [`.md` grant source](examples/grant/src/grant.md) into [a PDF](examples/grant/output/merged.pdf)
+* Manuscript: Render the [.md manuscript source](examples/manuscript/src/manuscript.md) into [a PDF](examples/manuscript/output/manuscript.pdf)
+* NIH biosketch: Render the [.md biosketch source](examples/biosketch_simple/src/nih_biosketch.md) into [a PDF](examples/biosketch_simple/output/nih_biosketch.pdf)
+* NIH-formatted basic grant:  Render the [.md grant source](examples/grant_simple/src/research_plan.md) into [a PDF](examples/grant_simple/output/research_plan.pdf)
 
 ## Building documents with mediabuilder
 
