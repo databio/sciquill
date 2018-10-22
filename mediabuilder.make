@@ -44,6 +44,15 @@ figs:
 
 
 
+
+# Media type: biosketch ------------------------------------------------------------
+
+ifeq ($(mbtype),biosketch)
+
+textemplate = $(mbdir)/tex_templates/nih_bs.tex
+
+endif
+
 # Media type: grant ------------------------------------------------------------
 
 ifeq ($(mbtype),grant)
