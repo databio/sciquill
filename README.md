@@ -10,6 +10,55 @@ citeproc](https://github.com/jgm/pandoc-citeproc) to automatically generate a
 nice bibliography and seamlessly convert from one style to another for journal
 submission or publication.
 
+## Building documents with mediabuilder
+
+1. Install **software prerequisites**:
+
+	* Install [pandoc](https://pandoc.org/) to convert markdown to PDF.
+	* Install [inkscape](http://inkscape.org) to convert SVG to PDF.
+	* Install [libreoffice](http:///www.libreoffice.org) (optional) for some recipes that read `xls` or `docx` files.
+	* Install [ghostscript](http:///www.ghostscript.com) (optional) if you need to merge PDFs (should be standard on linux).
+
+2. Clone and configure `mediabuilder`:
+	* Clone [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository, cloned with `--recursive` to get the [nsheff/pandoc-wrapfig](http://github.com/nsheff/pandoc-wrapfig) submodule)
+	* Configure `mediabuilder`. The examples use an environment variable `$CODEBASE`, to where you will store this repo:
+
+	```
+	export CODEBASE=`pwd`/
+	git clone git@github.com:nsheff/mediabuilder.git --recursive
+	```
+
+3. Assemble your **BibTeX database** (optional).
+
+	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it is free, actively developed, and uses BibTeX as its native file format.
+
+4. Produce your **content in markdown format**. 
+
+	There are working examples of different media types in the [examples folder](/examples). There you can find a [grant](/examples/grant), [manuscript](/examples/manuscript), and CV (pending). For each example there is a basic `Makefile`, which provides examples of recipes for building different media types. For example, this will render the example manuscript:
+
+	```
+	cd examples/manuscript
+	make manuscript
+	```
+
+	This will render the [`.md` manuscript source](examples/manuscript/src/manuscript.md) into [a PDF](examples/manuscript/output/manuscript.pdf)
+
+
+With these items, just follow some of the recipes below to use the mediabuilder
+assets to help build your output.
+
+
+## Docker containers
+
+I've also produced [docker containers](https://github.com/nsheff/docker) for `pandoc`, `inkscape`, `libreoffice` that make this easier if you use docker:
+
+```
+docker pull nsheff/pandocker
+docker pull nsheff/inkscape-docker
+docker pull nsheff/libre
+```
+
+
 ## Description of mediabuilder repository
 
 This repository contains:
@@ -34,76 +83,9 @@ output:
     reference_docx: styles.doc/NSF_grant_style.docx
 ```
 
-## Building documents with mediabuilder
-
-1. Install and configure the **software prerequisites**:
-
-	* Install [pandoc](https://pandoc.org/) to convert markdown to PDF.
-	* Install [inkscape](http://inkscape.org) to convert SVG to PDF.
-	* Install [libreoffice](http:///www.libreoffice.org) (optional) for some recipes that read `xls` or `docx` files.
-
-2. Clone and configure `mediabuilder`:
-	* Clone [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository, cloned with `--recursive` to get the [nsheff/pandoc-wrapfig](http://github.com/nsheff/pandoc-wrapfig) submodule)
-	* Configure `mediabuilder`. The examples use an environment variable `$CODEBASE`, to where you will store this repo:
-
-	```
-	export CODEBASE=`pwd`/
-	git clone git@github.com:nsheff/mediabuilder.git --recursive
-	```
-
-3. Assemble your **BibTeX database** (optional).
-
-	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it is free, actively developed, and uses BibTeX as its native file format.
-
-4. Produce your **content in markdown format**. 
-
-	There are working examples of different media types in the [examples folder](/examples). There you can find a [grant](/examples/grant), [manuscript](/examples/manuscript), and CV (pending). For each example there is a basic `Makefile`, which provides examples of recipes for building different media types. For example, this will render the example manuscript:
-
-	```
-	cd examples/manuscript
-	make manuscript
-	```
-
-	This will render the [`.md` manuscript source](examples/manuscript/src/manuscript.md) into [a PDF](examples/manuscript/output/manuscript.PDF)
-
-
-With these items, just follow some of the recipes below to use the mediabuilder
-assets to help build your output.
-
-
-## Docker containers
-
-I've also produced [docker containers](https://github.com/nsheff/docker) for `pandoc`, `inkscape`, `libreoffice` that make this easier if you use docker:
-
-```
-docker pull nsheff/pandocker
-docker pull nsheff/inkscape-docker
-docker pull nsheff/libre
-```
-
 
 
 ## Recipes
-
-### How to use pandoc with mediabuilder assets
-
-Start `pandoc` with these options:
-
-* `--filter`: mediabuilder/pandoc-wrapfig/pandoc-wrapfig.py
-* `--template`: Choose a template from `mediabuilder/tex_templates`
-* `--bibliography`: Use your bibtex database
-* `--csl`: Choose a `csl` file from `mediabuilder/csl`
-
-For example, this command will create a PDF output:
-
-```
-pandoc document.md -o output/document.pdf \
---filter ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py \
---template ${CODEBASE}mediabuilder/textemplate_paper.tex \
---bibliography ~/code/papers/sheffield.bib \
---csl path/to/style.csl
-```
-
 
 ### Converting an `.xls` file to `.pdf` with `libreoffice`:
 Running `libreoffice` on the command-line like this will silently fail if you
@@ -169,32 +151,31 @@ Refer to figures with `\ref{label}`.
 
 By default, pandoc will include your references cited just right at the end of
 the document. That works for some grants, but others want a separate reference
-list. To do this, we need to do 2 things: 1) make a bibliography-only file; 2)
-suppress the bibliography in the main file.
+document. To accomodate this, we need to do 2 things: 1) make a
+bibliography-only file; 2) suppress the bibliography in the main file.
 
 
 1. make a bibliography-only file
 
 I wrote a script that does this: [bin/getrefs](bin/getrefs)
 
-Just run getrefs on your markdown files, and pipe the results pandoc:
+You can run getrefs on your markdown files, and pipe the results pandoc:
 
 ``` getrefs document.md | pandoc ...```
 
-For example, add this to your Makefile:
+However, **this will also include any commented references**, which is probably
+not what you want. So, there's a more complicated recipe in the
+[mediabuilder.make Makefile](mediabuilder.make) called `refs` that will do this for you. It looks like this: 
 
 ```
-mbin=${CODEBASE}mediabuilder/bin
-refs:
-	$(mbin)/getrefs src/* | \
-	pandoc \
-	-o output/references.pdf \
-	--filter ${CODEBASE}/pandoc-wrapfig/pandoc-wrapfig.py \
-	--template $(textemplate) \
-	--bibliography $(bib) \
-	--csl $(csl)
+# Requires pandoc 2 with --strip-comments implemented
+refs_nocomment:
+	pandoc --strip-comments -t markdown `$(mbin)/ver src/specific_aims` \
+	`$(mbin)/ver src/significance_innovation` \
+	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
+	$(mbin)/getrefs | \
+	pandoc -o output/references.pdf $(PANDOC_FLAGS)
 ```
-
 
 2. Suppress the bibliography in the main `.md` files. 
 
@@ -219,16 +200,3 @@ pandoc \
 
 That will suppress the bibliography in the output. Done!
 
-
-
-### Grabbing refs while accounting for refs in comments
-
-```
-# Requires pandoc 2 with --strip-comments implemented
-refs_nocomment:
-	pandocker --strip-comments -t markdown `$(mbin)/ver src/specific_aims` \
-	`$(mbin)/ver src/significance_innovation` \
-	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
-	$(mbin)/getrefs | \
-	pandoc -o output/references.pdf $(PANDOC_FLAGS)
-```
