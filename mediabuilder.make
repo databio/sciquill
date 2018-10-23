@@ -151,7 +151,7 @@ textemplate = $(mbdir)/tex_templates/manuscript.tex
 
 manuscript: figs
 	$(mbin)/addrefsec `$(mbin)/ver src/*manuscript` | \
-	pandoc \
+	pandocker \
 	-o output/manuscript.pdf $(PANDOC_FLAGS)
 
 # Produce a docx version of the paper, which can be necessary for feedback
