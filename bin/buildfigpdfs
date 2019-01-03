@@ -16,6 +16,7 @@ else
 fi
 }
 
+currdir=`pwd`
 for svgfile in "$@"
 do
 	pdffile="${svgfile/svg/pdf}"
@@ -24,6 +25,6 @@ do
 	if [ ! -f $pdffile ] || [ ${srcdate} -ge ${destdate} ];
 	then
 	echo "Detected change in $svgfile"
-	inkscape --export-pdf $pdffile $svgfile
+	inkscape --export-pdf ${currdir}/$pdffile ${currdir}/$svgfile
 fi
 done
