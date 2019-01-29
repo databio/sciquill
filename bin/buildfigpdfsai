@@ -1,0 +1,29 @@
+#! /bin/bash
+
+# Builds figures from svg to pdf for output in PDFs using pandoc.
+# only if the source file was changed more recently than the rendered file.
+
+fileupdate() {
+srcfile=$1
+destfile=$2
+srcdate=`stat -c %Y $srcfile`
+destdate=`stat -c %Y $destfile`
+if [ ! -f $destfile ] || [ ${srcdate} -ge ${destdate} ]
+then
+	return 1
+else
+	return 0
+fi
+}
+
+for svgfile in "$@"
+do
+	pdffile="${svgfile/ai/pdf}"
+	srcdate=`stat -c %Y $svgfile`
+	destdate=`stat -c %Y $pdffile 2>/dev/null`
+	if [ ! -f $pdffile ] || [ ${srcdate} -ge ${destdate} ];
+	then
+	echo "Detected change in $svgfile"
+	inkscape --export-pdf $pdffile $svgfile
+fi
+done
