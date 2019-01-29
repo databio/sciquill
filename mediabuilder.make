@@ -162,6 +162,33 @@ manuscript_docx:
 	cat `$(mbin)/ver src/*manuscript` | sed 's/\.pdf/\.png/' | pandoc \
 	-o output/manuscript.docx $(PANDOC_FLAGS)
 
+cl:
+	pandoc --preserve-tabs \
+	--reference-doc $(docxtemplate) \
+	-o output/cover_letter.docx \
+	src/cover_letter.md
+	libre --convert-to pdf output/cover_letter.docx \
+	--outdir output
+	rm output/cover_letter.docx
+
+cl_text:	
+	pandoc -o output/cover_letter.txt \
+	-t plain \
+	--wrap=none \
+	letter.md
+
+clt:
+	# Don't use.
+	# Needs the tex letterhead template set.
+	pandocker -o output/letter.pdf  $(PANDOC_FLAGS) \
+	letter.md
+
+supplemental: figs
+	$(mbin)/addrefsec `$(mbin)/ver src/*suppl` | \
+	pandoc \
+	-o output/supplement.pdf $(PANDOC_FLAGS)
+
+
 endif
 
 
