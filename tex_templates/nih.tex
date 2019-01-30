@@ -174,18 +174,22 @@ $if(linespread)$\linespread{$linespread$}$else$
 \linespread{1.0}
 $endif$
 
+$if(titleneedspace)$
+\def \titleneedspace{$titleneedspace$}
+$else$
+\def \titleneedspace{0cm}
+$endif$
 % Here I am using the needspace thing to make sure that the title headings don't
 % show up on the very last line of a page.
 
-
 \titleformat{\section}
-  {\needspace{3cm}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
 
 \titleformat{\subsection}
-  {\needspace{3cm}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\needspace{3cm}\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
 
 % use runin to specify no newline
 \titleformat{\paragraph}[runin]
