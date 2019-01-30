@@ -162,7 +162,11 @@ $endif$
 \definecolor{maroonhaze}{RGB}{148,54,52}
 \definecolor{orangehaze}{RGB}{227,108,10}
 \definecolor{black}{RGB}{0,0,0}
-\definecolor{lightblack}{RGB}{55,55,55}
+% \definecolor{lightblack}{RGB}{55,55,55}
+\definecolor{bluetint}{RGB}{0,50,100}
+\definecolor{bluetint2}{RGB}{0,30,60}
+\definecolor{lightblack}{RGB}{75,75,75}
+\definecolor{almostwhite}{RGB}{235,235,245}
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
@@ -189,17 +193,17 @@ $endif$
   {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint2}\bfseries}{\thesubsubsection}{1em}{}
 
 % use runin to specify no newline
 \titleformat{\paragraph}[runin]
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\bfseries}{\theparagraph}{}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\itshape}{\theparagraph}{}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
 \titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
 \titlespacing{\subsection}{0pt}{12pt plus 40pt minus 2pt}{-2pt plus 2pt minus 2pt}
-\titlespacing{\subsubsection}{0pt}{1pt plus 4pt minus 2pt}{-4pt plus 2pt minus 1pt}
+\titlespacing{\subsubsection}{0pt}{6pt plus 4pt minus 2pt}{-4pt plus 2pt minus 1pt}
 
 % for these ones, the 'after spacing' (slot 3) corresponds to right-side spacing,
 % since it's paragraph-level (no newline afterwards)
