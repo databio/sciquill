@@ -61,6 +61,13 @@ textemplate = $(mbdir)/tex_templates/nih.tex
 
 endif
 
+ifeq ($(mbtype),grant_nsf)
+
+textemplate = $(mbdir)/tex_templates/nsf.tex
+
+endif
+
+
 ifeq ($(mbtype),grant)
 
 textemplate = $(mbdir)/tex_templates/nih.tex
