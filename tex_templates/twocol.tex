@@ -115,9 +115,15 @@ $if(graphics)$
 \let\Oldincludegraphics\includegraphics
 \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 $endif$
-\usepackage{caption}
-\DeclareCaptionLabelFormat{nolabel}{}
-\captionsetup{labelformat=nolabel}
+
+
+%  This code to use {caption} will wipe out the ability of pandoc-crossref
+%  to prepend the "Figure" reference to the caption.
+% \usepackage{caption}
+% \DeclareCaptionLabelFormat{nolabel}{}
+% \captionsetup{labelformat=nolabel}
+
+
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -391,9 +397,16 @@ $if(graphics)$
 \let\Oldincludegraphics\includegraphics
 \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 $endif$
-\usepackage{caption}
-\DeclareCaptionLabelFormat{nolabel}{}
-\captionsetup{labelformat=nolabel}
+
+
+%  This code to use {caption} will wipe out the ability of pandoc-crossref
+%  to prepend the "Figure" reference to the caption.
+% \usepackage{caption}
+% \DeclareCaptionLabelFormat{nolabel}{}
+% \captionsetup{labelformat=nolabel}
+
+
+
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
