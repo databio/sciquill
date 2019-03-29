@@ -1,43 +1,37 @@
-\PassOptionsToPackage{unicode=true$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref} % options for packages loaded elsewhere
-\PassOptionsToPackage{hyphens}{url}
-$if(colorlinks)$
-\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
-$endif$
-$if(dir)$
-$if(latex-dir-rtl)$
-\PassOptionsToPackage{RTLdocument}{bidi}
-$endif$
-$endif$
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+
+ \let\tightlist\relax
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
   
-% \documentclass[11pt]{article}
-\documentclass[
-$if(fontsize)$
-  $fontsize$,
-$endif$
-$if(lang)$
-  $babel-lang$,
-$endif$
-$if(papersize)$
-  $papersize$paper,
-$endif$
-$if(beamer)$
-  ignorenonframetext,
-$if(handout)$
-  handout,
-$endif$
-$if(aspectratio)$
-  aspectratio=$aspectratio$,
-$endif$
-$endif$
-$for(classoption)$
-  $classoption$$sep$,
-$endfor$
-]{$documentclass$}
-\RequirePackage[top=1in,left=1in,right=1in,bottom=1in]{geometry}
+\documentclass[11pt]{article}
+\RequirePackage[top=0.7in,left=0.5in,right=0.5in,bottom=0.75in,includefoot]{geometry}
+
+% hack for markdown processing. by default, text enclosed between latex \begin
+% and \end tags will *not* be parsed by pandoc. If we *do* want to parse that
+% code (because it's written in markdown), we can just add aliases for \Begin
+% and \End, which are not flagged by pandoc as "avoid parsing". So markdown
+% enclosed by \Begin and \End will be parsed as by pandoc.
+% Use this to define a two-column reference sectiona t the end of your document
+% like this:
+% \Begin{multicols}{2}
+% \tiny
+% \setlength{\parskip}{0.2em}
+% <div id="refs"></div>
+% \End{multicols}
+
+
+\let\Begin\begin
+\let\End\end
+
 
 \usepackage{pdfpages}
 \usepackage{fancyhdr}
-
+\usepackage{multicol}
 \usepackage{wrapfig}
 \usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
 
@@ -87,10 +81,6 @@ $if(fancy-enums)$
 \setlist[enumerate]{itemsep=1mm}
 
 $endif$
-
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-
-
 $if(tables)$
 \usepackage{ctable}
 \usepackage{float} % provides the H option for float placement
@@ -110,7 +100,9 @@ $if(graphics)$
 \let\Oldincludegraphics\includegraphics
 \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 $endif$
-
+\usepackage{caption}
+\DeclareCaptionLabelFormat{nolabel}{}
+\captionsetup{labelformat=nolabel}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -118,7 +110,7 @@ $endif$
 \else
   \usepackage[unicode=true]{hyperref}
 \fi
-\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze, linkcolor=bluehaze, citecolor=bluehaze, anchorcolor=bluehaze}
 $if(strikeout)$
 \usepackage[normalem]{ulem}
 % avoid problems with \sout in headers with hyperref:
@@ -154,13 +146,18 @@ $if(date)$
 \date{$date$}
 $endif$
 
-% my page number
-%\pagestyle{fancy}
-%\fancyhead[RO]{Sheffield \thepage}
-\fancyhead{} % empty
-\fancyfoot{} % empty out the default, which is page number in center
-\renewcommand{\headrulewidth}{0pt}
 
+% How to put in a header
+% my page number
+
+\pagestyle{fancy}
+\fancyhf{} % clear all fields
+\fancyhead[L]{\vspace{0.2in}\textit{Principal Investigator}: $pi$}
+$if(pagebase)$
+\fancyhead[R]{\vspace{0.2in}$pagebase$.\thepage}
+$endif$
+\fancyfoot[L]{\scriptsize{Research Scholar Grant Application\newline January 2019}}
+\renewcommand{\headrulewidth}{0pt}
 
 \usepackage{titlesec}
 
@@ -169,27 +166,57 @@ $endif$
 \definecolor{bluehaze}{RGB}{54,95,145}
 \definecolor{maroonhaze}{RGB}{148,54,52}
 \definecolor{orangehaze}{RGB}{227,108,10}
+\definecolor{black}{RGB}{0,0,0}
+% \definecolor{lightblack}{RGB}{55,55,55}
 \definecolor{bluetint}{RGB}{0,50,100}
+\definecolor{bluetint2}{RGB}{0,30,60}
+\definecolor{lightblack}{RGB}{75,75,75}
+\definecolor{almostwhite}{RGB}{235,235,245}
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
 
-$if(linespread)$\linespread{$linespread$}$endif$
+\usepackage{needspace}
+% \titleformat{\paragraph}[leftmargin]{\normalfont\normalsize\bfseries\filleft}{\theparagraph}{15pt}{}
+
+$if(linespread)$\linespread{$linespread$}$else$
+\linespread{1.0}
+$endif$
+
+$if(titleneedspace)$
+\def \titleneedspace{$titleneedspace$}
+$else$
+\def \titleneedspace{0cm}
+$endif$
+% Here I am using the needspace thing to make sure that the title headings don't
+% show up on the very last line of a page.
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{1.1em}{1.1em}\selectfont\color{bluetint}\bfseries}{\thesection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{phv}\selectfont\color{bluetint}\itshape}{\thesubsection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\selectfont\color{black}}{\thesubsubsection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint2}\bfseries}{\thesubsubsection}{1em}{}
+
+% use runin to specify no newline
+\titleformat{\paragraph}[runin]
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\itshape}{\theparagraph}{}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing\section{0pt}{1pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing\subsection{0pt}{1pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing\subsubsection{0pt}{0pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
+\titlespacing{\subsection}{0pt}{12pt plus 40pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing{\subsubsection}{0pt}{6pt plus 4pt minus 2pt}{-4pt plus 2pt minus 1pt}
+
+% for these ones, the 'after spacing' (slot 3) corresponds to right-side spacing,
+% since it's paragraph-level (no newline afterwards)
+\titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
+\titlespacing{\subparagraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
+
+
+
 
 
 %\subsectionfont{\color{maroonhaze}}
@@ -202,7 +229,9 @@ $if(linespread)$\linespread{$linespread$}$endif$
 
 
 
+
 \begin{document}
+
 
 $if(title)$
 \maketitle
@@ -243,8 +272,8 @@ $endfor$
 
 
 \end{document}
-\documentclass$if(fontsize)$[$fontsize$]$endif${article}
-%\documentclass[11pt]{article}
+%\documentclass$if(fontsize)$[$fontsize$]$endif${article}
+\documentclass[12pt]{article}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifxetex
@@ -386,7 +415,3 @@ $include-after$
 
 $endfor$
 \end{document}
-
-
-
-

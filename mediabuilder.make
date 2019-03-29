@@ -42,7 +42,9 @@ figs:
 	@echo "Converting changed svg files to PDF..."
 	$(mbin)/buildfigpdfs fig/*.svg
 
-
+figs_png:
+	@echo "Converting changed svg files to PNG..."
+	$(mbin)/buildfigs fig/*.svg
 
 
 # Media type: biosketch ------------------------------------------------------------
@@ -58,6 +60,7 @@ endif
 ifeq ($(mbtype),grant_simple)
 
 textemplate = $(mbdir)/tex_templates/nih.tex
+docxtemplate = $(mbdir)/docx_templates/NIH_grant_style.docx
 
 endif
 
@@ -71,6 +74,7 @@ endif
 ifeq ($(mbtype),grant)
 
 textemplate = $(mbdir)/tex_templates/nih.tex
+docxtemplate = $(mbdir)/docx_templates/NIH_grant_style.docx
 
 # Recipe to run to make sure everything is up-to-date before submission
 all: figs abstract aims research_plan split_research_plan refs merge
@@ -98,6 +102,11 @@ aim1: figs
 aims: figs
 	$(mbin)/nobib `$(mbin)/ver src/specific_aims` | \
 	pandoc -o output/specific_aims.pdf $(PANDOC_FLAGS)
+
+aims_docx: figs_png
+	$(mbin)/nobib `$(mbin)/ver src/specific_aims` | sed 's/\.pdf/\.png/' | \
+	pandoc -o output/specific_aims.docx $(PANDOC_FLAGS) \
+	--reference-doc $(docxtemplate) 
 
 # Produces the specific aims with significance, innovation, and refs
 aims_sig_inno: figs
@@ -168,6 +177,23 @@ manuscript_docx:
 	$(mbin)/buildfigs fig/*.svg
 	cat `$(mbin)/ver src/*manuscript` | sed 's/\.pdf/\.png/' | pandoc \
 	-o output/manuscript.docx $(PANDOC_FLAGS)
+
+manuscript_tex:
+	$(mbin)/buildfigs fig/*.svg
+	cat `$(mbin)/ver src/*manuscript` | sed 's/\.pdf/\.png/' | pandoc \
+	-o output/manuscript.tex $(PANDOC_FLAGS) --biblatex
+
+manuscript_aux:	
+	~/code/docker/bin/pdflatex --output-directory=output output/manuscript.tex
+
+manuscript_txt:	
+	cat `$(mbin)/ver src/*manuscript` | sed 's/\.pdf/\.png/' | pandoc \
+	-o output/manuscript.txt --to=plain
+
+
+# Produce a subset bibliography for the manuscript
+bibsub:
+	jabref -n -a output/manuscript.aux,output/manuscript.bib $(bib)
 
 cl:
 	pandoc --preserve-tabs \
