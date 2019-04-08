@@ -1,0 +1,94 @@
+
+\documentclass{bioinfo}
+\copyrightyear{$year$} \pubyear{$year$}
+
+\access{Advance Access Publication Date: Day Month Year}
+\appnotes{$class$}
+
+
+% Stuff added for pandoc
+
+% These two packages are used to write algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% used for wrapfig
+\usepackage{wrapfig}
+
+
+\usepackage{ifxetex,ifluatex}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+
+% To handle multicolumn figures
+\let\Begin\begin
+\let\End\end
+\newenvironment{widefig}{\renewenvironment{figure}{\begin{figure*}\centering}{\end{figure*}}}
+
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+
+
+\begin{document}
+\firstpage{1}
+
+\subtitle{$section$}
+
+\title[$short_title$]{$title$}
+% \author[Sample \textit{et~al}.]{Corresponding Author\,$$^{\text{\sfb 1,}*}$$, Co-Author\,$$^{\text{\sfb 2}}$$ and Co-Author\,$$^{\text{\sfb 2,}*}$$}
+% \address{$$^{\text{\sf 1}}$$Department, Institution, City, Post Code, Country and \\
+% $$^{\text{\sf 2}}$$Department, Institution, City, Post Code,
+% Country.}
+
+% Set up authors and affiliations
+\author{
+$for(author)$
+$if(author.name)$
+  $if(author.correspondence)$
+	$author.name$$$^{\text{\sfb $author.affiliation$,*}}$$
+  $else$
+	$author.name$$$^{\text{\sfb $author.affiliation$}}$$
+  $endif$
+$endif$  
+$endfor$
+}
+
+% institutions must come after \author definitions so that corresponding tag comes last.
+\address{
+$for(institutions)$
+$if(institutions.name)$
+$$^{\text{\sf $institutions.key$}}$$ $institutions.name$
+$endif$
+$endfor$
+}
+
+\corresp{$$^\ast$$To whom correspondence should be addressed.}
+
+\history{Received on XXXXX; revised on XXXXX; accepted on XXXXX}
+
+\editor{Associate Editor: XXXXXXX}
+
+\abstract{$abstract$\\
+\textbf{Contact:} \href{$contact$}{$contact$}\\
+\textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics}
+online.}
+
+\maketitle
+
+
+$body$
+
+\end{document}

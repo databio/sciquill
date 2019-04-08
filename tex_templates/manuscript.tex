@@ -1,7 +1,13 @@
 \renewcommand{\rmdefault}{phv} % Arial
 \renewcommand{\sfdefault}{phv} % Arial
 
- \let\tightlist\relax
+\let\tightlist\relax
+\let\Begin\begin
+\let\End\end
+
+\newenvironment{widefig}{\renewenvironment{figure}{\begin{figure*}\centering}{\end{figure*}}}
+
+
 
 
 \providecommand{\tightlist}{%
