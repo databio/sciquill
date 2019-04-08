@@ -180,7 +180,7 @@ manuscript_docx:
 
 manuscript_tex:
 	$(mbin)/buildfigs fig/*.svg
-	cat `$(mbin)/ver src/*manuscript` | sed 's/\.pdf/\.png/' | pandoc \
+	cat `$(mbin)/ver src/*manuscript` | pandoc \
 	-o output/manuscript.tex $(PANDOC_FLAGS) --biblatex
 
 manuscript_aux:	

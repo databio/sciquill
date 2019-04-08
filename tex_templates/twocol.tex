@@ -1,6 +1,9 @@
 
 
- \let\tightlist\relax
+\let\tightlist\relax
+
+\let\Begin\begin
+\let\End\end
 
 
 \providecommand{\tightlist}{%
@@ -176,7 +179,7 @@ $endif$
 \fancyhead{} % empty
 \fancyfoot{} % empty out the default, which is page number in center
 \def\middot{\textperiodcentered~}
-\lfoot{\scriptsize \thepage \middot \textit{Databio} \middot $if(date)$ \textsl{$date$} $endif$ \textcopyright The Authors}
+\lfoot{\scriptsize \thepage \middot $short_title$ \middot \textit{Databio} \middot $if(date)$ \textsl{$date$} $endif$ \textcopyright The Authors}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \usepackage{titlesec}
@@ -282,6 +285,11 @@ $if(class)$
 
 
 
+\newenvironment{widefig}{\renewenvironment{figure}{\begin{figure*}\centering}{\end{figure*}}}
+
+% These two packages are used to write algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 
 \begin{document}
