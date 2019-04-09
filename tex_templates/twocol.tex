@@ -21,7 +21,6 @@
 %  to prepend the "Figure" reference to the caption.
 \DeclareCaptionLabelFormat{nolabel}{}
 \captionsetup{labelformat=nolabel}
-
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 
@@ -188,11 +187,13 @@ $endif$
 $endfor$
 
 % institutions must come after \author definitions so that corresponding tag comes last.
+$if(author)$
 $for(institutions)$
 $if(institutions.name)$
 \affil[$institutions.key$]{$institutions.name$}
 $endif$
 $endfor$
+$endif$
 
 $for(author)$
   $if(author.correspondence)$
@@ -217,7 +218,10 @@ $endfor$
   \begin{raggedright} 
   \textbf{\huge{\@title}}
     \par \vspace{0.5em}
-    {\ignorespaces\@author
+    {    $if(author)$
+    \ignorespaces\@author
+    $endif$
+
     $if(permalink)$
       \newline\href{http://databio.org$permalink$}{http://databio.org$permalink$}
     $endif$

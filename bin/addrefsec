@@ -1,9 +1,9 @@
 #! /bin/bash
 
-# This script produces no bibliography documents.
+# Add reference section
 cat $@
 # Only output a references section if we can find evidence of a pandoc
 # reference like @Author2015.
 if grep -P  --quiet '(@[[:alnum:]-]*?)[\]; ]' $@; then
-	echo -ne "\n# References\n" 
+	echo -ne "\n\n# References\n" 
 fi
