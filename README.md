@@ -1,19 +1,25 @@
 # mediabuilder
 
 This repository helps you write your academic grant, paper, biosketch, or CV in
-`markdown` format. It provides templates, style files, and helper scripts that
-are useful for building media output as PDF from `markdown` files. This
-repository bring us closer to the goal of authoring scientific documents in
+`markdown`. It provides templates, style files, and helper scripts that
+are useful for building PDFs from `markdown`. This
+ bring us closer to the goal of authoring scientific documents in
 markdown to completely [separate content from
 style](http://databio.org/posts/markdown_style.html).
 
 ## Examples of input/output
 
-Here are some examples of the output that you can produce with mediabuilder:
+The [examples](/examples) folder demonstrates what you can produce with mediabuilder. For each example there is a basic `Makefile`, which provides examples of recipes for building different media types. For example, this will render the example manuscript:
 
-* Manuscript: Render the [.md manuscript source](examples/manuscript/src/manuscript.md) into [a PDF](examples/manuscript/output/manuscript.pdf)
-* NIH biosketch: Render the [.md biosketch source](examples/biosketch_simple/src/nih_biosketch.md) into [a PDF](examples/biosketch_simple/output/nih_biosketch.pdf)
-* NIH-formatted basic grant:  Render the [.md grant source](examples/grant_simple/src/research_plan.md) into [a PDF](examples/grant_simple/output/research_plan.pdf)
+	```
+	cd examples/manuscript
+	make manuscript
+	```
+* [Manuscript](/examples/manuscript): Render the [.md manuscript source](examples/manuscript/src/manuscript.md) into [a generic manuscript PDF](examples/manuscript/output/manuscript.pdf), or use the [Oxford University Press Bioinformatics Template](examples/manuscript/output/manuscript_bioinformatics.pdf); or use the [Databio lab template](examples/manuscript/output/manuscript_twocol.pdf).
+* [NIH biosketch](/examples/biosketch_simple): Render the [.md biosketch source](examples/biosketch_simple/src/nih_biosketch.md) into [a PDF](examples/biosketch_simple/output/nih_biosketch.pdf)
+* [Grant](/examples/grant) (NIH-formatted):  Render the [.md grant source](examples/grant_simple/src/research_plan.md) into [a PDF](examples/grant_simple/output/research_plan.pdf)
+* CV (pending).
+
 
 ## Building documents with mediabuilder
 
@@ -33,6 +39,12 @@ Here are some examples of the output that you can produce with mediabuilder:
 	git clone git@github.com:nsheff/mediabuilder.git --recursive
 	```
 
+	The latex templates in `tex_templates` rely on some relative includes. To use these you'll need to add the path to that folder to your `TEXINPUTS` environment variable. Adding something like this in your `.bashrc` will accomplish this permanently:
+
+	```
+	export TEXINPUTS="${TEXINPUTS}${CODEBASE}mediabuilder/tex_templates/:"
+
+
 3. Assemble your **BibTeX database** (optional).
 
 	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it is free, actively developed, and uses BibTeX as its native file format. The default makefile ([mediabuilder.make](mediabuilder.make)) will use an `${BIBTEXDB}` environment variable to look for your `bibtex` database. You can set it like this:
@@ -43,29 +55,7 @@ Here are some examples of the output that you can produce with mediabuilder:
 
 4. Produce your **content in markdown format**. 
 
-	There are working examples of different media types in the [examples folder](/examples). There you can find a [grant](/examples/grant), [manuscript](/examples/manuscript), and CV (pending). For each example there is a basic `Makefile`, which provides examples of recipes for building different media types. For example, this will render the example manuscript:
-
-	```
-	cd examples/manuscript
-	make manuscript
-	```
-
-	This will render the [`.md` manuscript source](examples/manuscript/src/manuscript.md) into [a PDF](examples/manuscript/output/manuscript.pdf)
-
-
-With these items, just follow some of the recipes below to use the mediabuilder
-assets to help build your output.
-
-
-## Docker containers
-
-I've also produced [docker containers](https://github.com/nsheff/docker) for `pandoc`, `inkscape`, `libreoffice` that make this easier if you use docker:
-
-```
-docker pull nsheff/pandocker
-docker pull nsheff/inkscape-docker
-docker pull nsheff/libre
-```
+	You may choose to start with an example from the [examples folder](/examples).
 
 
 ## Description of mediabuilder repository
@@ -92,6 +82,16 @@ output:
     reference_docx: styles.doc/NSF_grant_style.docx
 ```
 
+
+## Docker containers
+
+I've also produced [docker containers](https://github.com/nsheff/docker) for `pandoc`, `inkscape`, `libreoffice` that make this easier if you use docker:
+
+```
+docker pull nsheff/pandocker
+docker pull nsheff/inkscape-docker
+docker pull nsheff/libre
+```
 
 
 ## Recipes

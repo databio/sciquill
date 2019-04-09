@@ -34,3 +34,13 @@ cover_letter_manuscript:
 	$(mbin)/mergepdf output/merged.pdf \
 	output/cover_letter.pdf \
 	output/manuscript.pdf
+
+manuscript_bioinfo: figs
+	$(mbin)/addrefsec `$(mbin)/ver src/*manuscript` | \
+	pandoc \
+	-o output/manuscript_bioinformatics.pdf $(PANDOC_FLAGS) --template $(mbdir)/tex_templates/bioinfo.tex
+
+manuscript_twocol: figs
+	$(mbin)/addrefsec `$(mbin)/ver src/*manuscript` | \
+	pandoc \
+	-o output/manuscript_twocol.pdf $(PANDOC_FLAGS) --template $(mbdir)/tex_templates/twocol.tex
