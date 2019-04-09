@@ -11,10 +11,11 @@ style](http://databio.org/posts/markdown_style.html).
 
 The [examples](/examples) folder demonstrates what you can produce with mediabuilder. For each example there is a basic `Makefile`, which provides examples of recipes for building different media types. For example, this will render the example manuscript:
 
-	```
-	cd examples/manuscript
-	make manuscript
-	```
+```
+cd examples/manuscript
+make manuscript
+```
+
 * [Manuscript](/examples/manuscript): Render the [.md manuscript source](examples/manuscript/src/manuscript.md) into [a generic manuscript PDF](examples/manuscript/output/manuscript.pdf), or use the [Oxford University Press Bioinformatics Template](examples/manuscript/output/manuscript_bioinformatics.pdf); or use the [Databio lab template](examples/manuscript/output/manuscript_twocol.pdf).
 * [NIH biosketch](/examples/biosketch_simple): Render the [.md biosketch source](examples/biosketch_simple/src/nih_biosketch.md) into [a PDF](examples/biosketch_simple/output/nih_biosketch.pdf)
 * [Grant](/examples/grant) (NIH-formatted):  Render the [.md grant source](examples/grant_simple/src/research_plan.md) into [a PDF](examples/grant_simple/output/research_plan.pdf)
@@ -43,6 +44,7 @@ The [examples](/examples) folder demonstrates what you can produce with mediabui
 
 	```
 	export TEXINPUTS="${TEXINPUTS}${CODEBASE}mediabuilder/tex_templates/:"
+	```
 
 
 3. Assemble your **BibTeX database** (optional).
