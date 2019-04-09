@@ -1,42 +1,26 @@
-
-
-\let\tightlist\relax
-
-\let\Begin\begin
-\let\End\end
-
-
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-  
 \documentclass[10pt]{article}
 \RequirePackage[top=0.85in,left=0.85in,right=0.85in,bottom=0.85in]{geometry}
+  
+% Include a series of generic definitions and usepackage commands
+\input{mediabuilder.tex}
 
 
 \usepackage{authblk}
-\renewcommand{\rmdefault}{phv} % Arial
-\renewcommand{\sfdefault}{phv} % Arial
 
 \renewcommand{\rmdefault}{bch} % Charter
 \renewcommand{\sfdefault}{bch} % Charter
 
 
-\usepackage{multicol}
-
-
+% used for twocol flush balance end on last page
+\usepackage{flushend}
 \usepackage{pdfpages}
-\usepackage{fancyhdr}
 
-\usepackage{wrapfig}
+
 \usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
-
-% longtable is required for markdown-format tables to be rendered in latex
-\usepackage{longtable}
-% \usepackage{xtab}
-
-
-
+%  This code to use {caption} will wipe out the ability of pandoc-crossref
+%  to prepend the "Figure" reference to the caption.
+\DeclareCaptionLabelFormat{nolabel}{}
+\captionsetup{labelformat=nolabel}
 
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -106,34 +90,7 @@ $endif$
 $if(url)$
 \usepackage{url}
 $endif$
-$if(graphics)$
-\usepackage{graphicx}
-% We will generate all images so they have a width \maxwidth. This means
-% that they will get their normal width if they fit onto the page, but
-% are scaled down if they would overflow the margins.
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
-\else\Gin@nat@width\fi}
-\makeatother
-\let\Oldincludegraphics\includegraphics
-\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
-$endif$
 
-
-%  This code to use {caption} will wipe out the ability of pandoc-crossref
-%  to prepend the "Figure" reference to the caption.
-% \usepackage{caption}
-% \DeclareCaptionLabelFormat{nolabel}{}
-% \captionsetup{labelformat=nolabel}
-
-
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
 
 \hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze, linkcolor=bluehaze, citecolor=bluehaze, anchorcolor=bluehaze}
 $if(strikeout)$
@@ -144,9 +101,6 @@ $endif$
 $if(subscript)$
 \newcommand{\textsubscr}[1]{\ensuremath{_{\scriptsize\textrm{#1}}}}
 $endif$
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
 $if(listings)$
 \usepackage{listings}
 $endif$
@@ -173,36 +127,44 @@ $endif$
 
 
 
-% my page number
+$if(linespread)$\linespread{$linespread$}$else$
+\linespread{1.0}
+$endif$
+
+% Fancy page numbering ---------------------------------------------------------
+
 %\pagestyle{fancy}
 %\fancyhead[RO]{Sheffield \thepage}
+\usepackage{fancyhdr}
 \fancyhead{} % empty
 \fancyfoot{} % empty out the default, which is page number in center
 \def\middot{\textperiodcentered~}
 \lfoot{\scriptsize \thepage \middot $short_title$ \middot \textit{Databio} \middot $if(date)$ \textsl{$date$} $endif$ \textcopyright The Authors}
-\usepackage{fancyhdr}
 \pagestyle{fancy}
-\usepackage{titlesec}
 
 
+% Fancy abstract box styling ---------------------------------------------------
 
 \usepackage{mdframed}   % for framing
-
 \newmdenv[linecolor=white, fontcolor=bluetint, backgroundcolor=graybit, leftmargin=8, rightmargin=8, innertopmargin=8, innerbottommargin=8, innerleftmargin=12, innerrightmargin=12, roundcorner=10pt, font=\large]{infobox}
 
-%\usepackage{sectsty}% http://ctan.org/pkg/sectsty
+
+
+% Title spacing, size, and color ------------------------------------------------------
+\usepackage{titlesec}
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
-% \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
-\linespread{1.0}
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint}\bfseries}{\thesection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}
+    \selectfont\color{bluetint}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{10pt}{10pt}
+    \selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{10pt}{10pt}
+    \selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
@@ -210,6 +172,8 @@ $endif$
 \titlespacing\subsection{0pt}{11pt plus 2pt minus 1pt}{-2pt plus 1pt minus 1pt}
 \titlespacing\subsubsection{0pt}{0pt plus 2pt minus 1pt}{-2pt plus 2pt minus 2pt}
 
+
+% Convert author/affiliations from yaml into latex -----------------------------
 
 $for(author)$
 $if(author.name)$
@@ -236,7 +200,6 @@ $for(author)$
 $endif$
 $endfor$
 
-
 % bring affils a little closer to author.
 \setlength{\affilsep}{0.5em}
 
@@ -244,21 +207,25 @@ $endfor$
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\Affilfont}{\scriptsize}
 \makeatletter
-\renewcommand{\maketitle}{%
 
-$if(class)$
-  \begin{flushright}{\huge{\color{graytint}\textbf{\MakeUppercase{$class$}}}}\end{flushright}\vspace{-0.5em}
-  {\color{graytint}\hrule}
+% Define the nice-looking title for the databio theme
+\renewcommand{\maketitle}{
+  $if(class)$
+    \begin{flushright}{\huge{\color{graytint}\textbf{\MakeUppercase{$class$}}}}\end{flushright}\vspace{-0.4em}
+    {\color{graytint}\hrule}\vspace{0.3em}
   $endif$
   \begin{raggedright} 
   \textbf{\huge{\@title}}
-        \par \vspace{.5ex}
-        % $for(author)$$author$$sep$ \and $endfor$
-      {\ignorespaces\@author\newline\href{http://databio.org$permalink$}{http://databio.org$permalink$}\par}
-       % \hrule
-         \vspace{1ex}
-        \end{raggedright}            
-}   
+    \par \vspace{0.5em}
+    {\ignorespaces\@author
+    $if(permalink)$
+      \newline\href{http://databio.org$permalink$}{http://databio.org$permalink$}
+    $endif$
+    \par}
+  
+     \vspace{0.2em}
+    \end{raggedright}
+} % end \maketitle
 \makeatother
 
 %\subsectionfont{\color{maroonhaze}}
@@ -270,207 +237,30 @@ $if(class)$
 %\newcommand{\sectionbreak}{\clearpage}
 
 
-\graphicspath{{/home/nsheff/code/databio.github.io/}}
-
-% Redefine the figure environment so there's no float (what pandoc does by default)
-% to make it compatible with the multicol package
-\usepackage{float}
-\let\origfigure\figure
-\let\endorigfigure\endfigure
-\renewenvironment{figure}[1][2] {
-    \expandafter\origfigure\expandafter[H]
-} {
-    \endorigfigure
-}
-
-
-
-\newenvironment{widefig}{\renewenvironment{figure}{\begin{figure*}\centering}{\end{figure*}}}
-
-% These two packages are used to write algorithms
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-
-
 \begin{document}
 
+\twocolumn[{%
+  \begin{@twocolumnfalse}
+    $if(title)$
+    \maketitle
+    $endif$
 
-$if(title)$
-\maketitle
-$endif$
+    $if(abstract)$
+    \begin{infobox}
+    $abstract$
+    \end{infobox}
+    $endif$
 
-$if(abstract)$
-\begin{infobox}
-$abstract$
-\end{infobox}
-$endif$
+    $for(include-before)$
+    $include-before$
 
+    $endfor$
+    $if(toc)$
+    \tableofcontents
+    $endif$
+  \end{@twocolumnfalse}
+}]
 
-
-$for(include-before)$
-$include-before$
-
-$endfor$
-$if(toc)$
-\tableofcontents
-
-$endif$
-
-\begin{multicols}{2}
-$body$
-\end{multicols}
-
-$if(natbib)$
-$if(biblio-files)$
-$if(biblio-title)$
-$if(book-class)$
-\renewcommand\bibname{$biblio-title$}
-$else$
-\renewcommand\refname{$biblio-title$}
-$endif$
-$endif$
-\bibliography{$biblio-files$}
-
-$endif$
-$endif$
-$if(biblatex)$
-\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
-
-$endif$
-$for(include-after)$
-$include-after$
-
-$endfor$
-
-
-
-\end{document}
-%\documentclass$if(fontsize)$[$fontsize$]$endif${article}
-\documentclass[12pt]{article}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifxetex
-  \usepackage{fontspec,xltxtra,xunicode}
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-\else
-  \ifluatex
-    \usepackage{fontspec}
-    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-  \else
-    \usepackage[utf8]{inputenc}
-  \fi
-\fi
-$if(natbib)$
-\usepackage{natbib}
-\bibliographystyle{plainnat}
-$endif$
-$if(biblatex)$
-\usepackage{biblatex}
-$if(biblio-files)$
-\bibliography{$biblio-files$}
-$endif$
-$endif$
-$if(lhs)$
-\usepackage{listings}
-\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
-$endif$
-$if(verbatim-in-note)$
-\usepackage{fancyvrb}
-$endif$
-$if(fancy-enums)$
-% Redefine labelwidth for lists; otherwise, the enumerate package will cause
-% markers to extend beyond the left margin.
-\makeatletter\AtBeginDocument{%
-  \renewcommand{\@listi}
-    {\setlength{\labelwidth}{4em}}
-}\makeatother
-\usepackage{enumerate}
-$endif$
-$if(tables)$
-\usepackage{ctable}
-\usepackage{float} % provides the H option for float placement
-$endif$
-$if(url)$
-\usepackage{url}
-$endif$
-$if(graphics)$
-\usepackage{graphicx}
-% We will generate all images so they have a width \maxwidth. This means
-% that they will get their normal width if they fit onto the page, but
-% are scaled down if they would overflow the margins.
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
-\else\Gin@nat@width\fi}
-\makeatother
-\let\Oldincludegraphics\includegraphics
-\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
-$endif$
-
-
-%  This code to use {caption} will wipe out the ability of pandoc-crossref
-%  to prepend the "Figure" reference to the caption.
-% \usepackage{caption}
-% \DeclareCaptionLabelFormat{nolabel}{}
-% \captionsetup{labelformat=nolabel}
-
-
-
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true, pdfborder={0 0 0}}
-$if(strikeout)$
-\usepackage[normalem]{ulem}
-% avoid problems with \sout in headers with hyperref:
-\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
-$endif$
-$if(subscript)$
-\newcommand{\textsubscr}[1]{\ensuremath{_{\scriptsize\textrm{#1}}}}
-$endif$
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-$if(listings)$
-\usepackage{listings}
-$endif$
-$if(numbersections)$
-$else$
-\setcounter{secnumdepth}{0}
-$endif$
-$if(verbatim-in-note)$
-\VerbatimFootnotes % allows verbatim text in footnotes
-$endif$
-$for(header-includes)$
-$header-includes$
-$endfor$
-
-$if(title)$
-\title{$title$}
-$endif$
-% $if(author)$
-% \author{$for(author)$$author$$sep$ \and $endfor$}
-% $endif$
-$if(date)$
-\date{$date$}
-$endif$
-
-\begin{document}
-$if(title)$
-\maketitle
-$endif$
-
-$for(include-before)$
-$include-before$
-
-$endfor$
-$if(toc)$
-\tableofcontents
-
-$endif$
 $body$
 
 $if(natbib)$
@@ -494,6 +284,5 @@ $for(include-after)$
 $include-after$
 
 $endfor$
+
 \end{document}
-
-

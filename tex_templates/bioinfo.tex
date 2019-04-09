@@ -1,45 +1,19 @@
-
 \documentclass{bioinfo}
+
+% Include a series of generic definitions and usepackage commands
+\input{mediabuilder.tex}
+
+
 \copyrightyear{$year$} \pubyear{$year$}
 
 \access{Advance Access Publication Date: Day Month Year}
 \appnotes{$class$}
 
-
-% Stuff added for pandoc
-
-% These two packages are used to write algorithms
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-
-% used for wrapfig
-\usepackage{wrapfig}
-
-
-\usepackage{ifxetex,ifluatex}
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true, pdfborder={0 0 0}}
-
-% To handle multicolumn figures
-\let\Begin\begin
-\let\End\end
-\newenvironment{widefig}{\renewenvironment{figure}{\begin{figure*}\centering}{\end{figure*}}}
-
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-
+%  This code to use {caption} will wipe out the ability of pandoc-crossref
+%  to prepend the "Figure" reference to the caption.
+\usepackage{caption}
+\DeclareCaptionLabelFormat{nolabel}{}
+\captionsetup{labelformat=nolabel}
 
 
 \begin{document}
@@ -52,6 +26,14 @@
 % \address{$$^{\text{\sf 1}}$$Department, Institution, City, Post Code, Country and \\
 % $$^{\text{\sf 2}}$$Department, Institution, City, Post Code,
 % Country.}
+
+\def \email { }
+
+$for(author)$
+$if(author.correspondence)$
+\edef \email { \email $author.correspondence$ }
+$endif$  
+$endfor$
 
 % Set up authors and affiliations
 \author{
@@ -82,7 +64,7 @@ $endfor$
 \editor{Associate Editor: XXXXXXX}
 
 \abstract{$abstract$\\
-\textbf{Contact:} \href{$contact$}{$contact$}\\
+\textbf{Contact:} \href{$contact$}{\email}\\
 \textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics}
 online.}
 
