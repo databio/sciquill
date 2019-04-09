@@ -197,10 +197,16 @@ $for(include-before)$
 $include-before$
 
 $endfor$
+
 $if(toc)$
 \tableofcontents
-
 $endif$
+
+$if(abstract)$
+\section{Abstract}
+$abstract$
+$endif$
+
 $body$
 
 $if(natbib)$
