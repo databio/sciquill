@@ -165,12 +165,19 @@ endif
 
 ifeq ($(mbtype),manuscript)
 
+# Set the default filetoken, which is the string used to know which
+# file to build
+ifndef filetoken
+  filetoken = manuscript
+endif
+
+
 textemplate = $(mbdir)/tex_templates/manuscript.tex
 
 manuscript: figs
-	$(mbin)/addrefsec `$(mbin)/ver src/*manuscript` | \
+	$(mbin)/addrefsec `$(mbin)/ver src/*$(filetoken)` | \
 	pandoc \
-	-o output/manuscript.pdf $(PANDOC_FLAGS)
+	-o output/$(filetoken).pdf $(PANDOC_FLAGS)
 
 # Produce a docx version of the paper, which can be necessary for feedback
 manuscript_docx:
