@@ -116,7 +116,7 @@ aims_sig_inno: figs
 # Render the entire research plan (including aims, significance, innovation, and
 # approach). These must be rendered together so citations are numbered across
 # the whole document (dividing them throws the citation numbering off)
-research_plan: figs bib
+research_plan: figs
 	$(mbin)/nobib `$(mbin)/ver src/specific_aims` \
 	`$(mbin)/ver src/significance_innovation` \
 	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
@@ -151,11 +151,47 @@ refs:
 
 
 # Merge in the references PDF to the end of the combined research_plan
-research_plan_refs: figs plan refs
+research_plan_refs: figs research_plan refs
 	$(mbin)/mergepdf output/research_plan_refs.pdf \
 	output/research_plan.pdf \
 	output/references.pdf
 
+# Produce a subset bibliography for the project
+bibsub:
+	mkdir -p bibgen
+	$(mbin)/nobib `$(mbin)/ver src/specific_aims` \
+	`$(mbin)/ver src/significance_innovation` \
+	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
+	pandoc -o bibgen/research_plan.tex $(PANDOC_FLAGS) --biblatex
+	pdflatex --output-directory=bibgen bibgen/research_plan.tex
+	jabref -n -a bibgen/research_plan.aux,bibgen/`hostname`.bib ${BIBTEXDB}
+	cat bibgen/*.bib > output/refs.bib
+
+cover_letter: 
+	pandoc -o output/cover_letter.pdf $(PANDOC_FLAGS) \
+	--template $(lettertemplate) \
+	src/cover_letter.md
+
+# Supporting docs
+supporting: authentication_of_resources facitilites resource_sharing human_subjects project_narrative
+
+authentication_of_resources:
+	pandoc src/authentication_of_resources.md -o output/authentication_of_resources.pdf $(PANDOC_FLAGS)
+
+facilities:
+	pandoc src/facilities.md -o output/facilities.pdf $(PANDOC_FLAGS)
+
+resource_sharing:
+	pandoc src/resource_sharing.md -o output/resource_sharing.pdf $(PANDOC_FLAGS)
+
+human_subjects:
+	pandoc src/human_subjects.md -o output/human_subjects.pdf $(PANDOC_FLAGS)
+
+project_narrative:
+	pandoc src/project_narrative.md -o output/project_narrative.pdf $(PANDOC_FLAGS)
+
+personnel_justification:
+	pandoc src/personnel_justification.md -o output/personnel_justification.pdf $(PANDOC_FLAGS)
 
 endif
 
