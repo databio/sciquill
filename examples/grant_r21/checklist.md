@@ -22,7 +22,7 @@
 * [ ] Cover Letter
 * [ ] Budget
 * [ ] Personnel Justification (for modular budget)
-* [ ] Complete Budget Justification (for non-modular budget budget)
+* [ ] Complete Budget Justification (for modular budget)
 * [ ] Consortium Justification
 * [ ] Letters of Support
 * [ ] Human Subjects Form
