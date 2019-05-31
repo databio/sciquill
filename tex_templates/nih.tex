@@ -213,6 +213,22 @@ $endif$
 
 
 
+% The maximum part of the top or bottom of a text page that can be
+% occupied by floats. This is set so that at least four lines of text 
+% fit on the page.
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+% The minimum amount of a text page that must be occupied by text.
+% This should accomodate four lines of text.
+\renewcommand\textfraction{.06}
+% The minimum amount of a float page that must be occupied by floats.
+\renewcommand\floatpagefraction{.94}
+
+% The same parameters repeated for double column output
+\renewcommand\dbltopfraction{.9}
+\renewcommand\dblfloatpagefraction{.9}
+
+
 
 %\subsectionfont{\color{maroonhaze}}
 %\subsubsectionfont{\color{orangehaze}}
