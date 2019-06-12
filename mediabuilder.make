@@ -120,7 +120,7 @@ research_plan: figs
 	$(mbin)/nobib `$(mbin)/ver src/specific_aims` \
 	`$(mbin)/ver src/significance_innovation` \
 	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
-	pandoc -o output/aims_research_plan.pdf $(PANDOC_FLAGS)
+	pandoc -o output/aims_research_plan.pdf $(PANDOC_FLAGS) 
 
 # Split out the specific aims off the rest of the research plan document. Some
 # grants require them to be divided; we must produce them combined and then

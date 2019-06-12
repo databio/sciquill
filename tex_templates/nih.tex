@@ -75,10 +75,8 @@ $if(fancy-enums)$
   \renewcommand{\@listi}
     {\setlength{\labelwidth}{4em}}
 }\makeatother
-\usepackage{enumerate}
 
-% Attempt to smash lists together
-\setlist[enumerate]{itemsep=1mm}
+
 
 $endif$
 $if(tables)$
@@ -210,23 +208,26 @@ $endif$
 \titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
 \titlespacing{\subparagraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
 
+% Attempt to smash lists together
+\usepackage{enumerate}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=-6pt}
+\def\labelitemi{\raisebox{0.5ex}{\tiny\textbullet}}
 
+% % The maximum part of the top or bottom of a text page that can be
+% % occupied by floats. This is set so that at least four lines of text 
+% % fit on the page.
+% \renewcommand\topfraction{.9}
+% \renewcommand\bottomfraction{.9}
+% % The minimum amount of a text page that must be occupied by text.
+% % This should accomodate four lines of text.
+% \renewcommand\textfraction{.06}
+% % The minimum amount of a float page that must be occupied by floats.
+% \renewcommand\floatpagefraction{.94}
 
-
-% The maximum part of the top or bottom of a text page that can be
-% occupied by floats. This is set so that at least four lines of text 
-% fit on the page.
-\renewcommand\topfraction{.9}
-\renewcommand\bottomfraction{.9}
-% The minimum amount of a text page that must be occupied by text.
-% This should accomodate four lines of text.
-\renewcommand\textfraction{.06}
-% The minimum amount of a float page that must be occupied by floats.
-\renewcommand\floatpagefraction{.94}
-
-% The same parameters repeated for double column output
-\renewcommand\dbltopfraction{.9}
-\renewcommand\dblfloatpagefraction{.9}
+% % The same parameters repeated for double column output
+% \renewcommand\dbltopfraction{.9}
+% \renewcommand\dblfloatpagefraction{.9}
 
 
 
@@ -321,6 +322,8 @@ $if(fancy-enums)$
     {\setlength{\labelwidth}{4em}}
 }\makeatother
 \usepackage{enumerate}
+
+
 $endif$
 $if(tables)$
 \usepackage{ctable}
