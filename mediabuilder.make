@@ -173,7 +173,7 @@ cover_letter:
 	src/cover_letter.md
 
 # Supporting docs
-supporting: authentication_of_resources facitilites resource_sharing human_subjects project_narrative
+supporting: authentication_of_resources facilities resource_sharing human_subjects project_narrative cover_letter
 
 authentication_of_resources:
 	pandoc src/authentication_of_resources.md -o output/authentication_of_resources.pdf $(PANDOC_FLAGS)
@@ -192,6 +192,8 @@ project_narrative:
 
 personnel_justification:
 	pandoc src/personnel_justification.md -o output/personnel_justification.pdf $(PANDOC_FLAGS)
+
+
 
 endif
 
