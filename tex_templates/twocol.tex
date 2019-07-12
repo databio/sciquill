@@ -5,6 +5,10 @@
 \input{mediabuilder.tex}
 
 
+% Need this for the \Letter glyph, envelope, for corresponding author.
+\usepackage[misc,geometry]{ifsym} 
+
+
 \usepackage{authblk}
 
 \renewcommand{\rmdefault}{bch} % Charter
@@ -194,7 +198,7 @@ $endif$
 $for(author)$
 $if(author.name)$
   $if(author.correspondence)$
-    \author[$author.affiliation$,*]{$author.name$}
+    \author[$author.affiliation$,\Letter]{$author.name$}
   $else$
     \author[$author.affiliation$]{$author.name$}
   $endif$
@@ -214,7 +218,7 @@ $endif$
 
 $for(author)$
   $if(author.correspondence)$
-    \affil[*]{Correspondence: \href{mailto:$author.correspondence$}{$author.correspondence$}}
+    \affil[ ]{\Letter \hspace{0.08cm}  Correspondence: \href{mailto:$author.correspondence$}{$author.correspondence$}}
 $endif$
 $endfor$
 
