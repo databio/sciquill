@@ -1,0 +1,14 @@
+#! /bin/bash
+
+# This script produces reference-only documents.
+
+echo -ne "---\nnocite: |\n  " 
+if [ -t 0 ]; then
+perl -n -e'while (/(@[[:alnum:]-]*?)[\]; ]/g) { print "$1, "}' \
+$@ 
+else
+while read input; do
+echo $input | perl -e'while (<STDIN>) { while (/(@[[:alnum:]-]*?)[\]; ]/g) { print "$1, "} }' -
+done
+fi
+echo -e "null\n---\n" 
