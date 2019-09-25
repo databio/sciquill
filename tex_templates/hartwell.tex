@@ -1,37 +1,54 @@
-\renewcommand{\rmdefault}{phv} % Arial
-\renewcommand{\sfdefault}{phv} % Arial
-
  \let\tightlist\relax
 
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
+\renewcommand{\rmdefault}{ptm} % Times
+\renewcommand{\sfdefault}{ptm} % Times
+
+  \PassOptionsToPackage{unicode=true$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+$if(colorlinks)$
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+$endif$
+$if(dir)$
+$if(latex-dir-rtl)$
+\PassOptionsToPackage{RTLdocument}{bidi}
+$endif$
+$endif$
   
-\documentclass[11pt]{article}
-\RequirePackage[top=0.5in,left=0.5in,right=0.5in,bottom=0.5in]{geometry}
-
-% hack for markdown processing. by default, text enclosed between latex \begin
-% and \end tags will *not* be parsed by pandoc. If we *do* want to parse that
-% code (because it's written in markdown), we can just add aliases for \Begin
-% and \End, which are not flagged by pandoc as "avoid parsing". So markdown
-% enclosed by \Begin and \End will be parsed as by pandoc.
-% Use this to define a two-column reference sectiona t the end of your document
-% like this:
-% \Begin{multicols}{2}
-% \tiny
-% \setlength{\parskip}{0.2em}
-% <div id="refs"></div>
-% \End{multicols}
-
-
-\let\Begin\begin
-\let\End\end
-
+ \documentclass[12pt]{article}
+% \documentclass[
+% $if(fontsize)$
+%   $fontsize$,
+% $endif$
+% $if(lang)$
+%   $babel-lang$,
+% $endif$
+% $if(papersize)$
+%   $papersize$paper,
+% $endif$
+% $if(beamer)$
+%   ignorenonframetext,
+% $if(handout)$
+%   handout,
+% $endif$
+% $if(aspectratio)$
+%   aspectratio=$aspectratio$,
+% $endif$
+% $endif$
+% $for(classoption)$
+%   $classoption$$sep$,
+% $endfor$
+% ]{$documentclass$}
+\RequirePackage[top=1in,left=1in,right=1in,bottom=1in]{geometry}
 
 \usepackage{pdfpages}
 \usepackage{fancyhdr}
-\usepackage{multicol}
+\usepackage{caption}
+\DeclareCaptionLabelFormat{nolabel}{}
+\captionsetup{labelformat=nolabel}
 \usepackage{wrapfig}
 \usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
 
@@ -75,10 +92,16 @@ $if(fancy-enums)$
   \renewcommand{\@listi}
     {\setlength{\labelwidth}{4em}}
 }\makeatother
+\usepackage{enumerate}
 
-
+% Attempt to smash lists together
+\setlist[enumerate]{itemsep=1mm}
 
 $endif$
+
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+
+
 $if(tables)$
 \usepackage{ctable}
 \usepackage{float} % provides the H option for float placement
@@ -98,9 +121,7 @@ $if(graphics)$
 \let\Oldincludegraphics\includegraphics
 \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 $endif$
-\usepackage{caption}
-\DeclareCaptionLabelFormat{nolabel}{}
-\captionsetup{labelformat=nolabel}
+
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -108,7 +129,7 @@ $endif$
 \else
   \usepackage[unicode=true]{hyperref}
 \fi
-\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze, linkcolor=bluehaze, citecolor=bluehaze, anchorcolor=bluehaze}
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
 $if(strikeout)$
 \usepackage[normalem]{ulem}
 % avoid problems with \sout in headers with hyperref:
@@ -150,102 +171,72 @@ $endif$
 \fancyhead{} % empty
 \fancyfoot{} % empty out the default, which is page number in center
 \renewcommand{\headrulewidth}{0pt}
-\pagenumbering{gobble}
+
 
 \usepackage{titlesec}
-
-
+\usepackage{needspace}
+\usepackage{tabto} % "\tab"
 % colors
 \definecolor{bluehaze}{RGB}{54,95,145}
 \definecolor{maroonhaze}{RGB}{148,54,52}
 \definecolor{orangehaze}{RGB}{227,108,10}
-\definecolor{black}{RGB}{0,0,0}
-% \definecolor{lightblack}{RGB}{55,55,55}
 \definecolor{bluetint}{RGB}{0,50,100}
-\definecolor{bluetint2}{RGB}{0,30,60}
-\definecolor{lightblack}{RGB}{75,75,75}
-\definecolor{almostwhite}{RGB}{235,235,245}
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
 
-\usepackage{needspace}
-% \titleformat{\paragraph}[leftmargin]{\normalfont\normalsize\bfseries\filleft}{\theparagraph}{15pt}{}
-
-$if(linespread)$\linespread{$linespread$}$else$
-\linespread{1.0}
-$endif$
-
-$if(titleneedspace)$
-\def \titleneedspace{$titleneedspace$}
-$else$
-\def \titleneedspace{0cm}
-$endif$
-% Here I am using the needspace thing to make sure that the title headings don't
-% show up on the very last line of a page.
+$if(linespread)$\linespread{$linespread$}$endif$
 
 \titleformat{\section}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
+  {\normalfont\fontfamily{ptm}\fontsize{1.2em}{1.2em}\selectfont\color{black}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
+  {\normalfont\fontfamily{ptm}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint2}\bfseries}{\thesubsubsection}{1em}{}
-
-% use runin to specify no newline
-\titleformat{\paragraph}[runin]
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\itshape}{\theparagraph}{}{}
+  {\normalfont\fontfamily{ptm}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing{\subsection}{0pt}{16pt plus 20pt minus 2pt}{-2pt plus 2pt minus 2pt}
-\titlespacing{\subsubsection}{0pt}{6pt plus 4pt minus 2pt}{-4pt plus 2pt minus 1pt}
+\titlespacing\section{0pt}{1pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{1pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{0pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
 
-% for these ones, the 'after spacing' (slot 3) corresponds to right-side spacing,
-% since it's paragraph-level (no newline afterwards)
+
 \titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
 \titlespacing{\subparagraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
 
-% Attempt to smash lists together
-\usepackage{enumerate}
-\usepackage{enumitem}
-\setlist[itemize]{topsep=-6pt}
-\def\labelitemi{\raisebox{0.5ex}{\tiny\textbullet}}
+% Redefine maketitle
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 2em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\huge \@title \par}%
+    \vskip 3in%
+    {
+      \lineskip .5em%
+        \Large $author$  \\
+        \large $jobtitle$  \\
+        $for(depts)$
+        $depts$  \\
+        $endfor$
+        \vskip 2em%
+        \normalsize
+        $for(addresslines)$
+        $addresslines$  \\
+        $endfor$        
+      }%
+    \vskip 4em%
+    {\large \@date}
+  \end{center}%
+  \par
+  \vskip 1.5em}
+\makeatother
 
-% % The maximum part of the top or bottom of a text page that can be
-% % occupied by floats. This is set so that at least four lines of text 
-% % fit on the page.
- \renewcommand\topfraction{.9}
- \renewcommand\bottomfraction{.9}
-% % The minimum amount of a text page that must be occupied by text.
-% % This should accomodate four lines of text.
-\renewcommand\textfraction{.06}
-% % The minimum amount of a float page that must be occupied by floats.
-\renewcommand\floatpagefraction{.94}
 
-% % The same parameters repeated for double column output
-% \renewcommand\dbltopfraction{.9}
-% \renewcommand\dblfloatpagefraction{.9}
-
-% The maximum part of the top or bottom of a text page that can be
-% occupied by floats. This is set so that at least four lines of text 
-% fit on the page.
-\renewcommand\topfraction{.9}
-\renewcommand\bottomfraction{.9}
-% The minimum amount of a text page that must be occupied by text.
-% This should accomodate four lines of text.
-\renewcommand\textfraction{.06}
-% The minimum amount of a float page that must be occupied by floats.
-\renewcommand\floatpagefraction{.94}
-
-% The same parameters repeated for double column output
-\renewcommand\dbltopfraction{.9}
-\renewcommand\dblfloatpagefraction{.9}
-% Disallow widows and orphans
-\clubpenalty 10000
-\widowpenalty 10000
 
 %\subsectionfont{\color{maroonhaze}}
 %\subsubsectionfont{\color{orangehaze}}
@@ -256,19 +247,31 @@ $endif$
 %\newcommand{\sectionbreak}{\clearpage}
 
 
+% How to put in a header
+% my page number
+\usepackage{lastpage}
+\pagestyle{fancy}
+% \fancyhf{} % clear all fields
+$if(pagebase)$
+\fancyhead[R]{\vspace{0.1in}\scriptsize $pi$ }
+$endif$
 
+\fancyfoot[L]{\centering\scriptsize{p. \thepage{} of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+
+\urlstyle{same}
 \begin{document}
 
-% $if(title)$
-% \maketitle
-% $endif$
+$if(title)$
+\maketitle
+$endif$
 
 $for(include-before)$
 $include-before$
 
 $endfor$
 $if(toc)$
-\tableofcontents
+\tableofcontentst
 
 $endif$
 $body$
@@ -298,8 +301,8 @@ $endfor$
 
 
 \end{document}
-%\documentclass$if(fontsize)$[$fontsize$]$endif${article}
-\documentclass[12pt]{article}
+\documentclass$if(fontsize)$[$fontsize$]$endif${article}
+%\documentclass[11pt]{article}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifxetex
@@ -338,8 +341,6 @@ $if(fancy-enums)$
     {\setlength{\labelwidth}{4em}}
 }\makeatother
 \usepackage{enumerate}
-
-
 $endif$
 $if(tables)$
 \usepackage{ctable}
@@ -443,3 +444,7 @@ $include-after$
 
 $endfor$
 \end{document}
+
+
+
+
