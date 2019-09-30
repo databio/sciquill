@@ -143,7 +143,7 @@ approach_refs: figs approach refs
 
 # Requires pandoc 2 with --strip-comments implemented
 refs:
-	pandocker --strip-comments -t markdown `$(mbin)/ver src/specific_aims` \
+	pandoc --strip-comments -t markdown `$(mbin)/ver src/specific_aims` \
 	`$(mbin)/ver src/significance_innovation` \
 	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
 	$(mbin)/getrefs | \
@@ -167,7 +167,8 @@ bibsub:
 	jabref -n -a bibgen/research_plan.aux,bibgen/`hostname`.bib ${BIBTEXDB}
 	cat bibgen/*.bib > output/refs.bib
 
-cover_letter: 
+cover_letter:
+	@echo "Letter template '$(lettertemplate)'"
 	pandoc -o output/cover_letter.pdf $(PANDOC_FLAGS) \
 	--template $(lettertemplate) \
 	src/cover_letter.md

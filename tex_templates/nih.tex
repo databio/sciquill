@@ -193,10 +193,16 @@ $endif$
 \titleformat{\subsubsection}
   {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint2}\bfseries}{\thesubsubsection}{1em}{}
 
+
+% use amsthm for addpunct, to add periods to the end of non-punctuated
+% paragraph titles (header level 4; ####)
+\usepackage{amsthm}
+\makeatletter
+\newcommand{\addperiod}[1]{#1\@addpunct{.}}
+\makeatother
 % use runin to specify no newline
 \titleformat{\paragraph}[runin]
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\itshape}{\theparagraph}{}{}
-
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\itshape}{\theparagraph}{}{\addperiod}
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
 \titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
@@ -211,7 +217,7 @@ $endif$
 % Attempt to smash lists together
 \usepackage{enumerate}
 \usepackage{enumitem}
-\setlist[itemize]{topsep=-6pt}
+\setlist[itemize]{topsep=-12pt,parsep=-2pt,itemindent=0pt,leftmargin=24pt}
 \def\labelitemi{\raisebox{0.5ex}{\tiny\textbullet}}
 
 % % The maximum part of the top or bottom of a text page that can be

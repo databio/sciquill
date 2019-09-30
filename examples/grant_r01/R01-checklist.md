@@ -7,22 +7,22 @@
 
 # For administrative deadline
 
-* [ ] Title
-* [ ] Dates
-* [ ] RFA Number
+* [ ] Title:
+* [ ] Dates:
+* [ ] RFA Number:
 
 * [ ] Abstract draft
+* [ ] Authentication of Key Resources
+* [ ] Biosketch for PI
+* [ ] Biosketches for Co-Is
+* [ ] Budget Justification Complete (for non-modular budget budget)
+* [ ] Budget
+* [ ] Consortium Justification
+* [ ] Cover Letter
+* [ ] Human Subjects Form
+* [ ] Facilities & Other Resources for PI 
+* [ ] Facilities & Other Resources - for each sub
+* [ ] Letters of Support
+* [ ] Personnel Justification (for modular budget)
 * [ ] Project Narrative
 * [ ] Resource Sharing Plan(s)
-* [ ] Authentication of Key Resources
-* [ ] PI Biosketch
-* [ ] Co-I Biosketches
-* [ ] PI Facilities & Other Resources
-* [ ] Facilities & Other Resources - for each sub
-* [ ] Cover Letter
-* [ ] Budget
-* [ ] Personnel Justification (for modular budget)
-* [ ] Complete Budget Justification (for non-modular budget budget)
-* [ ] Consortium Justification
-* [ ] Letters of Support
-* [ ] Human Subjects Form

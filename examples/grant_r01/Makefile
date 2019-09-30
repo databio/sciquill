@@ -29,14 +29,6 @@ approach_only: figs
 	`$(mbin)/ver src/aim1` `$(mbin)/ver src/aim2` `$(mbin)/ver src/aim3` | \
 	pandoc -o output/aims_approach.pdf $(PANDOC_FLAGS)
 
-# Supporting docs
-supporting:
-	pandoc src/authentication_resources.md -o output/authentication_resources.pdf $(PANDOC_FLAGS)
-	pandoc src/facilities.md -o output/facilities.pdf $(PANDOC_FLAGS)
-	pandoc src/resource_sharing.md -o output/resource_sharing.pdf $(PANDOC_FLAGS)
-	pandoc src/human_subjects.md -o output/human_subjects.pdf $(PANDOC_FLAGS)
-	pandoc src/project_narrative.md -o output/project_narrative.pdf $(PANDOC_FLAGS)
-
 # Justification docs
 budget:
 	pandoc $(budgetdir)/personnel_justification.md \
