@@ -153,7 +153,7 @@ refs:
 # Merge in the references PDF to the end of the combined research_plan
 research_plan_refs: figs research_plan refs
 	$(mbin)/mergepdf output/research_plan_refs.pdf \
-	output/research_plan.pdf \
+	output/aims_research_plan.pdf \
 	output/references.pdf
 
 # Produce a subset bibliography for the project
@@ -214,7 +214,7 @@ endif
 textemplate = $(mbdir)/tex_templates/manuscript.tex
 
 manuscript: figs
-	$(mbin)/addrefsec `$(mbin)/ver src/*$(filetoken)` | \
+	$(mbin)/addrefsecsmall `$(mbin)/ver src/*$(filetoken)` | \
 	pandoc \
 	-o output/$(filetoken).pdf $(PANDOC_FLAGS)
 

@@ -1,0 +1,10 @@
+#! /bin/bash
+
+# Add reference section
+cat $@
+# Only output a references section if we can find evidence of a pandoc
+# reference like @Author2015.
+if grep -P  --quiet '(@[[:alnum:]-]*?)[\]; ]' $@; then
+	echo -ne "\n\n# References\n"
+	echo "\footnotesize\sloppy"
+fi
