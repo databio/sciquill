@@ -34,11 +34,12 @@
 \definecolor{orangehaze}{RGB}{227,108,10}
 \definecolor{black}{RGB}{0,0,0}
 \definecolor{bluetint}{RGB}{0,50,100}
+\definecolor{bluetint2}{RGB}{0,30,60}
 \definecolor{graytint}{RGB}{175,175,175}
 \definecolor{graybit}{RGB}{245,245,245}
+\definecolor{lightblack}{RGB}{75,75,75}
 
-
-% Turn on shading??
+%  This is used to allow Shaded environment
 $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
@@ -80,10 +81,7 @@ $if(fancy-enums)$
   \renewcommand{\@listi}
     {\setlength{\labelwidth}{4em}}
 }\makeatother
-\usepackage{enumerate}
 
-% Attempt to smash lists together
-\setlist[enumerate]{itemsep=1mm}
 
 $endif$
 $if(tables)$
@@ -166,16 +164,27 @@ $endif$
     \selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\fontsize{10pt}{10pt}
-    \selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{1em}{1em}
+    \selectfont\color{black}}{\thesubsubsection}{1em}{}
 
+
+
+% use amsthm for addpunct, to add periods to the end of non-punctuated
+% paragraph titles (header level 4; ####)
+\usepackage{amsthm}
+\makeatletter
+\newcommand{\addperiod}[1]{#1\@addpunct{.}}
+\makeatother
+% use runin to specify no newline
+\titleformat{\paragraph}[runin]
+  {\normalfont\color{lightblack}\itshape}{\theparagraph}{}{\addperiod}
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
 \titlespacing\section{0pt}{12pt plus 2pt minus 1pt}{-2pt plus 1pt minus 1pt}
 \titlespacing\subsection{0pt}{11pt plus 2pt minus 1pt}{-2pt plus 1pt minus 1pt}
-\titlespacing\subsubsection{0pt}{0pt plus 2pt minus 1pt}{-2pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{4pt plus 2pt minus 1pt}{-2pt plus 2pt minus 2pt}
 
-
+\titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
 
 % The maximum part of the top or bottom of a text page that can be
 % occupied by floats. This is set so that at least four lines of text 
@@ -191,6 +200,19 @@ $endif$
 % The same parameters repeated for double column output
 \renewcommand\dbltopfraction{.9}
 \renewcommand\dblfloatpagefraction{.9}
+
+% Attempt to smash lists together
+
+\let\tightlist\relax
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{3pt}
+  \setlength{\topsep}{-6pt}
+  }
+\usepackage{enumerate}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=0pt,parsep=2pt,itemindent=0pt,leftmargin=18pt}
+% \def\labelitemi{\raisebox{0.5ex}{\tiny\textbullet}}
 
 
 % Convert author/affiliations from yaml into latex -----------------------------
@@ -261,7 +283,6 @@ $endfor$
 % so each section will begin on a new page.
 %\newcommand{\sectionbreak}{\clearpage}
 
-
 \begin{document}
 
 \twocolumn[{%
@@ -288,6 +309,8 @@ $endfor$
 
 $body$
 
+% make the references smaller, and sloppier
+
 $if(natbib)$
 $if(biblio-files)$
 $if(biblio-title)$
@@ -297,12 +320,14 @@ $else$
 \renewcommand\refname{$biblio-title$}
 $endif$
 $endif$
-\bibliography{$biblio-files$}
+
+{\footnotesize\sloppy\bibliography{$biblio-files$}}
 
 $endif$
 $endif$
 $if(biblatex)$
-\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+{\footnotesize\sloppy\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$}
 
 $endif$
 $for(include-after)$
