@@ -1,5 +1,5 @@
 \documentclass[10pt]{article}
-\RequirePackage[top=0.85in,left=0.85in,right=0.85in,bottom=0.85in]{geometry}
+\RequirePackage[top=0.8in,left=0.8in,right=0.8in,bottom=0.3in,includefoot]{geometry}
   
 % Include a series of generic definitions and usepackage commands
 \input{mediabuilder.tex}
@@ -44,6 +44,32 @@ $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
 
+
+
+% Start column longtable hack
+% Allows tables to be used in two-column documents with pandoc
+% Credit: https://tex.stackexchange.com/a/224096/161489
+\makeatletter
+\let\oldlt\longtable
+\let\endoldlt\endlongtable
+
+\def\longtable{\@ifnextchar[\longtable@i \longtable@ii}
+\def\longtable@i[#1]{\begin{figure}[H]
+\onecolumn
+\begin{minipage}{0.5\textwidth}
+\oldlt[#1]
+}
+\def\longtable@ii{\begin{figure}[H]
+\onecolumn
+\begin{minipage}{0.5\textwidth}
+\oldlt
+}
+\def\endlongtable{\endoldlt
+\end{minipage}
+\twocolumn
+\end{figure}}
+\makeatother
+% End column longtable hack
 
 
 \ifxetex
