@@ -267,7 +267,12 @@ supplemental: figs
 	pandoc \
 	-o output/supplement.pdf $(PANDOC_FLAGS)
 
+response:
+	$(mbin)/nobib `$(mbin)/ver src/response_to_reviewers` | \
+	pandoc -o output/response_to_reviewers.pdf $(PANDOC_FLAGS) \
+	--template $(mbdir)/tex_templates/manuscript.tex
 
+	
 endif
 
 

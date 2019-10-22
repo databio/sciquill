@@ -162,6 +162,10 @@ $endif$
 \titlespacing\subsection{0pt}{11pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
 \titlespacing\subsubsection{0pt}{0pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
 
+
+\titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
+
+
 % this code uses titles.sty to make a pagebreak with every header 1
 % so each section will begin on a new page.
 %\newcommand{\sectionbreak}{\clearpage}
@@ -170,7 +174,7 @@ $endif$
 
 \usepackage{csquotes}
 % I use quotes for response to reviewers. this messes with paragraph spacing.
-\AtBeginEnvironment{quote}{\itshape\color{bluehaze}\vspace{-1em}}
+\AtBeginEnvironment{quote}{\itshape\color{bluehaze}\vspace{0em}}
 \AtEndEnvironment{quote}{\vspace{0em}}
 
 \setlength{\topsep}{0em}
