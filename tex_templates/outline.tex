@@ -28,6 +28,14 @@
 \let\Begin\begin
 \let\End\end
 
+
+\renewcommand{\thesection}{}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{subsection}.\arabic{subsubsection}}
+
+
+
+
 %  This is used to allow Shaded environment
 $if(highlighting-macros)$
 $highlighting-macros$
@@ -152,9 +160,9 @@ $endif$
 %\pagestyle{fancy}
 %\fancyhead[RO]{Sheffield \thepage}
 \fancyhead{} % empty
-\fancyfoot{} % empty out the default, which is page number in center
+% \fancyfoot{} % empty out the default, which is page number in center
 \renewcommand{\headrulewidth}{0pt}
-\pagenumbering{gobble}
+% \pagenumbering{gobble}
 
 \usepackage{titlesec}
 
@@ -189,13 +197,13 @@ $endif$
 % show up on the very last line of a page.
 
 \titleformat{\section}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{\MakeUppercase}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{18pt}{18pt}\selectfont\color{black}\bfseries}{\thesection}{0in}{}
 
-\titleformat{\subsection}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsection}[hang]
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{16pt}{16pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint2}\bfseries}{\thesubsubsection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{14pt}{14pt}\selectfont\color{black}\bfseries}{\thesubsubsection}{1em}{}
 
 
 % use amsthm for addpunct, to add periods to the end of non-punctuated
@@ -204,19 +212,24 @@ $endif$
 \makeatletter
 \newcommand{\addperiod}[1]{#1\@addpunct{.}}
 \makeatother
-% use runin to specify no newline
-\titleformat{\paragraph}[runin]
+
+% use [runin] to specify no newline
+
+\titleformat{\paragraph}
+  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint2}\bfseries}{\theparagraph}{}{}
+
+\titleformat{\subparagraph}
   {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\itshape}{\theparagraph}{}{\addperiod}
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing{\subsection}{0pt}{16pt plus 20pt minus 2pt}{-2pt plus 2pt minus 2pt}
-\titlespacing{\subsubsection}{0pt}{6pt plus 4pt minus 2pt}{-4pt plus 2pt minus 1pt}
+\titlespacing{\section}{0pt}{16pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+\titlespacing{\subsection}{0pt}{14pt plus 20pt minus 2pt}{2pt plus 2pt minus 2pt}
+\titlespacing{\subsubsection}{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 1pt}
 
 % for these ones, the 'after spacing' (slot 3) corresponds to right-side spacing,
 % since it's paragraph-level (no newline afterwards)
-\titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
-\titlespacing{\subparagraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
+\titlespacing{\paragraph}{0pt}{4pt plus 4pt minus 2pt}{-2pt plus 2pt minus 1pt}
+\titlespacing{\subparagraph}{0pt}{1pt plus 4pt minus 2pt}{-4pt plus 2pt minus 1pt}
 
 % Attempt to smash lists together
 \usepackage{enumerate}
