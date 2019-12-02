@@ -24,8 +24,18 @@ make manuscript
 
 ## Building documents with mediabuilder
 
+
 1. Install **software prerequisites**:
 
+Really, just use Bulker:
+
+```
+pip install bulker
+bulker load databio/mediabuilder
+bulker activate databio/mediabuilder
+```
+
+Or you can do it the hard way:
 	* Install [pandoc](https://pandoc.org/) to convert markdown to PDF.
 	* Install [inkscape](http://inkscape.org) to convert SVG to PDF.
 	* Install [libreoffice](http:///www.libreoffice.org) (optional) for some recipes that read `xls` or `docx` files.
@@ -94,6 +104,17 @@ docker pull nsheff/pandocker
 docker pull nsheff/inkscape-docker
 docker pull nsheff/libre
 ```
+
+## bulker
+
+There's a bulker manifest that makes it much simpler:
+
+```
+pip install bulker
+bulker load databio/mediabuilder
+bulker activate databio/mediabuilder
+```
+
 
 
 ## Recipes

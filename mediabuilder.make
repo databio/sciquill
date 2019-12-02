@@ -55,6 +55,15 @@ textemplate = $(mbdir)/tex_templates/nih_bs.tex
 
 endif
 
+# Media type: outline ------------------------------------------------------------
+
+ifeq ($(mbtype),outline)
+
+textemplate = $(mbdir)/tex_templates/outline.tex
+
+endif
+
+
 # Media type: grant ------------------------------------------------------------
 
 ifeq ($(mbtype),grant_simple)
@@ -238,8 +247,22 @@ manuscript_txt:
 
 
 # Produce a subset bibliography for the manuscript
+
 bibsub:
-	jabref -n -a output/manuscript.aux,output/manuscript.bib $(bib)
+	mkdir -p bibgen
+	$(mbin)/nobib `$(mbin)/ver src/manuscript` | \
+	pandoc -o bibgen/manuscript.tex $(PANDOC_FLAGS) --biblatex
+	pdflatex --output-directory=bibgen bibgen/manuscript.tex
+	jabref -n -a bibgen/manuscript.aux,bibgen/`hostname`.bib ${BIBTEXDB}
+	cat bibgen/*.bib > output/refs.bib
+
+
+cover_letter:
+	@echo "Letter template '$(lettertemplate)'"
+	pandoc -o output/cover_letter.pdf $(PANDOC_FLAGS) \
+	--template $(lettertemplate) \
+	src/cover_letter.md
+
 
 cl:
 	pandoc --preserve-tabs \
