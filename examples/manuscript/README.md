@@ -3,14 +3,21 @@ This repository renders `markdown` source docs with
 [pandoc](https://pandoc.org/). See
 [instructions](mediabuilder_instructions.md) for details.
 
-# Project title
+# Build manuscript
 
-Copy this example folder to write a new mediabuilder document. Leave the above
-notice intact to guide unfamiliar users to instructions for building output.
+You can build the [manuscript](/src/manuscript.md) document like this:
 
-## Example
+## Install bulker
 
-You can build the [manuscript](/src/manuscript.md) document by typing:
+See [bulker.io](http://bulker.io).
+
+## Activate mediabuilder manifest
+
+```
+bulker activate databio/mediabuilder
+```
+
+## Build manuscript
 
 ```
 make manuscript
