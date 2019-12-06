@@ -250,7 +250,7 @@ manuscript_txt:
 
 bibsub:
 	mkdir -p bibgen
-	$(mbin)/nobib `$(mbin)/ver src/manuscript` | \
+	$(mbin)/nobib `$(mbin)/ver src/*manuscript` | \
 	pandoc -o bibgen/manuscript.tex $(PANDOC_FLAGS) --biblatex
 	pdflatex --output-directory=bibgen bibgen/manuscript.tex
 	jabref -n -a bibgen/manuscript.aux,bibgen/`hostname`.bib ${BIBTEXDB}
