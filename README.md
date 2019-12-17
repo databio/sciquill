@@ -56,7 +56,7 @@ Or you can do it the hard way:
 	export TEXINPUTS="${TEXINPUTS}${CODEBASE}mediabuilder/tex_templates/:"
 	```
 
-	If using bulker, you will also need to make sure this variable is passed on to your bulker tools. So, add it to the list of `volumes` in your bulker config file.
+	If using bulker, you will also need to make sure this variable is passed on to your bulker tools. So, add it to the list of `envvars` in your bulker config file.
 
 
 3. Assemble your **BibTeX database** (optional).
