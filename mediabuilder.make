@@ -253,8 +253,8 @@ bibsub:
 	$(mbin)/nobib `$(mbin)/ver src/*manuscript` | \
 	pandoc -o bibgen/manuscript.tex $(PANDOC_FLAGS) --biblatex
 	pdflatex --output-directory=bibgen bibgen/manuscript.tex
-	jabref -n -a bibgen/manuscript.aux,bibgen/`hostname`.bib ${BIBTEXDB}
-	cat bibgen/*.bib > output/refs.bib
+	jabref -n -a bibgen/manuscript.aux,output/refs_`hostname`.bib ${BIBTEXDB}
+	cat output/refs_*.bib > output/refs.bib
 
 
 cover_letter:
