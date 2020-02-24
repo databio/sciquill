@@ -27,7 +27,7 @@ make manuscript
 
 1. Install **software prerequisites**:
 
-Really, just use Bulker:
+Really, just use Bulker (requires docker):
 
 ```
 pip install bulker
@@ -35,11 +35,13 @@ bulker load databio/mediabuilder
 bulker activate databio/mediabuilder
 ```
 
+
 Or you can do it the hard way:
-	* Install [pandoc](https://pandoc.org/) to convert markdown to PDF.
-	* Install [inkscape](http://inkscape.org) to convert SVG to PDF.
-	* Install [libreoffice](http:///www.libreoffice.org) (optional) for some recipes that read `xls` or `docx` files.
-	* Install [ghostscript](http:///www.ghostscript.com) (optional) if you need to merge PDFs (should be standard on linux).
+* Install [pandoc](https://pandoc.org/) to convert markdown to PDF.
+* Install [inkscape](http://inkscape.org) to convert SVG to PDF.
+* Install [libreoffice](http:///www.libreoffice.org) (optional) for some recipes that read `xls` or `docx` files.
+* Install [ghostscript](http:///www.ghostscript.com) (optional) if you need to merge PDFs (should be standard on linux).
+
 
 2. Clone and configure `mediabuilder`:
 	* Clone [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository, cloned with `--recursive` to get the [nsheff/pandoc-wrapfig](http://github.com/nsheff/pandoc-wrapfig) submodule)
