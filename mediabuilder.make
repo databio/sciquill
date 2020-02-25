@@ -213,36 +213,51 @@ endif
 
 ifeq ($(mbtype),manuscript)
 
-# Set the default filetoken, which is the string used to know which
+# Set the default manuscript_token, which is the string used to know which
 # file to build
-ifndef filetoken
-  filetoken = manuscript
+ifndef manuscript_token
+  manuscript_token = manuscript
 endif
 
+ifndef supplement_token
+  supplement_token = supplement
+endif
 
 textemplate = $(mbdir)/tex_templates/manuscript.tex
 
 manuscript: figs
-	$(mbin)/addrefsecsmall `$(mbin)/ver src/*$(filetoken)` | \
+	$(mbin)/addrefsecsmall `$(mbin)/ver src/*$(manuscript_token)` | \
 	pandoc \
-	-o output/$(filetoken).pdf $(PANDOC_FLAGS)
+	-o output/$(manuscript_token).pdf $(PANDOC_FLAGS)
+
+deprecated: figs
+	$(mbin)/addrefsecsmall `$(mbin)/ver src/*$(manuscript_token)` \
+	`$(mbin)/ver src/*$(supplement_token)`| \
+	pandoc \
+	-o output/$(manuscript_token)_$(supplement_token).pdf $(PANDOC_FLAGS)
+
+manuscript_supplement: figs manuscript supplement
+	$(mbin)/mergepdf output/$(manuscript_token)_$(supplement_token).pdf \
+	output/$(manuscript_token).pdf \
+	output/$(supplement_token).pdf
+
 
 # Produce a docx version of the paper, which can be necessary for feedback
 manuscript_docx:
 	$(mbin)/buildfigs fig/*.svg
-	cat `$(mbin)/ver src/*manuscript` | sed 's/\.pdf/\.png/' | pandoc \
+	cat `$(mbin)/ver src/*$(manuscript_token)` | sed 's/\.pdf/\.png/' | pandoc \
 	-o output/manuscript.docx $(PANDOC_FLAGS)
 
 manuscript_tex:
 	$(mbin)/buildfigs fig/*.svg
-	cat `$(mbin)/ver src/*manuscript` | pandoc \
+	cat `$(mbin)/ver src/*$(manuscript_token)` | pandoc \
 	-o output/manuscript.tex $(PANDOC_FLAGS) --biblatex
 
 manuscript_aux:	
 	~/code/docker/bin/pdflatex --output-directory=output output/manuscript.tex
 
 manuscript_txt:	
-	cat `$(mbin)/ver src/*manuscript` | sed 's/\.pdf/\.png/' | pandoc \
+	cat `$(mbin)/ver src/*$(manuscript_token)` | sed 's/\.pdf/\.png/' | pandoc \
 	-o output/manuscript.txt --to=plain
 
 
@@ -285,7 +300,7 @@ clt:
 	pandocker -o output/letter.pdf  $(PANDOC_FLAGS) \
 	letter.md
 
-supplemental: figs
+supplement: figs
 	$(mbin)/addrefsec `$(mbin)/ver src/*suppl` | \
 	pandoc \
 	-o output/supplement.pdf $(PANDOC_FLAGS)
