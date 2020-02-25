@@ -30,6 +30,7 @@
 % used for wrapfig
 \usepackage{wrapfig}
 
+\usepackage{dblfloatfix}
 
 % To handle multicolumn figures
 % This lets you do \Begin{widefig}
@@ -38,6 +39,11 @@
 \newenvironment{widefig}{
 	\renewenvironment{figure}{\begin{figure*}\centering}{\end{figure*}}
 	\renewenvironment{table}{\begin{table*}\centering}{\end{table*}}
+}
+
+\newenvironment{widefigbot}{
+  \renewenvironment{figure}{\begin{figure*}[!b]\centering}{\end{figure*}}
+  \renewenvironment{table}{\begin{table*}\centering}{\end{table*}}
 }
 
 % Scale images if necessary, so that they will not overflow the page
@@ -149,8 +155,8 @@
 
 % FONTS ---
 
-\renewcommand{\rmdefault}{phv} % Arial
-\renewcommand{\sfdefault}{phv} % Arial
+% \renewcommand{\rmdefault}{phv} % Arial
+% \renewcommand{\sfdefault}{phv} % Arial
 % \renewcommand{\rmdefault}{bch} % Charter
 % \renewcommand{\sfdefault}{bch} % Charter
 
