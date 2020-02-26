@@ -226,17 +226,17 @@ endif
 textemplate = $(mbdir)/tex_templates/manuscript.tex
 
 manuscript: figs
-	$(mbin)/addrefsecsmall `$(mbin)/ver src/*$(manuscript_token)` | \
+	$(mbin)/passthru `$(mbin)/ver src/*$(manuscript_token)` | \
 	pandoc \
 	-o output/$(manuscript_token).pdf $(PANDOC_FLAGS)
 
-deprecated: figs
-	$(mbin)/addrefsecsmall `$(mbin)/ver src/*$(manuscript_token)` \
+manuscript_supplement: figs
+	$(mbin)/passthru `$(mbin)/ver src/*$(manuscript_token)` \
 	`$(mbin)/ver src/*$(supplement_token)`| \
 	pandoc \
 	-o output/$(manuscript_token)_$(supplement_token).pdf $(PANDOC_FLAGS)
 
-manuscript_supplement: figs manuscript supplement
+deprecated_paste: figs manuscript supplement
 	$(mbin)/mergepdf output/$(manuscript_token)_$(supplement_token).pdf \
 	output/$(manuscript_token).pdf \
 	output/$(supplement_token).pdf
