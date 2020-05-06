@@ -71,6 +71,11 @@ ifeq ($(mbtype),grant_simple)
 textemplate = $(mbdir)/tex_templates/nih.tex
 docxtemplate = $(mbdir)/docx_templates/NIH_grant_style.docx
 
+research_plan: figs
+	$(mbin)/nobib `$(mbin)/ver src/research_plan` | \
+	pandoc -o output/research_plan.pdf $(PANDOC_FLAGS) 
+
+
 endif
 
 ifeq ($(mbtype),grant_nsf)

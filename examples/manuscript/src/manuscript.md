@@ -2,6 +2,7 @@
 title: "Example article title"
 short_title: "Short title"
 year: 2019
+notes-after-punctuation: false
 class: Research Article
 section: Genome Analysis
 author:
