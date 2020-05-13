@@ -1,6 +1,11 @@
 \documentclass[10pt]{article}
+
+$if(small_margin)$
+\RequirePackage[top=0.6in,left=0.6in,right=0.6in,bottom=0.3in,includefoot]{geometry}
+$else$
 \RequirePackage[top=0.8in,left=0.8in,right=0.8in,bottom=0.3in,includefoot]{geometry}
-  
+$endif$ 
+
 % Include a series of generic definitions and usepackage commands
 \input{mediabuilder.tex}
 
