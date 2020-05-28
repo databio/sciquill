@@ -75,12 +75,37 @@ Vestibulum semper condimentum enim accumsan malesuada. Aenean interdum tellus id
 ex scelerisque mattis. Mauris tempor urna felis, eu efficitur eros tempus
 condimentum. Aliquam erat volutpat.
 
-Vivamus eu rhoncus neque. Quisque egestas venenatis odio a mattis. Ut ligula
-turpis, facilisis a cursus eget, semper quis dolor. Integer varius est ipsum,
-porttitor ornare eros placerat eget. Nulla aliquet nisi arcu, sed vestibulum
-urna faucibus pretium. Maecenas laoreet diam non urna tincidunt iaculis a ut ex.
-Aenean sem enim, laoreet id accumsan sed, faucibus vitae diam. Aenean facilisis
-tincidunt risus. Mauris sit amet hendrerit est, sit amet maximus augue.
+Vivamus eu rhoncus neque.
+Quisque egestas venenatis odio a mattis.
+Ut ligula turpis, facilisis a cursus eget, semper quis dolor.
+Integer varius est ipsum, porttitor ornare eros placerat eget.
+Nulla aliquet nisi arcu, sed vestibulum urna faucibus pretium.
+Maecenas laoreet diam non urna tincidunt iaculis a ut ex.
+Aenean sem enim, laoreet id accumsan sed, faucibus vitae diam.
+Aenean facilisis tincidunt risus.
+Mauris sit amet hendrerit est, sit amet maximus augue.
+
+# Tables
+
+You can use markdown tables, too. Captions are preceded by the *Table* keyword.
+Unfortunately, I can't figure out how to put the caption below the table (it's above it by default).
+
+| Flag   | Indication                 |
+| :----: | -------------------------- |
+| 1      | CONTENT_ALL_A_IN_B         |
+| 2      | CONTENT_ALL_B_IN_A         |
+| 4      | LENGTHS_ALL_A_IN_B         |
+| 8      | LENGTHS_ALL_B_IN_A         |
+| 16     | NAMES_ALL_A_IN_B           |
+| 32     | NAMES_ALL_B_IN_A           |
+| 64     | CONTENT_A_ORDER            |
+| 128    | CONTENT_B_ORDER            |
+| 256    | CONTENT_ANY_SHARED         |
+| 512    | LENGTHS_ANY_SHARED         |
+| 1024   | NAMES_ANY_SHARED           |
+
+Table: Table \label{param_table}\ref{param_table}: **Compatibility flags**. A list of flags for compatibility testing functions.
+
 
 In hac habitasse platea dictumst. Mauris ut aliquet nunc, id mattis velit. Nunc
 commodo enim sed orci ultrices sodales. Fusce nec sem est. Nam euismod erat at
