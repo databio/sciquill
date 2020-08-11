@@ -9,6 +9,7 @@ $endif$
 % Include a series of generic definitions and usepackage commands
 \input{mediabuilder.tex}
 
+% \usepackage{microtype}
 
 % Need this for the \Letter glyph, envelope, for corresponding author.
 \usepackage[misc,geometry]{ifsym} 
@@ -88,6 +89,7 @@ $endif$
     \usepackage[utf8]{inputenc}
   \fi
 \fi
+
 $if(natbib)$
 \usepackage{natbib}
 \bibliographystyle{plainnat}
@@ -211,11 +213,11 @@ $endif$
   {\normalfont\color{lightblack}\itshape}{\theparagraph}{}{\addperiod}
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing\section{0pt}{12pt plus 2pt minus 1pt}{-2pt plus 1pt minus 1pt}
-\titlespacing\subsection{0pt}{11pt plus 2pt minus 1pt}{-2pt plus 1pt minus 1pt}
-\titlespacing\subsubsection{0pt}{4pt plus 2pt minus 1pt}{-2pt plus 2pt minus 2pt}
+\titlespacing\section{0pt}{12pt plus 2pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{11pt plus 2pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{4pt plus 2pt minus 2pt}{-2pt plus 2pt minus 2pt}
 
-\titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
+\titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
 
 
 % The maximum part of the top or bottom of a text page that can be
