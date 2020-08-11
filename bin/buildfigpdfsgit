@@ -1,0 +1,36 @@
+#! /bin/bash
+
+# Builds figures from svg to pdf for output in PDFs using pandoc.
+# only if the source file was changed more recently than the rendered file.
+
+# we can't rely on timestamps for version-controlled files, because VCS like git
+# doesn't preserve file times and modification times; thus we need to hash the
+# file when built and check hashes.
+
+echo "Build pdfs"
+currdir="`pwd`"
+outdir="$currdir/output"
+for svgfile in "$@"
+do
+  echo -n "Checking $svgfile..."
+  pdffile="${outdir}/${svgfile/svg/pdf}"
+  hashfile="${outdir}/${svgfile/svg/hash}"
+  mkdir -p `dirname $hashfile`
+  # srcdate=`stat -c %Y $svgfile`
+  # destdate=`stat -c %Y $pdffile 2>/dev/null`
+  svghashnew=`md5sum $svgfile | cut -f1 -d' '`
+  if [ -f $hashfile ];\
+  then
+    read svghashold < ${hashfile}
+  else
+    svghashold="NA"
+  fi
+  if [ ! -f $pdffile ] || [ "${svghashnew}" != "${svghashold}" ];
+  then
+    echo "Changed. new: $svghashnew; old: $svghashold. Building $pdffile"
+    inkscape --export-pdf "$pdffile" "${currdir}/$svgfile" 2> /dev/null
+    echo $svghashnew > ${hashfile}
+  else
+    echo "Checksums match: $svghashnew" 
+  fi
+done

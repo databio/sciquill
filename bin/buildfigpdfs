@@ -4,27 +4,27 @@
 # only if the source file was changed more recently than the rendered file.
 
 fileupdate() {
-srcfile=$1
-destfile=$2
-srcdate=`stat -c %Y $srcfile`
-destdate=`stat -c %Y $destfile`
-if [ ! -f $destfile ] || [ ${srcdate} -ge ${destdate} ]
-then
-	return 1
-else
-	return 0
-fi
+  srcfile=$1
+  destfile=$2
+  srcdate=`stat -c %Y $srcfile`
+  destdate=`stat -c %Y $destfile`
+  if [ ! -f $destfile ] || [ ${srcdate} -ge ${destdate} ]
+  then
+    return 1
+  else
+    return 0
+  fi
 }
 
 currdir="`pwd`"
 for svgfile in "$@"
 do
-	pdffile="${svgfile/svg/pdf}"
-	srcdate=`stat -c %Y $svgfile`
-	destdate=`stat -c %Y $pdffile 2>/dev/null`
-	if [ ! -f $pdffile ] || [ ${srcdate} -ge ${destdate} ];
-	then
-	echo "Detected change in $svgfile. svg-date: $srcdate; pdf-date: $destdate"
-	inkscape --export-pdf "${currdir}/$pdffile" "${currdir}/$svgfile"
+  pdffile="${svgfile/svg/pdf}"
+  srcdate=`stat -c %Y $svgfile`
+  destdate=`stat -c %Y $pdffile 2>/dev/null`
+  if [ ! -f $pdffile ] || [ ${srcdate} -ge ${destdate} ];
+  then
+  echo "Detected change in $svgfile. svg-date: $srcdate; pdf-date: $destdate"
+  inkscape --export-pdf "${currdir}/$pdffile" "${currdir}/$svgfile"
 fi
 done

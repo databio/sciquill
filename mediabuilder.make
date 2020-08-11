@@ -20,7 +20,6 @@ wrapfig = $(mbdir)/pandoc-wrapfig/pandoc-wrapfig.py
 
 # These are the typical flags we want to pass to pandoc
 define PANDOC_FLAGS
---filter $(wrapfig) \
 --template $(textemplate) \
 --bibliography $(bib) \
 --csl $(csl)
