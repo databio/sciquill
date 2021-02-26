@@ -1,0 +1,51 @@
+# action.yml
+name: "Build a sciquill document"
+description: "This action creates an environment and then runs your sciquill build process."
+
+inputs:
+  command:
+    description: "Command to run. Defaults to the default make target."
+    required: false
+    default: "make"
+  sqsubdir:
+    description: "To what subfolder did you clone the sciquill repository?"
+    default: "sciquill"
+    required: false
+  outputs:
+    description: "What files will this action produce that should be tracked in git?"
+    required: false
+    default: "build/*"
+  bibtexdb:
+    description: "Path to bibtex database."
+    required: false
+    default: null
+runs:
+  using: 'composite'
+  steps:
+    - run: pip3 install setuptools wheel
+      shell: bash
+    - run: pip3 install pandocfilters
+      shell: bash      
+    - run: pip3 install https://github.com/databio/bulker/archive/dev.zip 
+      shell: bash
+    - run: /home/runner/.local/bin/bulker load -c ${{ inputs.sqsubdir }}/bulker/bulker_config.yaml -r databio/sciquill -f ${{ inputs.sqsubdir }}/bulker/sciquill_bulker_manifest.yaml
+      shell: bash
+    - run: |
+        mkdir -p output
+        pwd
+        ls -l
+        export TEXINPUTS="$TEXINPUTS:${{ inputs.sqsubdir }}/tex_templates/:"
+        echo $TEXINPUTS
+        export SQDIR=`pwd`/${{ inputs.sqsubdir }}
+        ls -l $SQDIR
+        export BIBTEXDB=`pwd`/${{ inputs.bibtexdb }}
+        /home/runner/.local/bin/bulker run -c ${{ inputs.sqsubdir }}/bulker/bulker_config.yaml databio/sciquill ${{ inputs.command }}
+      shell: bash 
+      name: Run command with bulker
+    - name: Commit changes
+      shell: bash
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add ${{ inputs.outputs }}
+        git commit -m "Rebuild PDF" -a

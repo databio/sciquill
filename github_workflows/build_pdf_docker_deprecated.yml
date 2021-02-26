@@ -1,0 +1,48 @@
+name: Build PDF
+# This workflow is triggered on changes to source, or on a manual dispatch.
+on:
+  push:
+    paths:
+      - fig/*.svg
+  workflow_dispatch:
+    inputs: null
+
+env:
+  BULKERCFG: "bulker/bulker_config.yaml"
+  TEXINPUTS: "sciquill/tex_templates/:"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    name: Build PDF
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install bulker
+      uses: ./bulker-install-action
+    - name: Checkout sciquill repo
+      uses: actions/checkout@v2
+      with:
+        repository: nsheff/mediabuilder
+        path: sciquill
+    - name: Ensure output folder exists
+      run: mkdir -p output
+    - name: Load crate
+      uses: ./bulker-load-action
+      with:
+        manifest: databio/sciquill -f sciquill_bulker_manifest.yaml
+    - name: Build manuscript PDF
+      uses: ./bulker-run-action
+      with:
+        manifest: databio/sciquill
+        command: make manu
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add output/manuscript.pdf
+        git commit -m "Rebuild PDF" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}

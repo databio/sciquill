@@ -1,0 +1,35 @@
+bulker:
+  volumes: ['$HOME']
+  envvars: ['DISPLAY', 'BIBTEXDB', 'TEXINPUTS']
+  registry_url: http://hub.bulker.io/
+  shell_path: /bin/bash
+  shell_rc: ${HOME}/.bashrc
+  rcfile: templates/start.sh
+  rcfile_strict: templates/start_strict.sh
+  default_crate_folder: ${HOME}/bulker_crates
+  singularity_image_folder: ${HOME}/simages
+  container_engine: docker
+  default_namespace: bulker
+  executable_template: templates/docker_executable.jinja2
+  shell_template: templates/docker_shell.jinja2
+  build_template: templates/docker_build.jinja2
+  crates:
+    databio:
+      nsheff:
+        default: /home/nsheff/bulker_crates/databio/nsheff/default
+      mediabuilder:
+        default: /home/nsheff/bulker_crates/databio/sciquill/default
+        sciquill: null
+      sciquill:
+        default: /home/runner/bulker_crates/databio/sciquill/default
+    bulker:
+      alpinebase:
+        default: /home/runner/bulker_crates/bulker/alpinebase/default
+      demo:
+        default: /home/nsheff/bulker_crates/bulker/demo/default
+      alpine:
+        default: /home/runner/bulker_crates/bulker/alpine/default
+      coreutils:
+        default: /home/nsheff/bulker_crates/bulker/coreutils/default
+      biobase:
+        default: /home/nsheff/bulker_crates/bulker/biobase/default

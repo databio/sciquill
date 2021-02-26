@@ -26,7 +26,7 @@ $endif$
 \usepackage{pdfpages}
 
 
-\usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
+\usepackage[skip=2pt, font=footnotesize, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
 %  This code to use {caption} will wipe out the ability of pandoc-crossref
 %  to prepend the "Figure" reference to the caption.
 \DeclareCaptionLabelFormat{nolabel}{}
@@ -49,7 +49,6 @@ $endif$
 $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
-
 
 
 % Start column longtable hack
@@ -159,7 +158,7 @@ $if(date)$
 \date{$date$}
 $endif$
 
-
+\usepackage{bm} % bold in math mode.
 
 $if(linespread)$\linespread{$linespread$}$else$
 \linespread{1.0}
@@ -180,7 +179,7 @@ $endif$
 % Fancy abstract box styling ---------------------------------------------------
 
 \usepackage{mdframed}   % for framing
-\newmdenv[linecolor=white, fontcolor=bluetint, backgroundcolor=graybit, leftmargin=8, rightmargin=8, innertopmargin=8, innerbottommargin=8, innerleftmargin=12, innerrightmargin=12, roundcorner=10pt, font=\large]{infobox}
+\newmdenv[linecolor=white, fontcolor=bluetint, backgroundcolor=graybit, leftmargin=8, rightmargin=8, innertopmargin=8, innerbottommargin=8, innerleftmargin=12, innerrightmargin=12, roundcorner=10pt, font=\normalsize]{infobox}
 
 
 
@@ -189,11 +188,11 @@ $endif$
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}
     \selectfont\color{bluetint}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{phv}\fontsize{10pt}{10pt}
+  {\normalfont\fontfamily{phv}\fontsize{9pt}{9pt}
     \selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
@@ -223,16 +222,16 @@ $endif$
 % The maximum part of the top or bottom of a text page that can be
 % occupied by floats. This is set so that at least four lines of text 
 % fit on the page.
-\renewcommand\topfraction{.9}
-\renewcommand\bottomfraction{.9}
-% The minimum amount of a text page that must be occupied by text.
-% This should accomodate four lines of text.
-\renewcommand\textfraction{.06}
-% The minimum amount of a float page that must be occupied by floats.
-\renewcommand\floatpagefraction{.94}
+% \renewcommand\topfraction{.9}
+% \renewcommand\bottomfraction{.9}
+% % The minimum amount of a text page that must be occupied by text.
+% % This should accomodate four lines of text.
+% \renewcommand\textfraction{.06}
+% % The minimum amount of a float page that must be occupied by floats.
+% \renewcommand\floatpagefraction{.94}
 
-% The same parameters repeated for double column output
-\renewcommand\dbltopfraction{.9}
+% % The same parameters repeated for double column output
+\renewcommand\dbltopfraction{.96}
 \renewcommand\dblfloatpagefraction{.9}
 
 % Attempt to smash lists together
@@ -299,13 +298,11 @@ $endfor$
     {    $if(author)$
     \ignorespaces\@author
     $endif$
-
     $if(permalink)$
       \newline\href{http://databio.org$permalink$}{http://databio.org$permalink$}
     $endif$
     \par}
-  
-     \vspace{0.2em}
+    \vspace{0.2em}
     \end{raggedright}
 } % end \maketitle
 \makeatother
@@ -329,6 +326,29 @@ $if(csl-refs)$
 $endif$
 
 
+% \makeatletter
+% \newenvironment{processtable}[3]{\setbox\temptbox=\hbox{{\tablesize #2}}%
+% \tempdime\wd\temptbox\@processtable{#1}{#2}{#3}{\tempdime}}
+% {\relax}
+
+% \newcommand{\@processtable}[4]{%
+% \if@rotate
+% \setbox4=\vbox to \hsize{\vss\hbox to \textheight{%
+% \begin{minipage}{#4}%
+% \@ifmtarg{#1}{}{\caption{#1}}{\tablesize #2}%
+% \vskip7\p@\noindent
+% \parbox{#4}{\fontsize{7}{9}\selectfont #3\par}%
+% \end{minipage}}\vss}%
+% \rotr{4}
+% \else
+% \hbox to \hsize{\hss\begin{minipage}[t]{#4}%
+% \vskip2.9pt
+% \@ifmtarg{#1}{}{\caption{#1}}{\tablesize #2}%
+% \vskip6\p@\parindent=12pt
+% \parbox{#4}{\fontsize{7}{9}\selectfont #3\par}%
+% \end{minipage}\hss}\fi}%
+% \makeatother
+
 
 
 
@@ -336,6 +356,23 @@ $endif$
 \begin{document}
 
 $if(onecol)$
+    $if(title)$
+    \maketitle
+    $endif$
+
+    $if(abstract)$
+    \begin{infobox}
+    $abstract$
+    \end{infobox}
+    $endif$
+
+    $for(include-before)$
+    $include-before$
+
+    $endfor$
+    $if(toc)$
+    \tableofcontents
+    $endif$
 $else$
 \twocolumn[{%
   \begin{@twocolumnfalse}
@@ -358,6 +395,10 @@ $else$
     $endif$
   \end{@twocolumnfalse}
 }]
+$endif$
+
+$if(bodyfont)$
+\$bodyfont$
 $endif$
 
 $body$

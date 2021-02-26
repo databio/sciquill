@@ -1,11 +1,4 @@
-# mediabuilder
-
-This repository helps you write your academic grant, paper, biosketch, or CV in
-`markdown`. It provides templates, style files, and helper scripts that
-are useful for building PDFs from `markdown`. This
- bring us closer to the goal of authoring scientific documents in
-markdown to completely [separate content from
-style](http://databio.org/posts/markdown_style.html).
+# Sciquill
 
 ## Examples of input/output
 
@@ -44,18 +37,18 @@ Or you can do it the hard way:
 
 
 2. Clone and configure `mediabuilder`:
-	* Clone [nsheff/mediabuilder](http://github.com/nsheff/mediabuilder) (this repository, cloned with `--recursive` to get the [nsheff/pandoc-wrapfig](http://github.com/nsheff/pandoc-wrapfig) submodule)
-	* Configure `mediabuilder`. The examples use an environment variable `$CODEBASE`, to where you will store this repo:
+	* Clone [databio/sciquill](http://github.com/databio/sciquill)
+	* Configure `mediabuilder`. The examples use an environment variable `$CODE`, in which you will store this repo:
 
 	```
-	export CODEBASE=`pwd`/
-	git clone git@github.com:nsheff/mediabuilder.git --recursive
+	export CODE=`pwd`
+	git clone git@github.com:databio/sciquill.git
 	```
 
 	The latex templates in `tex_templates` rely on some relative includes. To use these you'll need to add the path to that folder to your `TEXINPUTS` environment variable. Adding something like this in your `.bashrc` will accomplish this permanently:
 
 	```
-	export TEXINPUTS="${TEXINPUTS}${CODEBASE}mediabuilder/tex_templates/:"
+	export TEXINPUTS="${TEXINPUTS}${CODE}/sciquill/tex_templates/:"
 	```
 
 	If using bulker, you will also need to make sure this variable is passed on to your bulker tools. So, add it to the list of `envvars` in your bulker config file.
@@ -235,4 +228,51 @@ pandoc \
 ```
 
 That will suppress the bibliography in the output. Done!
+
+
+# Testing sciquill with docker
+
+## Start up the container for testing
+
+docker run --rm -it --volume=`pwd`:/repo --volume=$HOME/code/mediabuilder:/mbdir  --env TEXINPUTS=/mbdir/tex_templates: --workdir="/repo" --network="host" --entrypoint sh pandoc/latex 
+
+## Run the test
+
+pandoc content.md -o content.pdf --template  /mbdir/tex_templates/twocol.tex
+
+
+## The whole shebang
+
+This line will test the entire process
+
+docker run --rm -it --volume=`pwd`:/repo --volume=$HOME/code/mediabuilder:/mbdir  --env TEXINPUTS=/mbdir/tex_templates: --workdir="/repo" --network="host" --entrypoint pandoc databio/sciquill  src/content.md -o output/content.pdf  --template  /mbdir/tex_templates/twocol.tex
+
+docker run --rm -it --volume=`pwd`:/repo --volume=$HOME/code/mediabuilder:/mbdir  --env TEXINPUTS=/mbdir/tex_templates: --workdir="/repo" --network="host" --entrypoint pandoc databio/sciquill  src/*.md -o output/content.pdf  --template  /mbdir/tex_templates/twocol.tex
+
+
+
+
+docker run --rm -it --volume=`pwd`:/repo --volume=$HOME/code/mediabuilder:/mbdir  --env TEXINPUTS=/mbdir/tex_templates: --workdir="/repo" --network="host" --entrypoint make databio/sciquill  manu
+
+
+
+
+
+bulker load -c bulker/bulker_config.yaml databio/sciquill -f sciquill_bulker_manifest.yaml -r
+
+
+
+## Pandoc in containers
+
+in the past I just used  `pandoc --filter wrapfig`, but this way, the pandoc image has to have python available. It works better to use a pipe so that each program can run in its own container; so now: `	pandoc -t json | $(wrapfig) | pandoc -f json \` This works.
+
+
+
+
+
+
+
+
+
+
 

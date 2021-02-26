@@ -1,0 +1,40 @@
+manifest:
+  name: mediabuilder
+  version: 1.0.0
+  imports: 
+  - bulker/alpinebase:default
+  commands:
+  - command: latex
+    docker_image: databio/sciquill
+  - command: git
+    docker_image: nsheff/git
+  - command: bibtool
+    docker_image: nsheff/pandoc
+  - command: inkscape
+    docker_image: nsheff/vis
+  - command: jabref
+    docker_image: nsheff/jabref
+    docker_command: java -Xmx2000m -jar /JabRef.jar
+  - command: jabref-cl
+    docker_image: nsheff/jabref
+    description:  "command-line only; don't allocate TTY. Useful for background jobs."
+    docker_args: "--name=jabref-cl"
+    docker_command: java -Xmx2000m -jar /JabRef.jar
+  - command: libre
+    docker_image: nsheff/libreoffice
+    docker_command: "libreoffice -env:UserInstallation=file:///tmp/ -env:SingleAppInstance='false'"
+  - command: liquify
+    docker_image: nsheff/liquify
+    docker_command: bash -c "./liquify.rb"
+  - command: mkdocs
+    docker_image: nsheff/mkdocs
+  - command: pandoc
+    docker_image: databio/sciquill
+    docker_args: "-i"
+    docker_command: " "
+  - command: gs
+    docker_image: minidocks/ghostscript
+  - command: pdflatex
+    docker_image: databio/sciquill
+
+    # eventually switch to: docker.pkg.github.com/databio/sciquill/sciquill:0.0.1

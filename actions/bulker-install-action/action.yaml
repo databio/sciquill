@@ -1,0 +1,12 @@
+# action.yml
+name: "Install bulker"
+description: "Installs bulker software"
+runs:
+  using: 'composite'
+  steps:
+    - run: pip3 install setuptools wheel
+      shell: bash
+    - run: pip3 install https://github.com/databio/bulker/archive/dev.zip 
+      shell: bash
+    - run: echo $BULKERCFG
+      shell: bash

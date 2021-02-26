@@ -1,14 +1,11 @@
-# User configuration -----------------------------------------------------------
-# Set this variable to point to your mediabuilder repository
-mbdir = ${CODEBASE}mediabuilder
+# Sciquill configuration ------------------------------------------------------
+# sqdir - points to your sciquill repository
+# sqtype - sciquill media type: 'manuscript', 'cv', or 'grant'
+# then, include sciquill.make for default recipes and variables
 
-# choose a mediabuilder type: 'manuscript', 'cv', or 'grant'
-mbtype = grant
-
-# Include the mediabuilder.make file to get access to default recipes and
-# default variables (which can be overridden below)
-include $(mbdir)/mediabuilder.make
-
+sqdir = ${SQDIR}
+sqtype = grant
+include $(sqdir)/sciquill.make
 
 # User overrides ---------------------------------------------------------------
 #csl = ${CODEBASE}styles/bioinformatics.csl

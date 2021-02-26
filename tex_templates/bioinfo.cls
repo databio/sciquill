@@ -27,7 +27,7 @@
 \ProcessOptions
 
 % Load all necessary packages
-\RequirePackage{inputenc,crop,graphicx,amsmath,array,color,amssymb,flushend,stfloats,amsthm,chngpage,times}
+\RequirePackage{inputenc,graphicx,amsmath,array,color,amssymb,flushend,stfloats,amsthm,chngpage,times}
 \RequirePackage[LY1]{fontenc}
 
 \renewcommand{\rmdefault}{ptm}
@@ -397,7 +397,7 @@
 \long\def\subtitle#1{\gdef\@subtitle{#1}}
 \subtitle{Genome analysis}
 
-\long\def\author{\@ifnextchar[{\short@uthor}{\@uthor}}
+% \long\def\author{\@ifnextchar[{\short@uthor}{\@uthor}}
 \def\short@uthor[#1]{\authormark{#1}\@@author}
 \def\@uthor#1{\authormark{#1}\@@author{#1}}
 \long\def\@@author#1{\gdef\@author{#1}}
@@ -458,7 +458,6 @@
   \global\let\history\relax
   \global\let\editor\relax
   \global\let\title\relax
-  \global\let\author\relax
   \global\let\date\relax
   \global\let\pubyear\relax
   \global\let\@copyrightline\@empty
@@ -976,5 +975,50 @@
 %         #2}}}}
 
 \renewcommand{\dag}{{\mathversion{normal}$^{\dagger}$}}
+
+
+% HYPERLINKS -------------------------------------------------------------------
+
+% Setting up hyperref so that links can be populated
+\usepackage{ifxetex,ifluatex}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+
+\usepackage{float} % provides the H option for float placement
+\usepackage{booktabs} % provides toprule and midrule and bottomrule
+
+% ALGORITHMS -------------------------------------------------------------------
+
+% These two packages are used to write algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
+% FIGURES ----------------------------------------------------------------------
+% used for wrapfig
+\usepackage{wrapfig}
+
+% \usepackage{dblfloatfix}
+
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+
+
+
+
 
 \endinput
