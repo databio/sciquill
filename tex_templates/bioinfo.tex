@@ -1,7 +1,6 @@
 \documentclass{bioinfo}
 
 % Include a series of generic definitions and usepackage commands
-\input{mediabuilder.tex}
 
 
 \copyrightyear{$year$} \pubyear{$year$}
@@ -24,6 +23,7 @@ $if(csl-refs)$
   {\par} % by default, this env does not change anything
 $endif$
 
+\usepackage{bm} % bold in math mode.
 
 \begin{document}
 \firstpage{1}
@@ -36,7 +36,7 @@ $endif$
 % $$^{\text{\sf 2}}$$Department, Institution, City, Post Code,
 % Country.}
 
-\def \email { }
+\def \email {  }
 
 $for(author)$
 $if(author.correspondence)$
@@ -49,13 +49,24 @@ $endfor$
 $for(author)$
 $if(author.name)$
   $if(author.correspondence)$
-	$author.name$$$^{\text{\sfb $author.affiliation$,*}}$$
-  $else$
-	$author.name$$$^{\text{\sfb $author.affiliation$}}$$
-  $endif$
+	$author.name$$$^{\text{\sfb $author.affiliation$,*}}$$$else$$author.name$$$^{\text{\sfb $author.affiliation$}}$$,$endif$
 $endif$  
 $endfor$
 }
+
+% $for(author)$
+% $if(author.name)$
+%   $if(author.correspondence)$
+%     \author{$author.name$}
+%   $else$
+%     \author{$author.name$}
+%   $endif$
+% $else$
+% \author{$author$}
+% $endif$
+% $endfor$
+
+
 
 % institutions must come after \author definitions so that corresponding tag comes last.
 \address{

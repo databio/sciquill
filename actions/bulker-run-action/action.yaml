@@ -1,0 +1,17 @@
+# action.yml
+name: "Bulker run"
+description: "Run a bulker command"
+inputs:
+  manifest:
+    description: "Bulker manifest to load"
+    required: true
+  command:
+    description: "Command to run"
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - run: |
+        /home/runner/.local/bin/bulker run ${{ inputs.manifest }} ${{ inputs.command }}
+      shell: bash 
+      name: Run command with bulker

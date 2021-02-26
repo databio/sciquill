@@ -1,0 +1,27 @@
+# action.yml
+# deprecated by the new sciquill build action
+
+name: "Build PDF"
+description: "Builds PDF from input markdown"
+inputs:
+  source:  # id of input
+    description: "Source markdown file"
+    required: true
+    default: "src/content.md"
+  output:
+    description: "Filename for output PDF file"
+    required: true
+    default: "output/manuscript.pdf"
+  template:
+    description: "Tex template file"
+    required: true
+runs:
+  using: 'docker'
+  image: 'databio/sciquill'
+  entrypoint: pandoc
+  args:
+    - ${{ inputs.source }}
+    - "-o"
+    - ${{ inputs.output }}
+    - "--template"
+    - ${{ inputs.template }}

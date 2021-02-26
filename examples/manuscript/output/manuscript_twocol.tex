@@ -1,0 +1,499 @@
+\documentclass[10pt]{article}
+
+\RequirePackage[top=0.8in,left=0.8in,right=0.8in,bottom=0.3in,includefoot]{geometry}
+ 
+
+% Include a series of generic definitions and usepackage commands
+\input{mediabuilder.tex}
+
+% \usepackage{microtype}
+
+% Need this for the \Letter glyph, envelope, for corresponding author.
+\usepackage[misc,geometry]{ifsym} 
+
+
+\usepackage{authblk}
+
+\renewcommand{\rmdefault}{bch} % Charter
+\renewcommand{\sfdefault}{bch} % Charter
+
+
+% used for twocol flush balance end on last page
+\usepackage{flushend}
+\usepackage{pdfpages}
+
+
+\usepackage[skip=2pt, font=footnotesize, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
+%  This code to use {caption} will wipe out the ability of pandoc-crossref
+%  to prepend the "Figure" reference to the caption.
+\DeclareCaptionLabelFormat{nolabel}{}
+\captionsetup{labelformat=nolabel}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+
+% colors
+\definecolor{bluehaze}{RGB}{54,95,145}
+\definecolor{maroonhaze}{RGB}{148,54,52}
+\definecolor{orangehaze}{RGB}{227,108,10}
+\definecolor{black}{RGB}{0,0,0}
+\definecolor{bluetint}{RGB}{0,50,100}
+\definecolor{bluetint2}{RGB}{0,30,60}
+\definecolor{graytint}{RGB}{175,175,175}
+\definecolor{graybit}{RGB}{245,245,245}
+\definecolor{lightblack}{RGB}{75,75,75}
+\definecolor{brickred}{rgb}{0.8, 0.25, 0.33}
+%  This is used to allow Shaded environment
+
+
+% Start column longtable hack
+% Allows tables to be used in two-column documents with pandoc
+% Credit: https://tex.stackexchange.com/a/224096/161489
+\makeatletter
+\let\oldlt\longtable
+\let\endoldlt\endlongtable
+
+\def\longtable{\@ifnextchar[\longtable@i \longtable@ii}
+\def\longtable@i[#1]{\begin{figure}[H]
+\onecolumn
+\begin{minipage}{0.5\textwidth}
+\oldlt[#1]
+}
+\def\longtable@ii{\begin{figure}[H]
+\onecolumn
+\begin{minipage}{0.5\textwidth}
+\oldlt
+}
+\def\endlongtable{\endoldlt
+\end{minipage}
+\twocolumn
+\end{figure}}
+\makeatother
+% End column longtable hack
+
+
+\ifxetex
+  \usepackage{fontspec,xltxtra,xunicode}
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+\else
+  \ifluatex
+    \usepackage{fontspec}
+    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \else
+    \usepackage[utf8]{inputenc}
+  \fi
+\fi
+
+\usepackage{ctable}
+\usepackage{float} % provides the H option for float placement
+
+
+\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze, linkcolor=bluehaze, citecolor=bluehaze, anchorcolor=bluehaze}
+\setcounter{secnumdepth}{0}
+
+\title{Example article title}
+% % \author{true}
+% 
+
+
+
+\linespread{1.0}
+
+
+% Fancy page numbering ---------------------------------------------------------
+
+%\pagestyle{fancy}
+%\fancyhead[RO]{Sheffield \thepage}
+\usepackage{fancyhdr}
+\fancyhead{} % empty
+\fancyfoot{} % empty out the default, which is page number in center
+\def\middot{\textperiodcentered~}
+\lfoot{\scriptsize \thepage \middot Short title   }
+\pagestyle{fancy}
+
+
+% Fancy abstract box styling ---------------------------------------------------
+
+\usepackage{mdframed}   % for framing
+\newmdenv[linecolor=white, fontcolor=bluetint, backgroundcolor=graybit, leftmargin=8, rightmargin=8, innertopmargin=8, innerbottommargin=8, innerleftmargin=12, innerrightmargin=12, roundcorner=10pt, font=\normalsize]{infobox}
+
+
+
+% Title spacing, size, and color ------------------------------------------------------
+\usepackage{titlesec}
+\usepackage{xcolor}% http://ctan.org/pkg/xcolor
+
+\titleformat{\section}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}
+    \selectfont\color{bluetint}\bfseries}{\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\fontfamily{phv}\fontsize{9pt}{9pt}
+    \selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\fontfamily{phv}\fontsize{1em}{1em}
+    \selectfont\color{black}}{\thesubsubsection}{1em}{}
+
+
+
+% use amsthm for addpunct, to add periods to the end of non-punctuated
+% paragraph titles (header level 4; ####)
+\usepackage{amsthm}
+\makeatletter
+\newcommand{\addperiod}[1]{#1\@addpunct{.}}
+\makeatother
+% use runin to specify no newline
+\titleformat{\paragraph}[runin]
+  {\normalfont\color{lightblack}\itshape}{\theparagraph}{}{\addperiod}
+
+% \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
+\titlespacing\section{0pt}{12pt plus 2pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{11pt plus 2pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{4pt plus 2pt minus 2pt}{-2pt plus 2pt minus 2pt}
+
+\titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 2pt}
+
+
+% The maximum part of the top or bottom of a text page that can be
+% occupied by floats. This is set so that at least four lines of text 
+% fit on the page.
+% \renewcommand\topfraction{.9}
+% \renewcommand\bottomfraction{.9}
+% % The minimum amount of a text page that must be occupied by text.
+% % This should accomodate four lines of text.
+% \renewcommand\textfraction{.06}
+% % The minimum amount of a float page that must be occupied by floats.
+% \renewcommand\floatpagefraction{.94}
+
+% % The same parameters repeated for double column output
+% \renewcommand\dbltopfraction{.9}
+% \renewcommand\dblfloatpagefraction{.9}
+
+% Attempt to smash lists together
+
+\let\tightlist\relax
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{3pt}
+  \setlength{\topsep}{-6pt}
+  }
+\usepackage{enumerate}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=0pt,parsep=2pt,itemindent=0pt,leftmargin=18pt}
+% \def\labelitemi{\raisebox{0.5ex}{\tiny\textbullet}}
+
+
+% Convert author/affiliations from yaml into latex -----------------------------
+
+      \author[1,2,3,4,\Letter]{Nathan C. Sheffield}
+  
+% institutions must come after \author definitions so that corresponding tag comes last.
+\affil[1]{Center for Public Health Genomics, University of Virginia}
+\affil[2]{Department of Public Health Sciences, University of Virginia}
+\affil[3]{Department of Biomedical Engineering, University of Virginia}
+\affil[4]{Department of Biochemistry and Molecular Genetics, University
+of Virginia}
+
+      \affil[ ]{\Letter \hspace{0.08cm}  Correspondence: \href{mailto:nsheffield@virginia.edu}{nsheffield@virginia.edu}}
+
+
+% bring affils a little closer to author.
+\setlength{\affilsep}{0.5em}
+
+\usepackage{titling}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\Affilfont}{\scriptsize}
+\makeatletter
+
+% Define the nice-looking title for the databio theme
+\renewcommand{\maketitle}{
+      \begin{flushright}{\huge{\color{graytint}\textbf{\MakeUppercase{Research
+Article}}}}\end{flushright}\vspace{-0.4em}
+    {\color{graytint}\hrule}\vspace{0.3em}
+    \begin{raggedright} 
+  \huge\textbf{\@title}
+    \par\normalsize \vspace{0.5em}
+    {        \ignorespaces\@author
+    
+        \par}
+  
+     \vspace{0.2em}
+    \end{raggedright}
+} % end \maketitle
+\makeatother
+
+%\subsectionfont{\color{maroonhaze}}
+%\subsubsectionfont{\color{orangehaze}}
+% end colors
+
+% this code uses titles.sty to make a pagebreak with every header 1
+% so each section will begin on a new page.
+%\newcommand{\sectionbreak}{\clearpage}
+
+
+
+\newlength{\cslhangindent}       % set up new length
+\setlength{\cslhangindent}{0em}
+\newenvironment{cslreferences}%
+  {\everypar{\setlength{\hangindent}{\cslhangindent}}}%
+  {\par} % by default, this env does not change anything
+
+
+
+
+
+
+\begin{document}
+
+\twocolumn[{%
+  \begin{@twocolumnfalse}
+        \maketitle
+    
+        \begin{infobox}
+    Vivamus eu rhoncus neque. Quisque egestas venenatis odio a mattis.
+    Ut ligula turpis, facilisis a cursus eget, semper quis dolor.
+    Integer varius est ipsum, porttitor ornare eros placerat eget. Nulla
+    aliquet nisi arcu, sed vestibulum urna faucibus pretium. Maecenas
+    laoreet diam non urna tincidunt iaculis a ut ex. Aenean sem enim,
+    laoreet id accumsan sed, faucibus vitae diam. Aenean facilisis
+    tincidunt risus. Mauris sit amet hendrerit est, sit amet maximus
+    augue.
+    \end{infobox}
+    
+          \end{@twocolumnfalse}
+}]
+
+
+\hypertarget{citations}{%
+\section{Citations}\label{citations}}
+
+Cite papers using brackets and \texttt{bibtex} keys. Example citation:
+\texttt{{[}@Sheffield2016{]}} will be rendered like
+this\textsuperscript{1}. Use semicolons to separate multiple
+citations\textsuperscript{1,2}.
+
+\hypertarget{figures}{%
+\section{Figures}\label{figures}}
+
+\begin{figure}
+\centering
+\includegraphics{fig/example_figure.pdf}
+\caption{\label{abstract}Fig. \ref{abstract}: Example full-width figure}
+\end{figure}
+
+Refer to a figure using figure labels, so they are numbered
+automatically, like this: \texttt{\textbackslash{}ref\{abstract\}} (See
+Fig. \ref{abstract}). Wrap a figure using the \texttt{pandoc-wrapfig}
+extension by adding `\{0\}' to the end of the caption (Fig.
+\ref{wrapped}).
+
+\setlength{\intextsep}{2pt}\setlength{\columnsep}{8pt}\begin{wrapfigure}{R}{44mm}\centering\includegraphics{fig/example_figure.pdf}\caption{\label{wrapped}Fig.
+\ref{wrapped}: Example wrapped figure}\vspace{-5pt}\end{wrapfigure}
+
+Duis in tempor mauris, a lobortis nisl. Integer arcu lorem, vehicula sed
+ante commodo, maximus eleifend nisi. Aenean efficitur molestie lorem, ac
+pharetra felis euismod nec. Duis vitae ligula facilisis, dignissim justo
+eget, elementum est. Nulla quis mi a justo porta pellentesque eget sit
+amet purus. Ut ac vestibulum ante, in efficitur massa. Cras feugiat in
+urna facilisis ultrices. Nullam vestibulum, lacus eget pretium pharetra,
+augue ligula consectetur diam, eget condimentum ipsum magna sed augue.
+
+\setlength{\intextsep}{2pt}\setlength{\columnsep}{8pt}\begin{figure*}[t]\centering\includegraphics{fig/example_figure.pdf}\caption{\label{fig3}Fig.
+\ref{fig3}: Example double-column figure}\vspace{-5pt}\end{figure*}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate
+tellus sed vulputate maximus. Interdum et malesuada fames ac ante ipsum
+primis in faucibus. Praesent interdum sapien dui, in placerat velit
+egestas auctor. Class aptent taciti sociosqu ad litora torquent per
+conubia nostra, per inceptos himenaeos. Etiam ac nunc auctor, iaculis
+nulla quis, tempor arcu. Vestibulum volutpat, massa sed blandit aliquet,
+est elit rhoncus est, eu finibus leo turpis sit amet nisl. Fusce nec
+diam ut sapien rutrum consequat. Aliquam massa sapien, molestie sed
+ligula vitae, lacinia rutrum mi. Fusce ullamcorper accumsan quam vel
+aliquam. Nullam efficitur, arcu eu consectetur tempus, mi dui facilisis
+dolor, id lacinia augue turpis ut massa. Proin tincidunt congue
+lobortis. Vestibulum semper condimentum enim accumsan malesuada. Aenean
+interdum tellus id ex scelerisque mattis. Mauris tempor urna felis, eu
+efficitur eros tempus condimentum. Aliquam erat volutpat.
+
+Vivamus eu rhoncus neque. Quisque egestas venenatis odio a mattis. Ut
+ligula turpis, facilisis a cursus eget, semper quis dolor. Integer
+varius est ipsum, porttitor ornare eros placerat eget. Nulla aliquet
+nisi arcu, sed vestibulum urna faucibus pretium. Maecenas laoreet diam
+non urna tincidunt iaculis a ut ex. Aenean sem enim, laoreet id accumsan
+sed, faucibus vitae diam. Aenean facilisis tincidunt risus. Mauris sit
+amet hendrerit est, sit amet maximus augue.
+
+\hypertarget{tables}{%
+\section{Tables}\label{tables}}
+
+You can use markdown tables, too. Captions are preceded by the
+\emph{Table} keyword. Unfortunately, I can't figure out how to put the
+caption below the table (it's above it by default).
+
+\begin{longtable}[]{@{}cl@{}}
+\caption{Table \label{param_table}\ref{param_table}:
+\textbf{Compatibility flags}. A list of flags for compatibility testing
+functions.}\tabularnewline
+\toprule
+Flag & Indication\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Flag & Indication\tabularnewline
+\midrule
+\endhead
+1 & CONTENT\_ALL\_A\_IN\_B\tabularnewline
+2 & CONTENT\_ALL\_B\_IN\_A\tabularnewline
+4 & LENGTHS\_ALL\_A\_IN\_B\tabularnewline
+8 & LENGTHS\_ALL\_B\_IN\_A\tabularnewline
+16 & NAMES\_ALL\_A\_IN\_B\tabularnewline
+32 & NAMES\_ALL\_B\_IN\_A\tabularnewline
+64 & CONTENT\_A\_ORDER\tabularnewline
+128 & CONTENT\_B\_ORDER\tabularnewline
+256 & CONTENT\_ANY\_SHARED\tabularnewline
+512 & LENGTHS\_ANY\_SHARED\tabularnewline
+1024 & NAMES\_ANY\_SHARED\tabularnewline
+\bottomrule
+\end{longtable}
+
+In hac habitasse platea dictumst. Mauris ut aliquet nunc, id mattis
+velit. Nunc commodo enim sed orci ultrices sodales. Fusce nec sem est.
+Nam euismod erat at neque facilisis iaculis. Cras rutrum elementum erat
+eu egestas. In sit amet est vitae ligula semper vestibulum sit amet quis
+justo. Sed porta dolor ac scelerisque congue.
+
+Vivamus convallis arcu et lacus egestas tempus. Pellentesque habitant
+morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+Integer eleifend efficitur risus sit amet suscipit. Curabitur
+consectetur sapien eget nulla maximus, quis lobortis nisl porta. Sed
+hendrerit semper placerat. Nulla sagittis orci arcu, a tincidunt lorem
+lacinia sit amet. Nullam nec fringilla odio. In mollis vitae nibh ut
+sollicitudin. Aliquam finibus tellus quis sollicitudin cursus. Cras
+lobortis, tortor ac sodales tempus, lacus ipsum aliquam mauris, sed
+placerat neque ante in arcu. Aliquam erat volutpat. Donec eu sodales
+odio, eu cursus libero.
+
+Sed in porttitor leo. Class aptent taciti sociosqu ad litora torquent
+per conubia nostra, per inceptos himenaeos. Sed tristique malesuada
+ligula, vulputate commodo mi lacinia ut. Ut consectetur, mauris vitae
+hendrerit mattis, nisi urna condimentum nibh, vitae rhoncus nulla tellus
+sit amet dui. Vivamus tempus magna eget quam posuere interdum. Nulla
+turpis augue, consequat quis euismod a, tincidunt sed ligula. Integer ac
+iaculis lacus, nec posuere augue. Fusce vitae dictum felis. In hac
+habitasse platea dictumst. Etiam suscipit magna turpis, eget volutpat
+lectus placerat quis. Mauris sed cursus erat. Sed a pellentesque felis.
+Ut in blandit dolor, vitae lobortis justo. Aenean turpis felis, pulvinar
+fringilla vulputate et, venenatis in lorem. Donec vulputate, nunc non
+imperdiet ullamcorper, justo nunc placerat elit, ut pretium justo metus
+a mi.
+
+\hypertarget{embedded-latex}{%
+\section{Embedded LaTeX}\label{embedded-latex}}
+
+You can insert \texttt{latex} in-line in the markdown document:
+\(rList[I_E] \leq q.start\)
+
+Or you can create separate environments like this:
+
+\hypertarget{algorithm-examples}{%
+\subsection{Algorithm examples}\label{algorithm-examples}}
+
+These examples use the \texttt{algorithmic} environment (from the
+\texttt{algorithmcx} package:)
+
+\begin{algorithmic}
+\Require $n \geq 0$
+\Ensure $y = x^n$
+\State $y \Leftarrow 1$
+\State $X \Leftarrow x$
+\State $N \Leftarrow n$
+\While{$N \neq 0$}
+\If{$N$ is even}
+  \State $X \Leftarrow X \times X$
+  \State $N \Leftarrow \frac{N}{2} $  \Comment{This is a comment}
+\ElsIf{$N$ is odd}
+  \State $y \Leftarrow y \times X$
+  \State $N \Leftarrow N - 1$
+\EndIf
+\EndWhile
+\end{algorithmic}
+
+\begin{algorithmic}[1]
+\Repeat
+\Comment{forever}
+\State this\Until{you die.}
+\end{algorithmic}
+
+This example uses the \texttt{algorithm} environment:
+
+\begin{algorithm}
+\caption{Euclid’s algorithm}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+\State $r\gets a\bmod b$
+\While{$r\not=0$}\Comment{We have the answer if r is 0}
+\State $a\gets b$
+\State $b\gets r$
+\State $r\gets a\bmod b$
+\EndWhile\label{euclidendwhile}
+\State \textbf{return} $b$\Comment{The gcd is b}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+Maecenas vitae sodales est, venenatis ullamcorper magna. Integer id orci
+ut arcu venenatis mattis. Pellentesque eget risus non lectus interdum
+efficitur. In pharetra odio in tellus eleifend commodo. Morbi facilisis
+mauris ac eros gravida pretium. Nam sit amet nisi massa. Morbi at turpis
+in leo dictum suscipit. Ut interdum, orci sed laoreet venenatis, odio
+dui consectetur tortor, sit amet vulputate ipsum neque ac ante. Vivamus
+vitae mi interdum, dignissim leo lobortis, ultricies leo. Aenean
+facilisis sagittis urna in blandit. Sed sit amet consectetur purus.
+Mauris bibendum efficitur magna, vitae egestas lacus pretium dignissim.
+Nullam eu magna est. Suspendisse vel lobortis metus.
+
+Suspendisse potenti. Donec gravida ut mauris vel scelerisque. Nullam
+gravida maximus porttitor. Duis dictum nisl sed neque tristique sodales.
+Maecenas lacinia dolor eget ligula volutpat maximus. Etiam placerat
+lobortis enim ut iaculis. Orci varius natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Fusce porta venenatis metus,
+vehicula sagittis ligula faucibus vel. Nunc nibh ipsum, vulputate sed
+bibendum non, euismod at sem. Praesent mi nulla, ornare vitae est a,
+euismod facilisis mauris.
+
+Mauris a orci vehicula, aliquam orci in, cursus eros. Lorem ipsum dolor
+sit amet, consectetur adipiscing elit. Cras semper vel enim eu dapibus.
+Maecenas placerat arcu nec metus tincidunt pharetra. Aenean rhoncus
+lacinia elit et cursus. Ut et metus vel augue sagittis volutpat quis nec
+nisi. Ut massa nisi, maximus vitae faucibus ut, eleifend ut odio.
+
+Nam aliquam ex non accumsan efficitur. Nullam vehicula lorem vitae
+porttitor pellentesque. Fusce a tristique mi, sed congue velit. Nullam
+at ornare quam. Proin hendrerit accumsan ipsum, sed viverra velit
+vehicula sit amet. Donec non lectus diam. Sed condimentum non velit vel
+suscipit. Sed odio ex, vestibulum ullamcorper odio sit amet, lobortis
+accumsan risus. Nulla facilisi. Mauris eleifend viverra metus, ac varius
+lacus scelerisque non.
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{cslreferences}
+\leavevmode\hypertarget{ref-Sheffield2016}{}%
+1. Sheffield, N. C. \& Bock, C. LOLA: Enrichment analysis for genomic
+region sets and regulatory elements in R and Bioconductor.
+\emph{Bioinformatics} \textbf{32,} 587--589 (2016).
+
+\leavevmode\hypertarget{ref-Sheffield2018}{}%
+2. Sheffield, N. C., Nagraj, V. \& Reuter, V. simpleCache: R caching for
+reproducible, distributed, large-scale projects. \emph{The Journal of
+Open Source Software} \textbf{3,} 463 (2018).
+\end{cslreferences}
+
+% make the references smaller, and sloppier
+
+
+\end{document}

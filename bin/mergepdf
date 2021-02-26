@@ -3,5 +3,5 @@
 outfile=$1
 shift
 
-gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$outfile \
+gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPrinted=false -sOutputFile=$outfile \
 	"$@"

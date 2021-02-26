@@ -11,6 +11,9 @@
 \documentclass[11pt]{article}
 \RequirePackage[top=0.75in,left=0.75in,right=0.75in,bottom=0.75in]{geometry}
 
+% Include a series of generic definitions and usepackage commands
+\input{mediabuilder.tex}
+
 
 \usepackage{pdfpages}
 \usepackage{fancyhdr}
@@ -151,7 +154,6 @@ $endif$
 \fancyhead{} % empty
 \fancyfoot{} % empty out the default, which is page number in center
 \renewcommand{\headrulewidth}{0pt}
-\pagenumbering{gobble}
 
 \usepackage{titlesec}
 
@@ -163,10 +165,10 @@ $endif$
 \linespread{1.0}
 
 \titleformat{\section}
-  {\normalfont\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{}
+  {\normalfont\fontsize{13pt}{13pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
+  {\normalfont\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
   {\normalfont\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsubsection}{1em}{}

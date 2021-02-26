@@ -19,6 +19,6 @@ make aims
 You can build the entire [final merged output](/output/merged.pdf) by typing:
 
 ```
-make all
+make
 ```
 

@@ -1,0 +1,85 @@
+\documentclass{bioinfo}
+
+% Include a series of generic definitions and usepackage commands
+\input{mediabuilder.tex}
+
+
+\copyrightyear{$year$} \pubyear{$year$}
+
+\access{Advance Access Publication Date: Day Month Year}
+\appnotes{$class$}
+
+%  This code to use {caption} will wipe out the ability of pandoc-crossref
+%  to prepend the "Figure" reference to the caption.
+\usepackage{caption}
+\DeclareCaptionLabelFormat{nolabel}{}
+\captionsetup{labelformat=nolabel}
+
+% This section was added with pandoc 2.9.
+$if(csl-refs)$
+\newlength{\cslhangindent}       % set up new length
+\setlength{\cslhangindent}{$if(csl-hanging-indent)$2em$else$0em$endif$}
+\newenvironment{cslreferences}%
+  {\everypar{\setlength{\hangindent}{\cslhangindent}}}%
+  {\par} % by default, this env does not change anything
+$endif$
+
+
+\begin{document}
+\firstpage{1}
+
+\subtitle{$section$}
+
+\title[$short_title$]{$title$}
+% \author[Sample \textit{et~al}.]{Corresponding Author\,$$^{\text{\sfb 1,}*}$$, Co-Author\,$$^{\text{\sfb 2}}$$ and Co-Author\,$$^{\text{\sfb 2,}*}$$}
+% \address{$$^{\text{\sf 1}}$$Department, Institution, City, Post Code, Country and \\
+% $$^{\text{\sf 2}}$$Department, Institution, City, Post Code,
+% Country.}
+
+\def \email { }
+
+$for(author)$
+$if(author.correspondence)$
+\edef \email { \email $author.correspondence$ }
+$endif$  
+$endfor$
+
+% Set up authors and affiliations
+\author{
+$for(author)$
+$if(author.name)$
+  $if(author.correspondence)$
+	$author.name$$$^{\text{\sfb $author.affiliation$,*}}$$
+  $else$
+	$author.name$$$^{\text{\sfb $author.affiliation$}}$$
+  $endif$
+$endif$  
+$endfor$
+}
+
+% institutions must come after \author definitions so that corresponding tag comes last.
+\address{
+$for(institutions)$
+$if(institutions.name)$
+$$^{\text{\sf $institutions.key$}}$$ $institutions.name$
+$endif$
+$endfor$
+}
+
+\corresp{$$^\ast$$To whom correspondence should be addressed.}
+
+\history{Received on XXXXX; revised on XXXXX; accepted on XXXXX}
+
+\editor{Associate Editor: XXXXXXX}
+
+\abstract{$abstract$\\
+\textbf{Contact:} \href{$contact$}{\email}\\
+\textbf{Supplementary information:} Supplementary data are available at \textit{Bioinformatics}
+online.}
+
+\maketitle
+
+
+$body$
+
+\end{document}
