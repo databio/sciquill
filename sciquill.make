@@ -1,5 +1,5 @@
 ifndef sqdir
-  $(error You must define the sqdir variable before including mediabuilder.make)
+  $(error You must define the sqdir variable before including sciquill.make)
 endif
 
 sqver = 0.0.1
@@ -97,6 +97,14 @@ ifeq ($(sqtype),biosketch)
 
 textemplate = $(sqdir)/tex_templates/nih_bs.tex
 
+default: biosketch
+
+biosketch:
+	pandoc \
+	src/nih_biosketch.md \
+	--template $(textemplate) \
+	-o output/nih_biosketch.pdf
+
 endif
 
 # Media type: outline ------------------------------------------------------------
@@ -108,7 +116,7 @@ textemplate = $(sqdir)/tex_templates/outline.tex
 endif
 
 
-# Media type: grant ------------------------------------------------------------
+# Media type: grant_simple ------------------------------------------------------------
 
 ifeq ($(sqtype),grant_simple)
 
@@ -138,6 +146,7 @@ textemplate = $(sqdir)/tex_templates/nsf.tex
 
 endif
 
+# Media type: grant ------------------------------------------------------------
 
 ifeq ($(sqtype),grant)
 

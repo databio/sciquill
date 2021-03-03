@@ -1,5 +1,5 @@
 site_name: Sciquill
-# site_logo: img/logo_caravel_dark.svg
+site_logo: img/sciquill_light.svg
 site_url: http://sciquill.databio.org
 repo_url: http://github.com/databio/sciquill
 theme: databio
@@ -8,14 +8,18 @@ theme: databio
 nav:
   - Introduction:
     - Overview: README.md
+    - Install: install.md
+    - Configure: configure.md
   - Demos:
+    - Figures: figczar.md
     - Manuscript: manuscript.md
     - NIH biosketch: biosketch.md
     - Curriculum vitae: cv.md
     - Simple grant: simple_grant.md
-    - NIH R01: nih_ro1.md
+    - NIH R01: nih_r01.md
     - Auto-build with github actions: github_actions.md
   - Reference:
+    - Recipes: recipes.md
     - Changelog: changelog.md
     
 plugins:

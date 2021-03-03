@@ -1,71 +1,8 @@
 # Sciquill
 
-## Examples of input/output
-
-The [examples](/examples) folder demonstrates what you can produce with mediabuilder. For each example there is a basic `Makefile`, which provides examples of recipes for building different media types. For example, this will render the example manuscript:
-
-```
-cd examples/manuscript
-make manuscript
-```
-
-* [Manuscript](/examples/manuscript): Render the [.md manuscript source](examples/manuscript/src/manuscript.md) into [a generic manuscript PDF](examples/manuscript/output/manuscript.pdf), or use the [Oxford University Press Bioinformatics Template](examples/manuscript/output/manuscript_bioinformatics.pdf); or use the [Databio lab template](examples/manuscript/output/manuscript_twocol.pdf).
 * [NIH biosketch](/examples/biosketch_simple): Render the [.md biosketch source](examples/biosketch_simple/src/nih_biosketch.md) into [a PDF](examples/biosketch_simple/output/nih_biosketch.pdf)
 * [Grant](/examples/grant) (NIH-formatted):  Render the [.md grant source](examples/grant_simple/src/research_plan.md) into [a PDF](examples/grant_simple/output/research_plan.pdf)
 * CV (pending).
-
-
-## Building documents with mediabuilder
-
-
-1. Install **software prerequisites**:
-
-Really, just use Bulker (requires docker):
-
-```
-pip install bulker
-bulker load databio/mediabuilder
-bulker activate databio/mediabuilder
-```
-
-
-Or you can do it the hard way:
-* Install [pandoc](https://pandoc.org/) to convert markdown to PDF.
-* Install [inkscape](http://inkscape.org) to convert SVG to PDF.
-* Install [libreoffice](http:///www.libreoffice.org) (optional) for some recipes that read `xls` or `docx` files.
-* Install [ghostscript](http:///www.ghostscript.com) (optional) if you need to merge PDFs (should be standard on linux).
-
-
-2. Clone and configure `mediabuilder`:
-	* Clone [databio/sciquill](http://github.com/databio/sciquill)
-	* Configure `mediabuilder`. The examples use an environment variable `$CODE`, in which you will store this repo:
-
-	```
-	export CODE=`pwd`
-	git clone git@github.com:databio/sciquill.git
-	```
-
-	The latex templates in `tex_templates` rely on some relative includes. To use these you'll need to add the path to that folder to your `TEXINPUTS` environment variable. Adding something like this in your `.bashrc` will accomplish this permanently:
-
-	```
-	export TEXINPUTS="${TEXINPUTS}${CODE}/sciquill/tex_templates/:"
-	```
-
-	If using bulker, you will also need to make sure this variable is passed on to your bulker tools. So, add it to the list of `envvars` in your bulker config file.
-
-
-3. Assemble your **BibTeX database** (optional).
-
-	If you want to produce a media type that includes citations, you will also need a `bibtex` file with your references.  My favorite BibTeX management software is [JabRef](http://www.jabref.org), because it is free, actively developed, and uses BibTeX as its native file format. The default makefile ([mediabuilder.make](mediabuilder.make)) will use an `${BIBTEXDB}` environment variable to look for your `bibtex` database. You can set it like this:
-
-	```
-	export BIBTEXDB=path/to/db.bib
-	```
-
-4. Produce your **content in markdown format**. 
-
-	You may choose to start with an example from the [examples folder](/examples).
-
 
 ## Description of mediabuilder repository
 
@@ -90,90 +27,6 @@ output:
   word_document:
     reference_docx: styles.doc/NSF_grant_style.docx
 ```
-
-
-## Docker containers
-
-I've also produced [docker containers](https://github.com/nsheff/docker) for `pandoc`, `inkscape`, `libreoffice` that make this easier if you use docker:
-
-```
-docker pull nsheff/pandocker
-docker pull nsheff/inkscape-docker
-docker pull nsheff/libre
-```
-
-## bulker
-
-There's a bulker manifest that makes it much simpler:
-
-```
-pip install bulker
-bulker load databio/mediabuilder
-bulker activate databio/mediabuilder
-```
-
-
-
-## Recipes
-
-### Converting an `.xls` file to `.pdf` with `libreoffice`:
-Running `libreoffice` on the command-line like this will silently fail if you
-already have `libreoffice` running. If you use a containerized version, you can
-get around that issue. Use my `libre` docker container so you can run it while the real one is open.
-
-
-```{Makefile}
-budget:
-	echo "Make sure libreoffice isn't already open"
-	libreoffice --headless --invisible --convert-to pdf \
-	--outdir output \
-	src/budget_worksheet.xlsx
-```
-
-To set page printing limits in libreoffice calc:  
-- go to View > Page Break
-- now select the area to print
-- choose: Format > Print Ranges > Define
-
-
-### Converting a `.docx` to `.pdf` with  `libreoffice`:
-```
-pdf:
-	soffice --convert-to pdf output/toc.docx \
-	--outdir output
-```
-
-
-
-### Merging PDFs with `ghostscript`:
-
-```
-merge:
-	$(mbin)/mergepdf output/merged.pdf \
-	output/title_page.pdf \
-	output/research_proposal.pdf \
-	output/assembly_plan.pdf
-```
-
-### Adding page numbers
-
-To add page numbers:
-
-1. put the PDF document into the `tex_utilities/addpages.tex` file.
-2. Run: `pdflatex addpages.tex`
-3. Page numbers are added at addpages.pdf!
-
-
-
-### Figures
-
-You can refer to figures by label instead of by number, which makes reordering figures within documents easy.  It also makes it possible to move figures from one document to another without renumbering.
-```
-![\label{abstract}Fig. \ref{abstract}: Example figure](fig/example_figure.png) 
-```
-
-Refer to figures with `\ref{label}`.
-
 
 
 ### Separate citation lists (how to separate bibliography into its own file)
@@ -228,48 +81,6 @@ pandoc \
 ```
 
 That will suppress the bibliography in the output. Done!
-
-
-# Testing sciquill with docker
-
-## Start up the container for testing
-
-docker run --rm -it --volume=`pwd`:/repo --volume=$HOME/code/mediabuilder:/mbdir  --env TEXINPUTS=/mbdir/tex_templates: --workdir="/repo" --network="host" --entrypoint sh pandoc/latex 
-
-## Run the test
-
-pandoc content.md -o content.pdf --template  /mbdir/tex_templates/twocol.tex
-
-
-## The whole shebang
-
-This line will test the entire process
-
-docker run --rm -it --volume=`pwd`:/repo --volume=$HOME/code/mediabuilder:/mbdir  --env TEXINPUTS=/mbdir/tex_templates: --workdir="/repo" --network="host" --entrypoint pandoc databio/sciquill  src/content.md -o output/content.pdf  --template  /mbdir/tex_templates/twocol.tex
-
-docker run --rm -it --volume=`pwd`:/repo --volume=$HOME/code/mediabuilder:/mbdir  --env TEXINPUTS=/mbdir/tex_templates: --workdir="/repo" --network="host" --entrypoint pandoc databio/sciquill  src/*.md -o output/content.pdf  --template  /mbdir/tex_templates/twocol.tex
-
-
-
-
-docker run --rm -it --volume=`pwd`:/repo --volume=$HOME/code/mediabuilder:/mbdir  --env TEXINPUTS=/mbdir/tex_templates: --workdir="/repo" --network="host" --entrypoint make databio/sciquill  manu
-
-
-
-
-
-bulker load -c bulker/bulker_config.yaml databio/sciquill -f sciquill_bulker_manifest.yaml -r
-
-
-
-## Pandoc in containers
-
-in the past I just used  `pandoc --filter wrapfig`, but this way, the pandoc image has to have python available. It works better to use a pipe so that each program can run in its own container; so now: `	pandoc -t json | $(wrapfig) | pandoc -f json \` This works.
-
-
-
-
-
 
 
 
