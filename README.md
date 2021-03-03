@@ -82,8 +82,3 @@ pandoc \
 
 That will suppress the bibliography in the output. Done!
 
-
-There
-
-
-

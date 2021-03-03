@@ -1,0 +1,36 @@
+name: Sciquill Build
+# This workflow is triggered on changes to source, or on a manual dispatch.
+on:
+  push:
+    paths:
+      - src/response*.md
+  workflow_dispatch:
+    inputs: 
+      target:
+        description: 'Make target to build'
+        required: true
+        default: 'response'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    name: Build PDF
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Checkout sciquill repo
+      uses: actions/checkout@v2
+      with:
+        repository: databio/sciquill
+        path: sciquill
+        submodules: true
+    - name: Build sciquill PDF
+      uses: ./sciquill/actions/sciquill-build-action
+      with:
+        command: make ${{ github.event.inputs.target }}
+        outputs: output/manuscript.pdf output/refs.bib fig/*
+        bibtexdb: output/refs.bib
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
