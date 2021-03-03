@@ -4,7 +4,7 @@
 # then, include sciquill.make for default recipes and variables
 
 sqdir = ${SQDIR}
-sqtype = biosketch
+sqtype = sqmanuscript
 include $(sqdir)/sciquill.make
 
 
