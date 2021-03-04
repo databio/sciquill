@@ -316,7 +316,7 @@ $endfor$
 %\newcommand{\sectionbreak}{\clearpage}
 
 
-
+% for pandoc 2.9
 % $if(csl-refs)$
 % \newlength{\cslhangindent}       % set up new length
 % \setlength{\cslhangindent}{$if(csl-hanging-indent)$2em$else$0em$endif$}
@@ -325,6 +325,7 @@ $endfor$
 %   {\par} % by default, this env does not change anything
 % $endif$
 
+% for pandoc 2.11
 $if(csl-refs)$
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}

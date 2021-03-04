@@ -1,8 +1,32 @@
+
+$(info sqdir $(sqdir))
+
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
+sqdir := $(dir $(mkfile_path))
+
+
+$(info mkfile_path $(mkfile_path))
+$(info current_dir $(current_dir))
+$(info sqdir $(sqdir))
+
+
 ifndef sqdir
   $(error You must define the sqdir variable before including sciquill.make)
 endif
 
-sqver = 0.0.1
+# Make sure the type is a valid type
+
+SQTYPES := biosketch blank manuscript grant grant_simple grant_nsf
+
+ifneq ($(filter $(sqtype),$(SQTYPES)),)
+    $(info Identified value sciquill type: $(sqtype))
+else
+    $(error Invalid sciquill type: '$(sqtype)'. Options are: $(SQTYPES))
+endif
+
+
+sqver = 0.1.0
 
 SHELL := /bin/bash
 today=`date +%y%m%d`
@@ -22,6 +46,7 @@ figczar = $(sqdir)/pandoc_filters/figczar/figczar.lua
 
 # These are the typical flags we want to pass to pandoc
 define PANDOC_FLAGS
+--citeproc \
 --template $(textemplate) \
 --bibliography $(bib) \
 --lua-filter $(figczar) \
@@ -52,6 +77,7 @@ sq:
 	@echo "textemplate: " $(textemplate)
 	@echo "supplement_token: " $(supplement_token)
 	@echo "manuscript_token: " $(manuscript_token)
+
 
 # These target confirm that a variable is set, and points to a file that exists.
 
@@ -355,7 +381,7 @@ endif
 
 ifeq ($(sqtype),manuscript)
 
-default: manuscript_supplement
+.DEFAULT_GOAL := manuscript_supplement
 
 # Set the default manuscript_token, which is the string used to know which
 # file to build
@@ -379,7 +405,7 @@ manuscript_nofig:
 manuscript_supplement: figs
 	$(sqbin)/passthru `$(sqbin)/ver src/*$(manuscript_token)` \
 	`$(sqbin)/ver src/*$(supplement_token)`| \
-	pandoc \
+	pandoc --citeproc \
 	-o output/$(manuscript_token)_$(supplement_token).pdf $(PANDOC_FLAGS)
 
 deprecated_paste: figs manuscript supplement
