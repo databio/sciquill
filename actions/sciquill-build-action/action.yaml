@@ -19,6 +19,10 @@ inputs:
     description: "Path to bibtex database."
     required: false
     default: null
+  ghcr_auth:
+    description: "Authorization PAT if using ghcr"
+    required: false
+    default: null
 runs:
   using: 'composite'
   steps:
