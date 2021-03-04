@@ -31,7 +31,6 @@ manifest:
   - command: pandoc
     docker_image: ghcr.io/databio/sciquill
     docker_args: "-i"
-    docker_command: " "
   - command: gs
     docker_image: minidocks/ghostscript
   - command: pdflatex
