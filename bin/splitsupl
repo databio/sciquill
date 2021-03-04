@@ -33,7 +33,7 @@ full_in=$1
 primary_in=$2
 appendix_out=$3
 pagecount=$(pdfinfo $primary_in | awk '/^Pages:/ {print $2}')
-echo "Pagecount: $pagecount"
+echo "Primary section page count: $pagecount"
 
 firstpage=$((pagecount+1))
 expdf_nolast $full_in $appendix_out $firstpage
