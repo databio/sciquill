@@ -3,7 +3,7 @@ name: Sciquill Build
 on:
   push:
     paths:
-      - src/*.md
+      - src/*manuscript*.md
       - fig/*.svg
   workflow_dispatch:
     inputs: 
