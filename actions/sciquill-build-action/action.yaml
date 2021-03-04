@@ -21,8 +21,8 @@ inputs:
     default: null
   ghcr_auth:
     description: "Authorization PAT if using ghcr"
-    required: false
-    default: null
+    required: true
+    default: ""
 runs:
   using: 'composite'
   steps:
