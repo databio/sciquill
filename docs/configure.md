@@ -15,21 +15,30 @@ sqtype = sqmanuscript
 include $(sqdir)/sciquill.make
 ```
 
-Here, `$SQDIR` must point to the `sciquill` directory (the repository you clone from GitHub).
+There are only 2 required options to configure:
 
-
-
-## Configurable options
+- `sqdir`: must point to the `sciquill` directory (the repository you clone from GitHub). Here, we use `$SQDIR`, so you can set an environment variable to point to it, which is convenient.
+- `sqtype`: the media type. Built-in types include: `sqmanuscript`, `sqcv`.
 
 You can change default behavior by adding in any of these options:
 
-- `sqtype`: Select the media type. Built-in types include: `sqmanuscript`, `sqcv`.
-- `bib`: path to your bibtex file (use this to override the default, which uses `$BIBTEXDB`).
+- `bib`: path to your bibtex file (use this to override the default, which uses `output/refs.bib` first, or if not found, then tries `$BIBTEXDB`).
 - `csl`:  style file
 - `lettertemplate`: template for letter
 - `textemplate`: LaTeX template
 - `manuscript_token`:  a string identifying which source file identifies your supplement source markdown file. Defaults to `manuscript`
 - `supplement_token`: a string identifying which source file identifies your supplement source markdown file. Defaults to `supplement`.
+
+```make
+# Sciquill configuration ------------------------------------------------------
+# sqdir - points to your sciquill repository
+# sqtype - sciquill media type: 'sqmanuscript', 'sqcv', or 'sqgrant'
+
+sqdir = ${SQDIR}
+sqtype = sqmanuscript
+include $(sqdir)/sciquill.make
+
+```
 
 
 ## Configuring targets
