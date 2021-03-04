@@ -23,7 +23,7 @@ if FORMAT:match 'latex' then
   function Image(elem)
     -- wrap figures.
     size=2
-    print(elem.src)
+    print("Figczar processing: " .. elem.src)
     -- print(dump(elem))
     -- print(dump(elem.caption))
     -- print(pandoc.utils.stringify(elem.caption))
@@ -66,7 +66,7 @@ if FORMAT:match 'latex' then
       table.insert(rval, 1, pandoc.RawInline('latex', latex_begin))
       table.insert(rval, pandoc.RawInline('latex', latex_end))
       -- print(dump(rval))
-      print(pandoc.utils.stringify(rval))
+      -- print(pandoc.utils.stringify(rval))
       return rval
     else
       return elem
