@@ -1,4 +1,4 @@
-name: Sciquill Build
+name: Sciquill Build - cover_letter
 # This workflow is triggered on changes to source, or on a manual dispatch.
 on:
   push:
@@ -8,7 +8,7 @@ on:
     inputs: 
       target:
         description: 'Make target to build'
-        required: true
+        required: false
         default: 'cover_letter'
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
       uses: ./sciquill/actions/sciquill-build-action
       with:
         command: make ${{ github.event.inputs.target }}
-        outputs: output/manuscript.pdf output/refs.bib fig/*
+        outputs: output/* fig/*
         bibtexdb: output/refs.bib
     - name: Push changes
       uses: ad-m/github-push-action@master

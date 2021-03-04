@@ -1,4 +1,4 @@
-name: Sciquill Build
+name: Sciquill Build - manuscript
 # This workflow is triggered on changes to source, or on a manual dispatch.
 on:
   push:
@@ -9,13 +9,13 @@ on:
     inputs: 
       target:
         description: 'Make target to build'
-        required: true
-        default: 'default'
+        required: false
+        default: ''
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    name: Build manuscript PDF
+    name: Build PDF
     steps:
     - name: Checkout
       uses: actions/checkout@v2
