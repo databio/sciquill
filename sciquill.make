@@ -52,9 +52,6 @@ sq:
 	@echo "textemplate: " $(textemplate)
 	@echo "supplement_token: " $(supplement_token)
 	@echo "manuscript_token: " $(manuscript_token)
-tokens:
-
-
 
 # These target confirm that a variable is set, and points to a file that exists.
 
@@ -357,6 +354,8 @@ endif
 # Media type: manuscript -------------------------------------------------------
 
 ifeq ($(sqtype),manuscript)
+
+default: manuscript_supplement
 
 # Set the default manuscript_token, which is the string used to know which
 # file to build
