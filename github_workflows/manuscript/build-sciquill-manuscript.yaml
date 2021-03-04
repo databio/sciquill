@@ -29,7 +29,7 @@ jobs:
       uses: ./sciquill/actions/sciquill-build-action
       with:
         command: make ${{ github.event.inputs.target }}
-        outputs: output/manuscript.pdf output/refs.bib fig/*
+        outputs: output/* fig/*
         bibtexdb: output/refs.bib
     - name: Push changes
       uses: ad-m/github-push-action@master
