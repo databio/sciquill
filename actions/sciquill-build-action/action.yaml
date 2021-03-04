@@ -32,7 +32,7 @@ runs:
       shell: bash      
     - run: pip3 install https://github.com/databio/bulker/archive/dev.zip 
       shell: bash
-    - run: /home/runner/.local/bin/bulker load -c ${{ inputs.sqsubdir }}/bulker/bulker_config.yaml -r databio/sciquill -m ${{ inputs.sqsubdir }}/bulker/sciquill_bulker_manifest.yaml
+    - run: /home/runner/.local/bin/bulker load -c ${{ inputs.sqsubdir }}/bulker/bulker_config.yaml -r databio/sciquill -f -m ${{ inputs.sqsubdir }}/bulker/sciquill_bulker_manifest.yaml
       shell: bash
     - run: |
         mkdir -p output
