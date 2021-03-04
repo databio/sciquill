@@ -1,0 +1,37 @@
+#! /bin/bash
+
+# This shell script "extracts given pages from a PDF $infile, and saves
+# a new PDF in $outfile
+
+display_usage() {
+	echo "Usage: $0 {FirstPage} {LastPage} {input.pdf} {output.pdf}"
+}
+
+expdf() {
+  infile=$1
+  outfile=$2
+  firstpage=$3
+  lastpage=$4
+  echo "Writing pages $firstpage-$lastpage to $outfile1."
+  gs -q -sDEVICE=pdfwrite \
+    -dNOPAUSE -dBATCH -dSAFER\
+    -sOutputFile=$outfile \
+    -dFirstPage=$firstpage \
+    -dLastPage=$lastpage \
+    $infile
+}
+
+# If fewer than 4 args, show usage
+if [  $# -le 3 ] 
+then 
+	display_usage
+	exit 1
+fi
+
+firstpage=$1
+lastpage=$2
+infile=$3
+outfile=$4
+
+expdf $infile $outfile $firstpage $lastpage
+

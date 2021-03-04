@@ -1,17 +1,55 @@
 #! /bin/bash
 
-# This shell script "pops" the first page out of the PDF in $infile, and saves
-# a new PDF (only page 1) in $outfile
+# This shell script splits a multi-page PDF into 2 at a given page number.
 
-infile=$1
-outfile=$2
-firstpage=$3
-lastpage=$4
+display_usage() {
+	echo "Usage: $0 {SplitPage} {input.pdf} {output1.pdf} {output2.pdf}"
+}
 
-gs -sDEVICE=pdfwrite \
-   -q -dNOPAUSE -dBATCH \
-   -sOutputFile=$outfile \
-   -dFirstPage=$firstpage \
-   -dLastPage=$lastpage \
-   $infile
+expdf() {
+  infile=$1
+  outfile=$2
+  firstpage=$3
+  lastpage=$4
+  echo "Writing pages $firstpage-$lastpage to $outfile."
+  gs -q -sDEVICE=pdfwrite \
+    -dNOPAUSE -dBATCH -dSAFER\
+    -sOutputFile=$outfile \
+    -dFirstPage=$firstpage \
+    -dLastPage=$lastpage \
+    $infile
+}
 
+expdf_nolast() {
+  infile=$1
+  outfile=$2
+  firstpage=$3
+  echo "Writing pages $firstpage-$lastpage to $outfile."
+  gs -q -sDEVICE=pdfwrite \
+    -dNOPAUSE -dBATCH -dSAFER\
+    -sOutputFile=$outfile \
+    -dFirstPage=$firstpage \
+    $infile
+}
+
+# If fewer than 4 args, show usage
+if [  $# -le 3 ] 
+then 
+	display_usage
+	exit 1
+fi
+
+splitpage=$1
+infile=$2
+outfile1=$3
+outfile2=$4
+# pagecount=$(pdfinfo $infile | awk '/^Pages:/ {print $2}')
+# echo "Pagecount: $pagecount"
+
+firstpage=1
+lastpage=$splitpage
+
+expdf $infile $outfile1 $firstpage $lastpage
+
+firstpage=$((splitpage+1))
+expdf_nolast $infile $outfile2 $firstpage

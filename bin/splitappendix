@@ -1,0 +1,39 @@
+#! /bin/bash
+
+# This shell script splits a multi-page PDF into 2, based on the size of another PDF.
+# Used to split an appendix or supplement off of a combined PDF, when you have
+# only the combined PDF and the primary-only PDF.
+# Provide the primary-only PDF, and the script counts the number of pages,
+# and then removes those pages from the combined PDF to produce a supplement/appendix-only PDF.
+
+display_usage() {
+	echo "Usage: $0 {full_in.pdf} {primary_in.pdf} {appendix_out.pdf}"
+}
+
+expdf_nolast() {
+  infile=$1
+  outfile=$2
+  firstpage=$3
+  echo "Writing pages $firstpage-$lastpage to $outfile."
+  gs -q -sDEVICE=pdfwrite \
+    -dNOPAUSE -dBATCH -dSAFER\
+    -sOutputFile=$outfile \
+    -dFirstPage=$firstpage \
+    $infile
+}
+
+# If fewer than 4 args, show usage
+if [  $# -le 2 ] 
+then 
+	display_usage
+	exit 1
+fi
+
+full_in=$1
+primary_in=$2
+appendix_out=$3
+pagecount=$(pdfinfo $primary_in | awk '/^Pages:/ {print $2}')
+echo "Pagecount: $pagecount"
+
+firstpage=$((pagecount+1))
+expdf_nolast $full_in $appendix_out $firstpage
