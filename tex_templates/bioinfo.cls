@@ -27,7 +27,10 @@
 \ProcessOptions
 
 % Load all necessary packages
-\RequirePackage{inputenc,graphicx,amsmath,array,color,amssymb,flushend,stfloats,amsthm,chngpage,times}
+% If you get LaTeX Error: Command \c@dblbotnumber already defined.
+% fix by removing the stfloats package
+
+\RequirePackage{inputenc,graphicx,amsmath,array,color,amssymb,flushend,amsthm,chngpage,times}
 \RequirePackage[LY1]{fontenc}
 
 \renewcommand{\rmdefault}{ptm}
