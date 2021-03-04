@@ -43,7 +43,7 @@ runs:
         export SQDIR=`pwd`/${{ inputs.sqsubdir }}
         ls -l $SQDIR
         export BIBTEXDB=`pwd`/${{ inputs.bibtexdb }}
-        if [ -z "${{ inputs.ghcr_auth" }}]; then
+        if [ -z ${{ inputs.ghcr_auth }}]; then
         echo ${{ inputs.ghcr_auth }} | docker login ghcr.io -u nsheff --password-stdin
         fi
         /home/runner/.local/bin/bulker run -c ${{ inputs.sqsubdir }}/bulker/bulker_config.yaml databio/sciquill ${{ inputs.command }}
