@@ -19,10 +19,6 @@ inputs:
     description: "Path to bibtex database."
     required: false
     default: null
-  ghcr_auth:
-    description: "Authorization PAT if using ghcr"
-    required: false
-    default: ""
 runs:
   using: 'composite'
   steps:
@@ -43,7 +39,6 @@ runs:
         export SQDIR=`pwd`/${{ inputs.sqsubdir }}
         ls -l $SQDIR
         export BIBTEXDB=`pwd`/${{ inputs.bibtexdb }}
-        /home/runner/.local/bin/bulker run -c ${{ inputs.sqsubdir }}/bulker/bulker_config.yaml databio/sciquill pandoc --version
         /home/runner/.local/bin/bulker run -c ${{ inputs.sqsubdir }}/bulker/bulker_config.yaml databio/sciquill ${{ inputs.command }}
       shell: bash 
       name: Run command with bulker
