@@ -1,7 +1,8 @@
 \documentclass[11pt]{article}
 
 % Include a series of generic definitions and usepackage commands
-\input{mediabuilder.tex}
+${ sciquill_base.tex() }
+
 \RequirePackage[top=0.75in,left=0.75in,right=0.75in,bottom=0.75in]{geometry}
 
 
@@ -178,8 +179,6 @@ $endif$
 % so each section will begin on a new page.
 %\newcommand{\sectionbreak}{\clearpage}
 
-
-
 \usepackage{csquotes}
 % I use quotes for response to reviewers. this messes with paragraph spacing.
 \AtBeginEnvironment{quote}{\itshape\color{bluehaze}\vspace{0em}}
@@ -191,17 +190,6 @@ $endif$
 
 \usepackage{enumitem}
 \setlist[itemize]{leftmargin=*}
-
-
-% This section was added with pandoc 2.9.
-$if(csl-refs)$
-\newlength{\cslhangindent}       % set up new length
-\setlength{\cslhangindent}{$if(csl-hanging-indent)$2em$else$0em$endif$}
-\newenvironment{cslreferences}%
-  {\everypar{\setlength{\hangindent}{\cslhangindent}}}%
-  {\par} % by default, this env does not change anything
-$endif$
-
 
 % \usepackage{etoolbox}
 % \makeatletter

@@ -15,7 +15,7 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-    name: Build PDF
+    name: Build manuscript PDF
     steps:
     - name: Checkout
       uses: actions/checkout@v2

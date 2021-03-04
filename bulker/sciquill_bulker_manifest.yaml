@@ -1,5 +1,5 @@
 manifest:
-  name: mediabuilder
+  name: sciquill
   version: 1.0.0
   imports: 
   - bulker/alpinebase:default
@@ -9,7 +9,7 @@ manifest:
   - command: git
     docker_image: nsheff/git
   - command: bibtool
-    docker_image: nsheff/pandoc
+    docker_image: ghcr.io/databio/sciquill
   - command: inkscape
     docker_image: nsheff/vis
   - command: jabref
