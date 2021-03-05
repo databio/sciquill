@@ -3,24 +3,28 @@
 In sciquill, documents (or collections of related documents) are organized as repositories.
 Sciquill is configured in a `Makefile` placed in your repository's root.
 
-The basic `Makefile` contains a few configurable options and then includes the parent sciquill makefile. Here's a basic example:
+
+## 1. Link your Makefile to sciquill
+
+The first step is to include a sciquill Makefile as the first line in your Makefile. Here's a basic example:
 
 ```make
-# Sciquill configuration ------------------------------------------------------
-# sqdir - points to your sciquill repository
-# sqtype - sciquill media type: 'sqmanuscript', 'sqcv', or 'sqgrant'
-
-sqdir = ${SQDIR}
-sqtype = sqmanuscript
-include $(sqdir)/sciquill.make
+include ${SQDIR}/makefiles/manuscript.make # Sciquill link
 ```
 
-There are only 2 required options to configure:
+Here, we're using environment variable `${SQDIR}` for convenience, but you can also just point to it directly. If you set up this environment variable it will work with GitHub Actions.
 
-- `sqdir`: must point to the `sciquill` directory (the repository you clone from GitHub). Here, we use `$SQDIR`, so you can set an environment variable to point to it, which is convenient.
-- `sqtype`: the media type. Built-in types include: `sqmanuscript`, `sqcv`.
+There are various media types available for you to use, each with its own Makefile. For instance, to get the `grant` targets, you'd do:
 
-You can change default behavior by adding in any of these options:
+```make
+include ${SQDIR}/makefiles/grant.make # Sciquill link
+```
+
+Now, you should be able to build all the targets provided by sciquill for that media type.
+
+## 2. Configure your build
+
+You can change default behavior by adding in any of these options to your makefile:
 
 - `bib`: path to your bibtex file (use this to override the default, which uses `output/refs.bib` first, or if not found, then tries `$BIBTEXDB`).
 - `csl`:  style file
@@ -29,21 +33,22 @@ You can change default behavior by adding in any of these options:
 - `manuscript_token`:  a string identifying which source file identifies your supplement source markdown file. Defaults to `manuscript`
 - `supplement_token`: a string identifying which source file identifies your supplement source markdown file. Defaults to `supplement`.
 
+
+Foe example, here, we will set the `textemplate` and `csl` variables:
+
 ```make
-# Sciquill configuration ------------------------------------------------------
-# sqdir - points to your sciquill repository
-# sqtype - sciquill media type: 'sqmanuscript', 'sqcv', or 'sqgrant'
+include ${SQDIR}/makefiles/grant.make # Sciquill link
 
-sqdir = ${SQDIR}
-sqtype = sqmanuscript
-include $(sqdir)/sciquill.make
-
+textemplate=$(sqdir)/tex_templates/shefflab.tex
+csl=$(sqdir)/csl/bioinformatics.csl
 ```
+
+When setting these config options, you should use `$(sqdir)/` to refer to the sciquill repository. It will be provided for you automatically from your `include` instruction that links to the sciquill Makefile for your preferred media type.
 
 
 ## Configuring targets
 
-Each sciquill media type comes with one or more targets, which are items to build. For example, for a `manuscript` type, you can build two targets: a `manuscript` or a `cover_letter`. There are also other targets, like `figs`, which creates all the figures.
+Each sciquill media type comes with one or more targets, which are items to build. For example, for a `manuscript` type, you can use `make manuscript` or a `make cover_letter`, or `make response` or `make manuscript_supplement`. There are also other targets, like `figs`, which creates all the figures. To explore in more detail, you can just look at the Makefile in the sciquill repository that provides the targets.
 
 ### Default target
 
