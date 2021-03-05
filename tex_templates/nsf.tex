@@ -1,23 +1,3 @@
- \let\tightlist\relax
-
-
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-\renewcommand{\rmdefault}{phv} % Arial
-\renewcommand{\sfdefault}{phv} % Arial
-
-  \PassOptionsToPackage{unicode=true$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref} % options for packages loaded elsewhere
-\PassOptionsToPackage{hyphens}{url}
-$if(colorlinks)$
-\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
-$endif$
-$if(dir)$
-$if(latex-dir-rtl)$
-\PassOptionsToPackage{RTLdocument}{bidi}
-$endif$
-$endif$
-  
 % \documentclass[11pt]{article}
 \documentclass[
 $if(fontsize)$
@@ -43,6 +23,35 @@ $for(classoption)$
 $endfor$
 ]{$documentclass$}
 \RequirePackage[top=1in,left=1in,right=1in,bottom=1in]{geometry}
+
+
+ \let\tightlist\relax
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+
+${ sciquill_base.tex() }
+
+
+  \PassOptionsToPackage{unicode=true$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+$if(colorlinks)$
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+$endif$
+$if(dir)$
+$if(latex-dir-rtl)$
+\PassOptionsToPackage{RTLdocument}{bidi}
+$endif$
+$endif$
+  
+
+
+
+
+
 
 \usepackage{pdfpages}
 \usepackage{fancyhdr}
@@ -162,16 +171,6 @@ $endif$
 $if(date)$
 \date{$date$}
 $endif$
-
-% This section was added with pandoc 2.9.
-$if(csl-refs)$
-\newlength{\cslhangindent}       % set up new length
-\setlength{\cslhangindent}{$if(csl-hanging-indent)$2em$else$0em$endif$}
-\newenvironment{cslreferences}%
-  {\everypar{\setlength{\hangindent}{\cslhangindent}}}%
-  {\par} % by default, this env does not change anything
-$endif$
-
 
 % my page number
 %\pagestyle{fancy}
