@@ -18,6 +18,7 @@ nav:
     - Simple grant: simple_grant.md
     - NIH R01: nih_r01.md
     - Auto-build with github actions: github_actions.md
+    - Marking changes: change_marker.md
   - Reference:
     - Recipes: recipes.md
     - Changelog: changelog.md

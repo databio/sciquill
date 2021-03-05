@@ -23,6 +23,7 @@ csl = $(sqdir)/csl/nature.csl
 
 # Sciquill pandoc filters
 figczar = $(sqdir)/pandoc_filters/figczar/figczar.lua
+change_marker = $(sqdir)/pandoc_filters/change_marker/change_marker.lua
 
 # These are the typical flags we want to pass to pandoc
 define PANDOC_FLAGS
@@ -30,6 +31,7 @@ define PANDOC_FLAGS
 --template $(textemplate) \
 --bibliography $(bib) \
 --lua-filter $(figczar) \
+--lua-filter $(change_marker) \
 --csl $(csl)
 endef
 
