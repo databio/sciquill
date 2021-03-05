@@ -27,7 +27,7 @@
 % \End{multicols}
 
 % Include a series of generic definitions and usepackage commands
-\input{mediabuilder.tex}
+${ sciquill_base.tex() }
 
 
 \let\Begin\begin
@@ -272,16 +272,6 @@ $endif$
 % this code uses titles.sty to make a pagebreak with every header 1
 % so each section will begin on a new page.
 %\newcommand{\sectionbreak}{\clearpage}
-
-% This section was added with pandoc 2.9.
-$if(csl-refs)$
-\newlength{\cslhangindent}       % set up new length
-\setlength{\cslhangindent}{$if(csl-hanging-indent)$2em$else$0em$endif$}
-\newenvironment{cslreferences}%
-  {\everypar{\setlength{\hangindent}{\cslhangindent}}}%
-  {\par} % by default, this env does not change anything
-$endif$
-
 
 
 \begin{document}

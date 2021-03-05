@@ -51,6 +51,9 @@ $highlighting-macros$
 $endif$
 
 
+% for including csv files, maybe?
+\usepackage{csvsimple}
+
 % Start column longtable hack
 % Allows tables to be used in two-column documents with pandoc
 % Credit: https://tex.stackexchange.com/a/224096/161489
@@ -158,7 +161,7 @@ $if(date)$
 \date{$date$}
 $endif$
 
-\usepackage{bm} % bold in math mode.
+
 
 $if(linespread)$\linespread{$linespread$}$else$
 \linespread{1.0}
@@ -222,16 +225,16 @@ $endif$
 % The maximum part of the top or bottom of a text page that can be
 % occupied by floats. This is set so that at least four lines of text 
 % fit on the page.
-% \renewcommand\topfraction{.9}
-% \renewcommand\bottomfraction{.9}
-% % The minimum amount of a text page that must be occupied by text.
-% % This should accomodate four lines of text.
-% \renewcommand\textfraction{.06}
-% % The minimum amount of a float page that must be occupied by floats.
-% \renewcommand\floatpagefraction{.94}
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+% The minimum amount of a text page that must be occupied by text.
+% This should accomodate four lines of text.
+\renewcommand\textfraction{.06}
+% The minimum amount of a float page that must be occupied by floats.
+\renewcommand\floatpagefraction{.94}
 
-% % The same parameters repeated for double column output
-\renewcommand\dbltopfraction{.96}
+% The same parameters repeated for double column output
+\renewcommand\dbltopfraction{.9}
 \renewcommand\dblfloatpagefraction{.9}
 
 % Attempt to smash lists together
@@ -298,11 +301,13 @@ $endfor$
     {    $if(author)$
     \ignorespaces\@author
     $endif$
+
     $if(permalink)$
       \newline\href{http://databio.org$permalink$}{http://databio.org$permalink$}
     $endif$
     \par}
-    \vspace{0.2em}
+  
+     \vspace{0.2em}
     \end{raggedright}
 } % end \maketitle
 \makeatother
@@ -316,53 +321,9 @@ $endfor$
 %\newcommand{\sectionbreak}{\clearpage}
 
 
-
-
-% \makeatletter
-% \newenvironment{processtable}[3]{\setbox\temptbox=\hbox{{\tablesize #2}}%
-% \tempdime\wd\temptbox\@processtable{#1}{#2}{#3}{\tempdime}}
-% {\relax}
-
-% \newcommand{\@processtable}[4]{%
-% \if@rotate
-% \setbox4=\vbox to \hsize{\vss\hbox to \textheight{%
-% \begin{minipage}{#4}%
-% \@ifmtarg{#1}{}{\caption{#1}}{\tablesize #2}%
-% \vskip7\p@\noindent
-% \parbox{#4}{\fontsize{7}{9}\selectfont #3\par}%
-% \end{minipage}}\vss}%
-% \rotr{4}
-% \else
-% \hbox to \hsize{\hss\begin{minipage}[t]{#4}%
-% \vskip2.9pt
-% \@ifmtarg{#1}{}{\caption{#1}}{\tablesize #2}%
-% \vskip6\p@\parindent=12pt
-% \parbox{#4}{\fontsize{7}{9}\selectfont #3\par}%
-% \end{minipage}\hss}\fi}%
-% \makeatother
-
-
-
 \begin{document}
 
 $if(onecol)$
-    $if(title)$
-    \maketitle
-    $endif$
-
-    $if(abstract)$
-    \begin{infobox}
-    $abstract$
-    \end{infobox}
-    $endif$
-
-    $for(include-before)$
-    $include-before$
-
-    $endfor$
-    $if(toc)$
-    \tableofcontents
-    $endif$
 $else$
 \twocolumn[{%
   \begin{@twocolumnfalse}
