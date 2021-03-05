@@ -109,15 +109,6 @@
       <text variable="citation-number"/>
     </layout>
   </citation>
-  <citation mode="narrative" et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" disambiguate-add-names="true" disambiguate-add-givenname="true" collapse="year">
-    <layout prefix="(" suffix=")" delimiter="; ">
-      <group delimiter=", ">
-        <text macro="author-short"/>
-        <text macro="year-date"/>
-        <text variable="locator"/>
-      </group>
-    </layout>
-  </citation>
   <bibliography et-al-min="6" et-al-use-first="1" second-field-align="flush" entry-spacing="0" line-spacing="2">
     <layout suffix=".">
       <text variable="citation-number" suffix="."/>
