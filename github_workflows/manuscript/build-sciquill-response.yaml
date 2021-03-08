@@ -8,9 +8,12 @@ on:
   workflow_dispatch:
     inputs: 
       target:
-        description: 'Make target to build'
+        description: "Make target to build"
         required: false
-        default: 'response'
+        default: response
+
+env:
+  TARGET: response
 
 jobs:
   update:
@@ -28,7 +31,7 @@ jobs:
     - name: Build sciquill PDF
       uses: ./sciquill/actions/sciquill-build-action
       with:
-        command: make ${{ github.event.inputs.target }}
+        command: make ${{ github.event.inputs.target || env.TARGET }}
         outputs: output/* fig/*
         bibtexdb: output/refs.bib
     - name: Push changes
