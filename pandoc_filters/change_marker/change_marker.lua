@@ -1,7 +1,7 @@
 -- Inspired by oxforddown highlighter.
 
 local mark_changes = false
-local change_color = "brickred"  -- default change color
+local change_color = "red"  -- default change color
 
 -- debugging function. Use it to dump a nested dict
 function dump(o)
@@ -20,7 +20,7 @@ end
 Meta = function(m)
   if m['mark_changes'] ~= nil then 
     mark_changes = m['mark_changes']
-    print("Mark changes on.")
+    print("Mark changes set to: ", m['mark_changes'])
   end
   if m['change_color'] ~= nil then
     change_color = m['change_color'][1].text
