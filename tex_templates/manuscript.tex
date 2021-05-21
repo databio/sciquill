@@ -1,7 +1,204 @@
 \documentclass[11pt]{article}
 
 % Include a series of generic definitions and usepackage commands
-${ sciquill_base.tex() }
+
+% These two packages are used to write algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
+% HYPERLINKS -------------------------------------------------------------------
+
+% Setting up hyperref so that links can be populated
+\usepackage{ifxetex,ifluatex}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+
+
+% FIGURES ----------------------------------------------------------------------
+% used for wrapfig
+\usepackage{wrapfig}
+
+\usepackage{dblfloatfix}
+
+% To handle multicolumn figures
+% This lets you do \Begin{widefig}
+\let\Begin\begin
+\let\End\end
+\newenvironment{widefig}{
+  \renewenvironment{figure}{\begin{figure*}\centering}{\end{figure*}}
+  \renewenvironment{table}{\begin{table*}\centering}{\end{table*}}
+}
+
+\newenvironment{widefigbot}{
+  \renewenvironment{figure}{\begin{figure*}[!b]\centering}{\end{figure*}}
+  \renewenvironment{table}{\begin{table*}\centering}{\end{table*}}
+}
+
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Old way to do this:
+% $if(graphics)$
+% \usepackage{graphicx}
+% % We will generate all images so they have a width \maxwidth. This means
+% % that they will get their normal width if they fit onto the page, but
+% % are scaled down if they would overflow the margins.
+% \makeatletter
+% \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+% \else\Gin@nat@width\fi}
+% \makeatother
+% \let\Oldincludegraphics\includegraphics
+% \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
+% $endif$
+
+
+% When I was using the multicol environment, I had to redefine the figure
+% environment so there's no float (what pandoc does by default)
+% to make it compatible with the multicol package. This is how I did that.
+% This led to several problems, such as figures showing up out-of-order. In the
+% end, because of this, I abandoned the multicol package and switched back to
+% the basic, builtin twocol environment. Leaving this here in case I ever need
+% multicol again:
+% \usepackage{float}
+% \let\origfigure\figure
+% \let\endorigfigure\endfigure
+% \renewenvironment{figure}[1][2] {
+%     \expandafter\origfigure\expandafter[H]
+% } {
+%     \endorigfigure
+% }
+
+% % Also for the table
+% \let\origtable\table
+% \let\endorigtable\endtable
+% \renewenvironment{table}[1][2] {
+%     \expandafter\origtable\expandafter[H]
+% } {
+%     \endorigtable
+% }
+
+
+
+
+
+% LISTS ----------------------------------------------------------------------
+
+\let\tightlist\relax
+
+% \providecommand{\tightlist}{
+%   \setlength{\itemsep}{0pt}
+%   \setlength{\parskip}{0pt}}
+
+\providecommand{\tightlist}{
+  \setlength{\topsep}{1em}
+  \setlength{\partopsep}{1em}
+  \setlength{\parskip}{1em}
+  \setlength{\parsep}{1em}
+  \setlength{\parindent}{0pt}
+  \setlength{\itemsep}{0pt}
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+}
+
+% make bullets smaller
+\def\labelitemi{\raisebox{0.5ex}{\tiny\textbullet}}
+% this itemindent code adjusts the indentation of bullet lists.
+
+% Redefine labelwidth for lists; otherwise, the enumerate package will cause
+% markers to extend beyond the left margin.
+\makeatletter\AtBeginDocument{%
+  \renewcommand{\@listi}
+    {\setlength{\labelwidth}{4em}}
+}\makeatother
+\usepackage{enumerate}
+
+
+% This section was added with pandoc 2.9.
+% $if(csl-refs)$
+% \newlength{\cslhangindent}       % set up new length
+% \setlength{\cslhangindent}{$if(csl-hanging-indent)$2em$else$0em$endif$}
+% \newenvironment{cslreferences}%
+%   {\everypar{\setlength{\hangindent}{\cslhangindent}}}%
+%   {\par} % by default, this env does not change anything
+% $endif$
+% for pandoc 2.11
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+
+
+% TABLES -----------------------------------------------------------------------
+% longtable is required for markdown-format tables to be rendered in latex
+\usepackage{longtable}
+
+% LAYOUT -----------------------------------------------------------------------
+\def\topfraction{0.9} % 90 percent of the page may be used by floats on top
+\def\bottomfraction{0.9} % 90 percent of the page may be used by floats at the bottom
+
+\clubpenalty=9996
+\widowpenalty=9999
+\brokenpenalty=4991
+\predisplaypenalty=10000
+\postdisplaypenalty=1549
+\displaywidowpenalty=1602
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+
+% FONTS ---
+
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+% \renewcommand{\rmdefault}{bch} % Charter
+% \renewcommand{\sfdefault}{bch} % Charter
+
+
+% CSV INCLUDES ---
+
+% for including csv files
+\usepackage{tikz}  % required to fix incompatibility with ctable: https://github.com/T-F-S/csvsimple/issues/9
+\usepackage{csvsimple}
+
+\usepackage{booktabs} % provides toprule and midrule and bottomrule
+
+% formatting csv tables with 'catch-all' variable column widths
+\usepackage{tabularx}
+
 
 \RequirePackage[top=0.75in,left=0.75in,right=0.75in,bottom=0.75in]{geometry}
 

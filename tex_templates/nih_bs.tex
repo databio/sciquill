@@ -96,16 +96,23 @@ $endif$
 \usepackage{caption}
 \DeclareCaptionLabelFormat{nolabel}{}
 \captionsetup{labelformat=nolabel}
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
+
+% NIH does not allow hyperlinks in biosketch. This turns them off.
+% \ifxetex
+%   \usepackage[setpagesize=false, % page size defined by xetex
+%               unicode=false, % unicode breaks when used with xetex
+%               xetex]{hyperref}
+% \else
+%   \usepackage[unicode=true]{hyperref}
+% \fi
 
 % link color
-\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze}
+% \hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze}
+% NIH does not allow hyperlinks in biosketch. This turns them off.
+% I commented out the above and use this instead.
+\usepackage{nohyperref}
+\usepackage{url}
+
 
 $if(strikeout)$
 \usepackage[normalem]{ulem}
@@ -184,9 +191,9 @@ $endif$
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing\section{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 6pt}
-\titlespacing\subsection{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 6pt}
-\titlespacing\subsubsection{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 6pt}
+\titlespacing\section{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 4pt}
+\titlespacing\subsection{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 2pt}
+\titlespacing\subsubsection{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 4pt}
 
 
 %\subsectionfont{\color{maroonhaze}}

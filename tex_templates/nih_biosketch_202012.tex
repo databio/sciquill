@@ -1,50 +1,20 @@
-
+% This latex/pandoc NIH biosketch template has borrowed components from pmagwene's
+% latex version of the NIH biosketch.
+% Thanks to pmagwene for sharing and inspiring this rendition
 
 \renewcommand{\rmdefault}{phv} % Arial
 \renewcommand{\sfdefault}{phv} % Arial
 
  \let\tightlist\relax
 
-
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
-  
 \documentclass[11pt]{article}
 \RequirePackage[top=0.5in,left=0.5in,right=0.5in,bottom=0.5in]{geometry}
 
-% hack for markdown processing. by default, text enclosed between latex \begin
-% and \end tags will *not* be parsed by pandoc. If we *do* want to parse that
-% code (because it's written in markdown), we can just add aliases for \Begin
-% and \End, which are not flagged by pandoc as "avoid parsing". So markdown
-% enclosed by \Begin and \End will be parsed as by pandoc.
-% Use this to define a two-column reference sectiona t the end of your document
-% like this:
-% \Begin{multicols}{2}
-% \tiny
-% \setlength{\parskip}{0.2em}
-% <div id="refs"></div>
-% \End{multicols}
-
-% Include a series of generic definitions and usepackage commands
-${ sciquill_base.tex() }
-
-
-\let\Begin\begin
-\let\End\end
-
-
-
-%  This is used to allow Shaded environment
-$if(highlighting-macros)$
-$highlighting-macros$
-$endif$
-
 \usepackage{pdfpages}
 \usepackage{fancyhdr}
-\usepackage{multicol}
+\RequirePackage{tabu}
 \usepackage{wrapfig}
-\usepackage[skip=2pt, font=footnotesize, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
+\usepackage[skip=2pt, font=small, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
 
 % longtable is required for markdown-format tables to be rendered in latex
 \usepackage{longtable}
@@ -62,6 +32,19 @@ $endif$
     \usepackage[utf8]{inputenc}
   \fi
 \fi
+
+
+% We use the tabto package to set tabs for the Research support section
+% This sets the tab stop positions.
+\usepackage{tabto}
+\TabPositions{10.5cm,15.25cm}
+
+\definecolor{bluehaze}{RGB}{54,95,145}
+\definecolor{maroonhaze}{RGB}{148,54,52}
+\definecolor{orangehaze}{RGB}{227,108,10}
+\definecolor{black}{RGB}{0,0,0}
+ 
+
 $if(natbib)$
 \usepackage{natbib}
 \bibliographystyle{plainnat}
@@ -86,14 +69,15 @@ $if(fancy-enums)$
   \renewcommand{\@listi}
     {\setlength{\labelwidth}{4em}}
 }\makeatother
-
-
-
+\usepackage{enumerate}
 $endif$
 $if(tables)$
 \usepackage{ctable}
+
 \usepackage{float} % provides the H option for float placement
+
 $endif$
+
 $if(url)$
 \usepackage{url}
 $endif$
@@ -119,7 +103,15 @@ $endif$
 \else
   \usepackage[unicode=true]{hyperref}
 \fi
-\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze, linkcolor=bluehaze, citecolor=bluehaze, anchorcolor=bluehaze}
+
+
+\usepackage[options]{nohyperref}  % This makes hyperref commands do nothing without errors
+\usepackage{url}  % This makes \url work
+
+
+% link color
+\hypersetup{breaklinks=true, pdfborder={0 0 0}, colorlinks=true, urlcolor=bluehaze}
+
 $if(strikeout)$
 \usepackage[normalem]{ulem}
 % avoid problems with \sout in headers with hyperref:
@@ -150,10 +142,21 @@ $if(title)$
 $endif$
 $if(author)$
 \author{$for(author)$$author$$sep$ \and $endfor$}
+\name{$for(author)$$author$$sep$ \and $endfor$}
 $endif$
 $if(date)$
 \date{$date$}
 $endif$
+% This section was added with pandoc 2.9.
+$if(csl-refs)$
+\newlength{\cslhangindent}       % set up new length
+\setlength{\cslhangindent}{$if(csl-hanging-indent)$2em$else$0em$endif$}
+\newenvironment{cslreferences}%
+  {\everypar{\setlength{\hangindent}{\cslhangindent}}}%
+  {\par} % by default, this env does not change anything
+$endif$
+
+
 
 % my page number
 %\pagestyle{fancy}
@@ -163,107 +166,33 @@ $endif$
 \renewcommand{\headrulewidth}{0pt}
 \pagenumbering{gobble}
 
-\usepackage{titlesec}
+\usepackage[nobottomtitles*]{titlesec}
+
+
 
 
 % colors
-\definecolor{bluehaze}{RGB}{54,95,145}
-\definecolor{maroonhaze}{RGB}{148,54,52}
-\definecolor{orangehaze}{RGB}{227,108,10}
-\definecolor{black}{RGB}{0,0,0}
-% \definecolor{lightblack}{RGB}{55,55,55}
-\definecolor{bluetint}{RGB}{0,50,100}
-\definecolor{bluetint2}{RGB}{0,35,70}
-\definecolor{lightblack}{RGB}{75,75,75}
-\definecolor{almostwhite}{RGB}{235,235,245}
+
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
-
-\usepackage{needspace}
-% \titleformat{\paragraph}[leftmargin]{\normalfont\normalsize\bfseries\filleft}{\theparagraph}{15pt}{}
-
-$if(linespread)$\linespread{$linespread$}$else$
 \linespread{1.0}
-$endif$
-
-$if(titleneedspace)$
-\def \titleneedspace{$titleneedspace$}
-$else$
-\def \titleneedspace{0cm}
-$endif$
-% Here I am using the needspace thing to make sure that the title headings don't
-% show up on the very last line of a page.
 
 \titleformat{\section}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint2}\bfseries}{\thesection}{1em}{\MakeUppercase}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint2}\bfseries}{\thesubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\needspace{\titleneedspace}\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{bluetint2}\bfseries}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsubsection}{1em}{}
 
-
-% use amsthm for addpunct, to add periods to the end of non-punctuated
-% paragraph titles (header level 4; ####)
-\usepackage{amsthm}
-\makeatletter
-\newcommand{\addperiod}[1]{#1\@addpunct{.}}
-\makeatother
-% use runin to specify no newline
-\titleformat{\paragraph}[runin]
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\itshape}{\theparagraph}{}{\addperiod}
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing{\section}{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing{\subsection}{0pt}{16pt plus 20pt minus 2pt}{-2pt plus 2pt minus 2pt}
-\titlespacing{\subsubsection}{0pt}{6pt plus 4pt minus 2pt}{-4pt plus 2pt minus 1pt}
+\titlespacing\section{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 6pt}
+\titlespacing\subsection{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 6pt}
+\titlespacing\subsubsection{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 6pt}
 
-% for these ones, the 'after spacing' (slot 3) corresponds to right-side spacing,
-% since it's paragraph-level (no newline afterwards)
-\titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
-\titlespacing{\subparagraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
-
-% Attempt to smash lists together
-\usepackage{enumerate}
-\usepackage{enumitem}
-\setlist[itemize]{topsep=-4pt,parsep=-2pt,itemindent=0pt,leftmargin=18pt}
-
-\def\labelitemi{\raisebox{0.5ex}{\tiny\textbullet}}
-
-% % The maximum part of the top or bottom of a text page that can be
-% % occupied by floats. This is set so that at least four lines of text 
-% % fit on the page.
- \renewcommand\topfraction{.9}
- \renewcommand\bottomfraction{.9}
-% % The minimum amount of a text page that must be occupied by text.
-% % This should accomodate four lines of text.
-\renewcommand\textfraction{.06}
-% % The minimum amount of a float page that must be occupied by floats.
-\renewcommand\floatpagefraction{.94}
-
-% % The same parameters repeated for double column output
-% \renewcommand\dbltopfraction{.9}
-% \renewcommand\dblfloatpagefraction{.9}
-
-% The maximum part of the top or bottom of a text page that can be
-% occupied by floats. This is set so that at least four lines of text 
-% fit on the page.
-\renewcommand\topfraction{.9}
-\renewcommand\bottomfraction{.9}
-% The minimum amount of a text page that must be occupied by text.
-% This should accomodate four lines of text.
-\renewcommand\textfraction{.06}
-% The minimum amount of a float page that must be occupied by floats.
-\renewcommand\floatpagefraction{.94}
-
-% The same parameters repeated for double column output
-\renewcommand\dbltopfraction{.9}
-\renewcommand\dblfloatpagefraction{.9}
-% Disallow widows and orphans
-\clubpenalty 10000
-\widowpenalty 10000
 
 %\subsectionfont{\color{maroonhaze}}
 %\subsubsectionfont{\color{orangehaze}}
@@ -272,14 +201,58 @@ $endif$
 % this code uses titles.sty to make a pagebreak with every header 1
 % so each section will begin on a new page.
 %\newcommand{\sectionbreak}{\clearpage}
+\newcommand{\pgline}{\vspace{-6pt}\noindent\makebox[\linewidth]{\rule{\textwidth}{0.6pt}}\newline}
 
+
+\newcommand{\piinfo}
+{\begin{footnotesize}\begin{flushright}OMB No. 0925-0001 and 0925-0002 (Rev. 03/2020 Approved Through 02/28/2023)\end{flushright}\end{footnotesize}\vspace{-1em}\pgline
+{\centering
+\textbf{BIOGRAPHICAL SKETCH}\\
+{\footnotesize
+Provide the following information for the Senior/key personnel and other significant contributors.\\
+Follow this format for each person.  \textbf{DO NOT EXCEED FIVE PAGES}.\\}}
+\pgline
+NAME: $name$\vspace{0.5em}\\
+eRA COMMONS USER NAME (credential, e.g., agency login): $eracommons$\vspace{0.5em}\\
+POSITION TITLE: $position$\vspace{0.5em}\\
+EDUCATION/TRAINING (\textit{Begin with baccalaureate or other initial professional education, such as nursing, include postdoctoral training and residency training if applicable. Add/delete rows as necessary.})\vspace{0.5em}\\}
+
+\newenvironment{education}
+{%
+\bgroup\centering
+\tabulinesep=1.5mm
+\begin{tabu} to \textwidth {X[3.53,l,m]|X[1,c,m]|X[1,c,m]|X[2.15,l,m]}
+\hline
+\rowfont[c]{}               % for the header only we want all the text centered
+INSTITUTION AND LOCATION &
+DEGREE & 
+Completion Date & 
+FIELD OF STUDY\\
+\hline}
+{\end{tabu}\egroup}
+
+% make bullets smaller
+\def\labelitemi{}
+% this itemindent code adjusts the indentation of bullet lists.
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-26pt} 
+}
+
+\usepackage{enumitem}
+% Attempt to smash lists together
+\setlist[enumerate]{wide, itemsep=0.5mm, labelindent=0pt, leftmargin=0pt, labelwidth=!, itemindent=0pt, font=\itshape}
 
 \begin{document}
 
-% $if(title)$
-% \maketitle
-% $endif$
-
+$if(title)$
+\maketitle
+$endif$
+$if(piinfo)$
+\piinfo
+$endif$
+% \begin{education}
+% $education$
+% \end{education}
 $for(include-before)$
 $include-before$
 
@@ -355,8 +328,6 @@ $if(fancy-enums)$
     {\setlength{\labelwidth}{4em}}
 }\makeatother
 \usepackage{enumerate}
-
-
 $endif$
 $if(tables)$
 \usepackage{ctable}

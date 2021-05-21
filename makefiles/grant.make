@@ -52,13 +52,14 @@ research_plan: figs
 	`$(sqbin)/ver src/significance_innovation` \
 	`$(sqbin)/ver src/aim1` `$(sqbin)/ver src/aim2` `$(sqbin)/ver src/aim3` | \
 	pandoc -o output/aims_research_plan.pdf $(PANDOC_FLAGS) 
+	@echo "Output in: output/aims_research_plan.pdf"
 
 research_plan_nofigs:
 	$(sqbin)/nobib `$(sqbin)/ver src/specific_aims` \
 	`$(sqbin)/ver src/significance_innovation` \
 	`$(sqbin)/ver src/aim1` `$(sqbin)/ver src/aim2` `$(sqbin)/ver src/aim3` | \
 	pandoc -o output/aims_research_plan.pdf $(PANDOC_FLAGS) 
-
+	@echo "Output in: output/aims_research_plan.pdf"
 
 
 # Split out the specific aims off the rest of the research plan document. Some

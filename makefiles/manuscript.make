@@ -104,4 +104,4 @@ response:
 	$(sqbin)/nobib `$(sqbin)/ver src/*$(response_token)` | \
 	pandoc -o output/$(response_token).pdf $(PANDOC_FLAGS) \
 	--template $(sqdir)/tex_templates/manuscript.tex
-
+	@echo "Output: output/$(response_token).pdf"
