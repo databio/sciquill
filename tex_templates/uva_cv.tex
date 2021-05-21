@@ -1,29 +1,40 @@
 % \renewcommand{\rmdefault}{phv} % Arial
 % \renewcommand{\sfdefault}{phv} % Arial
 
- \let\tightlist\relax
+\renewcommand{\rmdefault}{bch} % Charter
+\renewcommand{\sfdefault}{bch} % Charter
 
-% \include{ncs_defs.tex}
-
-
-% this itemindent code adjusts the indentation of bullet lists.
-
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-4pt} 
-}
-
-
-\documentclass$if(fontsize)$[$fontsize$]$endif${article}
+\documentclass$if(fontsize)$[$fontsize$]$else$[12pt]$endif${article}
 \RequirePackage[top=0.75in,left=0.75in,right=0.75in,bottom=0.75in]{geometry}
 
 \usepackage{bold-extra}
 \usepackage{pdfpages}
-\usepackage{fancyhdr}
 
 \usepackage{wrapfig}
 
 % longtable is required for markdown-format tables to be rendered in latex
 \usepackage{longtable}
+
+
+% my page number
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhead{} 
+
+% \fancyhead{} % empty
+\fancyfoot{} % empty out the default, which is page number in center
+\fancyfoot[R]{\footnotesize Revised \today}
+\fancyfoot[C]{\footnotesize Sheffield \thepage}
+
+% Handle first page (not otherwise affectecd by fancyfoot etc.)
+\fancypagestyle{plain}{%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhf{}%
+  \fancyfoot{}
+}
+
+
 
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -107,7 +118,7 @@ $if(subscript)$
 \newcommand{\textsubscr}[1]{\ensuremath{_{\scriptsize\textrm{#1}}}}
 $endif$
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\parskip}{12pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 $if(listings)$
 \usepackage{listings}
@@ -133,18 +144,13 @@ $if(date)$
 \date{$date$}
 $endif$
 
-% my page number
-%\pagestyle{fancy}
-%\fancyhead[RO]{Sheffield \thepage}
-\fancyhead{} % empty
-\fancyfoot{} % empty out the default, which is page number in center
 \renewcommand{\headrulewidth}{0pt}
 
 % tabto is required to use /tab control sequence.
 % We use the tabto package to set tabs for the Research support section
 % This sets the tab stop positions.
 \usepackage{tabto}
-\TabPositions{9.25cm,14.25cm}
+\TabPositions{2.5cm, 9.25cm,14.25cm}
 
 
 \usepackage{titlesec}
@@ -166,22 +172,36 @@ $endif$
   urlcolor=bluehaze
 }
 
-\linespread{1.0}
 
+% Spacing
+
+ \let\tightlist\relax
+% \include{ncs_defs.tex}
+% this itemindent code adjusts the indentation of bullet lists.
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{4pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-2pt} 
+}
+
+
+\linespread{1.05}
+% \titleformat{<command>}[<shape>]{<format>}{<label>}{<sec>}{<before-code>}[<after-code>]
+% \fontsize{<size>}{<bskip>} sets respectively the font size and the baseline skip.
 \titleformat{\section}
-  {\normalfont\fontfamily{ptm}\fontsize{12pt}{12pt}\selectfont\color{black}\bfseries\scshape}{\thesection}{1em}{}
+  {\normalfont\fontfamily{bch}\fontsize{15pt}{14pt}\selectfont\color{black}\bfseries\scshape}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{ptm}\fontsize{10pt}{10pt}\selectfont\color{black}\bfseries}{\makebox[2in][l]\thesubsection}{1em}{}
+  {\normalfont\fontfamily{bch}\fontsize{12pt}{6pt}\selectfont\color{black}\bfseries}{\makebox[2in][l]\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{ptm}\fontsize{10pt}{10pt}\selectfont\color{bluetint}\itshape}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{bch}\fontsize{12pt}{6pt}\selectfont\color{bluetint}\itshape}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing\section{0pt}{1pt plus 10pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing\subsection{6pt}{1pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
-\titlespacing\subsubsection{6pt}{0pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing\section{0pt}{4pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
+\titlespacing\subsection{8pt}{0pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{16pt}{0pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
+
 
 
 
