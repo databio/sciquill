@@ -27,6 +27,8 @@ textemplate = $(sqdir)/tex_templates/manuscript.tex
 
 manuscript: sq-check-core figs manuscript_nofig
 
+supplement: figs supplement_nofig
+
 manuscript_supplement: sq-check-core figs manuscript_supplement_nofig
 
 manuscript_nofig:
@@ -47,6 +49,12 @@ split_supplement:
 	output/$(manuscript_token)_$(supplement_token).pdf \
 	output/$(manuscript_token).pdf \
 	output/$(supplement_token).pdf
+	@echo "Output: output/$(supplement_token).pdf"
+
+supplement_nofig:
+	cat `$(sqbin)/ver src/*$(supplement_token)` | \
+	pandoc $(PANDOC_FLAGS) \
+	-o output/$(supplement_token).pdf
 	@echo "Output: output/$(supplement_token).pdf"
 
 manuscript_supplement_tex:
@@ -101,7 +109,7 @@ cover_letter_txt:
 	letter.md
 
 response:
-	$(sqbin)/nobib `$(sqbin)/ver src/*$(response_token)` | \
+	cat `$(sqbin)/ver src/*$(response_token)` | \
 	pandoc -o output/$(response_token).pdf $(PANDOC_FLAGS) \
 	--template $(sqdir)/tex_templates/manuscript.tex
 	@echo "Output: output/$(response_token).pdf"

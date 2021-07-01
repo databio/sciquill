@@ -1,5 +1,6 @@
 -- Inspired by oxforddown highlighter.
 
+-- Defaults
 local mark_changes = false
 local change_color = "red"  -- default change color
 

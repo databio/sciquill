@@ -90,7 +90,7 @@ refs:
 	pandoc -o output/references.pdf $(PANDOC_FLAGS)
 
 
-# Merge in the references PDF to the end of the cosqbined research_plan
+# Merge in the references PDF to the end of the combined research_plan
 research_plan_refs: figs research_plan refs
 	$(sqbin)/mergepdf output/research_plan_refs.pdf \
 	output/aims_research_plan.pdf \
