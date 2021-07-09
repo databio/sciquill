@@ -64,13 +64,13 @@ function deepcopy(orig, copies)
 end
 
 -- Find a particular identified div, recursively through block subsections
-function find_rec(b)
+function find_rec(b, identifier)
   if not b then
     return nil
   end
     return b:find_if(function(x)
-      return x.identifier=='multi-refs'
-      or find_rec(x.content) end)
+      return x.identifier==identifier
+      or find_rec(x.content, identifier) end)
 end
 
 local function run_citeproc (doc)
@@ -107,6 +107,9 @@ local function check_doc (doc)
     return b.identifier == 'refs'
   end)
 
+  if not allrefs then
+    return nil
+  end
   -- print("allrefs", dump(allrefs))
   print("Total citations: ", #allrefs.content)
 
@@ -115,8 +118,14 @@ local function check_doc (doc)
     table.insert(accumulated_blocks, el)
     print("Processing block " .. i)
     -- does this block have a multi-refs div?
-    local has_refs_div = find_rec(el.content)
-    if has_refs_div then 
+    local has_multirefs_div = find_rec(el.content, 'multi-refs')
+    local has_refs_div = find_rec(el.content, 'refs')
+
+    if has_refs_div then
+      print("has refs div!")
+    end
+
+    if has_multirefs_div then 
       -- identify the pandoc refs block
       local tmp_doc = pandoc.Pandoc(accumulated_blocks, meta)
       local new_doc = run_citeproc(tmp_doc)
@@ -124,48 +133,53 @@ local function check_doc (doc)
       local ab_refs = new_doc.blocks:find_if(function (b)
         return b.identifier == 'refs'
       end)
-      -- Number of citations in this section.
-      print("Processing citations for multi-refs div. N citations: ", #ab_refs.content)
-      -- print_citation_keys(ab_refs.content)
-      table.insert(myrefs, { ab_refs })
-      endval = #ab_refs.content+currentref-1
-      -- These lines of code are from a dead end I took that would
-      -- cut out a slice of refs from the main table; but this only worked
-      -- for citation styles that ordered by reference number, not alphabetically
-      -- local theserefs = {table.unpack(allrefs.content, currentref, endval)}
-      -- print("theserefs", dump(theserefs))
-      -- print_citation_keys(theserefs)
 
-      -- Grab a subset of allrefs for the ones in the current accumulated blocks
-      local local_refs_subset = deepcopy(allrefs)
-      local_refs_subset.content = {}
-      -- print("local_refs_subset", dump(local_refs_subset))
-      -- local_refs_subset.content = deepcopy(theserefs)
-      local i = 1
-      for k,v in pairs(allrefs.content) do
-        already_included = false
-        for k2,v2 in pairs(ab_refs.content) do   
-          if v2.identifier==v.identifier then
-            print(k, k2, v.identifier)
-            if processed_entries[v.identifier] then
-              print("reference included in previous bibliography:", v.identifier)
-              already_included = true
-            end
-            if meta['multiref_no_duplicates'] and already_included then
-              print("skipping")
-            else
-              local_refs_subset.content[i] = v
-              i = i+1
-              processed_entries[v.identifier] = v.identifier
+      if not ab_refs then
+        print("No reference found in this block")
+      else
+
+        -- Number of citations in this section.
+        print("Processing citations for multi-refs div. N citations: ", #ab_refs.content)
+        -- print_citation_keys(ab_refs.content)
+        table.insert(myrefs, { ab_refs })
+        endval = #ab_refs.content+currentref-1
+        -- These lines of code are from a dead end I took that would
+        -- cut out a slice of refs from the main table; but this only worked
+        -- for citation styles that ordered by reference number, not alphabetically
+        -- local theserefs = {table.unpack(allrefs.content, currentref, endval)}
+        -- print("theserefs", dump(theserefs))
+        -- print_citation_keys(theserefs)
+
+        -- Grab a subset of allrefs for the ones in the current accumulated blocks
+        local local_refs_subset = deepcopy(allrefs)
+        local_refs_subset.content = {}
+        -- print("local_refs_subset", dump(local_refs_subset))
+        -- local_refs_subset.content = deepcopy(theserefs)
+        local i = 1
+        for k,v in pairs(allrefs.content) do
+          already_included = false
+          for k2,v2 in pairs(ab_refs.content) do   
+            if v2.identifier==v.identifier then
+              -- print(k, k2, v.identifier)
+              if processed_entries[v.identifier] then
+                print("reference included in previous bibliography:", v.identifier)
+                already_included = true
+              end
+              if meta['multiref_no_duplicates'] and already_included then
+                print("skipping")
+              else
+                local_refs_subset.content[i] = v
+                i = i+1
+                processed_entries[v.identifier] = v.identifier
+              end
             end
           end
         end
+        currentref = #ab_refs.content +1
+        table.insert(split_refs, {local_refs_subset})
+        -- print("split_refs", dump(split_refs))
+        accumulated_blocks = {}
       end
-
-      currentref = #ab_refs.content +1
-      table.insert(split_refs, {local_refs_subset})
-      -- print("split_refs", dump(split_refs))
-      accumulated_blocks = {}
     end
   end
   return doc
@@ -197,7 +211,7 @@ end
 function set_up_document (doc)
   -- save meta for other filter functions
   meta = doc.meta
-  print(dump(meta))
+  -- print(dump(meta))
   local sections = utils.make_sections(true, nil, doc.blocks)
   return pandoc.Pandoc(sections, doc.meta)
 end

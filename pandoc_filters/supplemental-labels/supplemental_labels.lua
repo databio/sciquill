@@ -30,7 +30,7 @@ if FORMAT:match 'latex' then
 
   function Image(elem)
     print("Image")
-    print(dump(elem))
+    -- print(dump(elem))
     if elem.attributes.label then
       print("don't display this image")
       rval = {}
@@ -41,7 +41,7 @@ if FORMAT:match 'latex' then
       else
         lab = "no label"
       end
-      print(dump(lab))
+      -- print(dump(lab))
       print("Label" .. lab)
 
       x = {
