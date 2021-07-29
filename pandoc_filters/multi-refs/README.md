@@ -13,7 +13,7 @@ I use this to divide my references section into one for the primary manuscript, 
 Place this in your markdown file to specify where you want your bibliography placed:
 
 ```
-<div id="multi-refs"></div>
+<div class="multi-refs"></div>
 ```
 
 You can put that in multiple places and it will just show the citations that have accumulated to that point in the document.
