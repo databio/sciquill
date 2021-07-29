@@ -64,14 +64,40 @@ function deepcopy(orig, copies)
 end
 
 -- Find a particular identified div, recursively through block subsections
-function find_rec(b, identifier)
-  if not b then
+function find_div_by_id(block, identifier)
+  if not block then
     return nil
   end
-    return b:find_if(function(x)
-      return x.identifier==identifier
-      or find_rec(x.content, identifier) end)
+  return block:find_if(function(x)
+    return x.identifier==identifier
+    or find_div_by_id(x.content, identifier) end)
 end
+
+function find_div_by_class(block, class)
+  if not block then
+    return nil
+  end
+  
+  return block:find_if(
+    function(x)
+      if x.classes and table.contains(x.classes, class) then
+        return true
+    else
+      return find_div_by_class(x.content, class)
+    end
+    end)
+end
+
+-- stackoverflow
+function table.contains(table, element)
+  for _, value in pairs(table) do
+    if value == element then
+      return true
+    end
+  end
+  return false
+end
+
 
 local function run_citeproc (doc)
   if PANDOC_VERSION >= '2.11' then
@@ -84,7 +110,7 @@ end
 
 -- Populate the multi-refs div with references
 local function check_div (div)
-  if div.identifier == "multi-refs" then
+  if table.contains(div.classes, "multi-refs") then
     print("Populating bibliography for multi-refs div, number: ", iref)
     -- print("split_refs", dump(split_refs[iref]))
     -- print("myrefs", dump(myrefs[iref]))
@@ -118,8 +144,8 @@ local function check_doc (doc)
     table.insert(accumulated_blocks, el)
     print("Processing block " .. i)
     -- does this block have a multi-refs div?
-    local has_multirefs_div = find_rec(el.content, 'multi-refs')
-    local has_refs_div = find_rec(el.content, 'refs')
+    local has_multirefs_div = find_div_by_class(el.content, 'multi-refs')
+    local has_refs_div = find_div_by_id(el.content, 'refs')
 
     if has_refs_div then
       print("has refs div!")

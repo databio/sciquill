@@ -15,7 +15,7 @@ citation here [@kant:critique2 29].
 Here is something [@altick:aldine 20]. And here is something repeated
 [@dames:physiology].
 
-<div id="multi-refs"></div>
+<div class="multi-refs"></div>
 
 # Here is another section
 
@@ -24,4 +24,4 @@ Here is something [@lukacs:european 125]. And here is something else
 citation here [@trollope:autobiography 392]. And something repeated in a different section: [@dames:physiology]
 
 
-<div id="multi-refs"></div>
+<div class="multi-refs"></div>
