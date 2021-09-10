@@ -1,0 +1,9 @@
+<script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+
+{% for pub in publications %}{% if selection is defined and selection in pub.groups %}
+<li class="publications"><span class="authors">{{ pub.author }}.</span><br/>
+<span class="title">{{ pub.title }}</span>
+<br><i>{{ pub.journal }}</i> ({{ pub. year }})
+{% if pub.doi != "" %} <span class="doi">DOI: <a href="http://dx.doi.org/{{ pub.doi }}">{{ pub.doi }}</a></span><span class="__dimensions_badge_embed__" data-doi="{{ pub.doi }}" data-legend="never" data-style="large_rectangle"></span>{% endif %}
+</li>
+{% endif %}{% endfor %}

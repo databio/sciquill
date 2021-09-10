@@ -161,6 +161,8 @@ $endif$
 \definecolor{maroonhaze}{RGB}{148,54,52}
 \definecolor{orangehaze}{RGB}{227,108,10}
 \definecolor{bluetint}{RGB}{0,35,75}
+\definecolor{bluetint2}{RGB}{0,35,70}
+\definecolor{lightblack}{RGB}{75,75,75}
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
@@ -180,30 +182,52 @@ $endif$
 % this itemindent code adjusts the indentation of bullet lists.
 
 \providecommand{\tightlist}{%
-  \setlength{\itemsep}{4pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-2pt} 
+  \setlength{\itemsep}{2pt}\setlength{\parskip}{0pt}\addtolength{\itemindent}{-2pt} 
 }
 
 
+\usepackage{needspace}
+$if(titleneedspace)$
+\def \titleneedspace{$titleneedspace$}
+$else$
+\def \titleneedspace{0cm}
+$endif$
 \linespread{1.05}
 % \titleformat{<command>}[<shape>]{<format>}{<label>}{<sec>}{<before-code>}[<after-code>]
 % \fontsize{<size>}{<bskip>} sets respectively the font size and the baseline skip.
+
 \titleformat{\section}
-  {\normalfont\fontfamily{bch}\fontsize{15pt}{14pt}\selectfont\color{black}\bfseries\scshape}{\thesection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{bch}\fontsize{15pt}{14pt}\selectfont\color{black}\bfseries\scshape}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{bch}\fontsize{12pt}{6pt}\selectfont\color{black}\bfseries}{\makebox[2in][l]\thesubsection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{bch}\fontsize{12pt}{6pt}\selectfont\color{black}\bfseries}{\makebox[2in][l]\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{bch}\fontsize{12pt}{6pt}\selectfont\color{bluetint}\itshape}{\thesubsubsection}{1em}{}
+  {\needspace{\titleneedspace}\normalfont\fontfamily{bch}\fontsize{12pt}{6pt}\selectfont\color{bluetint}\itshape}{\thesubsubsection}{1em}{}
+
+
+
+
+\usepackage{amsthm}
+\makeatletter
+\newcommand{\addperiod}[1]{#1\@addpunct{.}}
+\makeatother
+% use runin to specify no newline
+\titleformat{\paragraph}[runin]
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\itshape}{\theparagraph}{}{\addperiod}
+
+
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing\section{0pt}{4pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
-\titlespacing\subsection{8pt}{0pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
-\titlespacing\subsubsection{16pt}{0pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
+% \titlespacing\section{0pt}{4pt plus 4pt minus 4pt}{0pt plus 4pt minus 4pt}
+% \titlespacing\subsection{8pt}{0pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
+% \titlespacing\subsubsection{16pt}{0pt plus 2pt minus 2pt}{0pt plus 2pt minus 2pt}
 
-
-
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{11pt plus 4pt minus 2pt}{-1pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{0pt plus 4pt minus 2pt}{-2pt plus 2pt minus 2pt}
+\titlespacing{\paragraph}{0pt}{1pt plus 4pt minus 2pt}{6pt plus 2pt minus 1pt}
 
 
 % This chunk removes some of the space and reduces size of the "title" name
@@ -239,7 +263,7 @@ $endif$
   \vspace{-8ex}
   \begin{center}%
   \let \footnote \thanks
-    \textsc{Curriculum vitae}
+    \textsc{\@author}
     \vskip 8pt
     \bfseries{\textsc{\Large\@title}}
     \par
@@ -258,15 +282,31 @@ $endif$
 \makeatother
 
 
-% This section was added with pandoc 2.9.
-$if(csl-refs)$
-\newlength{\cslhangindent}       % set up new length
-\setlength{\cslhangindent}{$if(csl-hanging-indent)$2em$else$0em$endif$}
-\newenvironment{cslreferences}%
-  {\everypar{\setlength{\hangindent}{\cslhangindent}}}%
-  {\par} % by default, this env does not change anything
-$endif$
 
+
+% for pandoc 2.11
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
 
 
 

@@ -1,0 +1,5 @@
+{% if project_summary.metadata_yaml is defined %}---
+{{ project_summary.metadata_yaml }}
+---{% endif %}
+
+{{ project_summary.content }}

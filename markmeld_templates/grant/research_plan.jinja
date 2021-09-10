@@ -1,0 +1,14 @@
+---
+{{ specific_aims.metadata_yaml }}
+suppress-bibliography: True
+---
+
+{{ specific_aims.content }}
+
+{{ significance_innovation.content }}
+
+{{ aim1.content }}
+
+{% if aim2 is defined %}{{ aim2.content }}{% endif %}
+
+{% if aim3 is defined %}{{ aim3.content }}{% endif %}

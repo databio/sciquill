@@ -2,26 +2,27 @@
 multiref_no_duplicates: true
 ---
 
-# Here is one section
+# A section header
 
 ## A subsection
 
-Here is something [@ainsworth:sheppard 27]. And here is something else
-[@dames:physiology]. Finally, we want to make sure that we have one last
-citation here [@kant:critique2 29].
+Here is something [@ainsworth:sheppard 27]. Something else
+[@dames:physiology]. Finally, we want one last citation [@kant:critique2 29]. Here, references for this subsection:
+
+<div class="multi-refs"></div>
 
 ## Another subsection.
 
-Here is something [@altick:aldine 20]. And here is something repeated
+Something new [@altick:aldine 20]. And something repeated
 [@dames:physiology].
 
 <div class="multi-refs"></div>
 
-# Here is another section
+# A second section
 
-Here is something [@lukacs:european 125]. And here is something else
-[@cohen:jokes 3]. Finally, we want to make sure that we have one last
-citation here [@trollope:autobiography 392]. And something repeated in a different section: [@dames:physiology]
-
+Here is something [@lukacs:european 125]. Something else
+[@cohen:jokes 3]. Finally, one last
+citation [@trollope:autobiography 392]. And something repeated in a different section: [@dames:physiology]
 
 <div class="multi-refs"></div>
+
