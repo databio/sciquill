@@ -1,0 +1,10 @@
+---
+{% if manuscript.metadata_yaml is defined %}{{ manuscript.metadata_yaml }}{% endif %}---
+
+{{ manuscript.content }}
+
+\newpage
+\onecolumn
+
+{{ supplement.content }}
+

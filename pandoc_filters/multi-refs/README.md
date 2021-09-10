@@ -45,3 +45,8 @@ Alphabetical references:
 pandoc --citeproc --lua-filter multi-refs.lua \
 	sample.md -o sample.pdf --bibliography bibliography.bib
 ```
+
+
+## Limitations
+
+By the way, it ALSO works to divide sections, so you can put more than 1 bibliography into a top-level section.
