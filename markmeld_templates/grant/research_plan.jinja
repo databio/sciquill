@@ -1,9 +1,11 @@
 ---
 {{ specific_aims.metadata_yaml }}
-suppress-bibliography: True
+suppress-bibliography: {% if exclude_refs %}True{% else %}False{% endif %}
 ---
 
+{% if not exclude_aim %}
 {{ specific_aims.content }}
+{% endif %}
 
 {{ significance_innovation.content }}
 
@@ -12,3 +14,11 @@ suppress-bibliography: True
 {% if aim2 is defined %}{{ aim2.content }}{% endif %}
 
 {% if aim3 is defined %}{{ aim3.content }}{% endif %}
+
+
+{% if not exclude_refs %}
+\newpage
+
+# References
+
+{% endif %}
