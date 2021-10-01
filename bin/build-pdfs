@@ -21,7 +21,7 @@ do
   hashfile="${figdir}/digest/${svgfile/svg/digest}"
   # srcdate=`stat -c %Y $svgfile`
   # destdate=`stat -c %Y $pdffile 2>/dev/null`
-  svghashnew=`md5sum $svgpath | cut -f1 -d' '`
+  svghashnew=`/usr/bin/md5sum $svgpath | /usr/bin/cut -f1 -d' '`
   # echo $svghashnew
   if [ -f $hashfile ];
   then
