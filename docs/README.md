@@ -2,15 +2,13 @@
 
 ## Motivation
 
-Sciquill helps you use markdown and YAML to write your academic grant, paper, biosketch, or CV.
-Sciquill is a framework that wraps existing tools like `pandoc`, `liquid`, `inkscape`, and `make`. It provides templates, styles, workflows, and scripts that make it simple to go from markdown text and structured YAML data to beautiful PDFs, all from inside GitHub or your local computer.
+Sciquill is an academic publishing system. It helps to author academic documents using `markdown` and `YAML`. Document types include grants, papers, biosketchs, CVs, dissertations, letters... anything you might want to write in `markdown`, really.
+Sciquill is more of a publishing philosophy than a piece of software. It contains some scripts to glue together various stages of the authoring pipeline, but primarily it relies on existing tools, notably, [pandoc](http://pandoc.org), [inkscape](http://inkscape.org), and [markmeld](https://github.com/databio/markmeld). It provides templates, styles, workflows, and scripts that make it simple to go from markdown text and structured YAML data to beautiful PDF or other outputs, all from inside GitHub or your local computer.
 Sciquill brings us closer to the goal of authoring all types of scientific documents in markdown to completely [separate content from style](http://databio.org/posts/markdown_style.html).
 
-## What is sciquill?
+## The sciquill workflow
 
-Sciquill is a collection of templates, makefiles, scripts, and GitHub actions. The basic workflow is:
-
-1. Write your content (*e.g.* manuscript, CV, grant) in markdown and/or YAML.
+1. Write your content (*e.g.* manuscript, CV, grant) in `markdown` and/or `YAML` format.
 2. Store your markdown files in a repository on GitHub.
 3. Configure sciquill for your document type, template, *etc.*
 4. Use a GitHub action to automatically build your document when the source files change.

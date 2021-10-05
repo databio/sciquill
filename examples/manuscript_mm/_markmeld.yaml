@@ -1,0 +1,23 @@
+command: |
+  pandoc \
+    --template {latex_template} \
+    --bibliography {bibdb} \
+    --citeproc \
+    --lua-filter {figczar} \
+    --lua-filter {highlighter} \
+    --lua-filter /home/nsheff/code/sciquill/pandoc_filters/multi-refs/multi-refs.lua \
+    --lua-filter /home/nsheff/code/sciquill/pandoc_filters/supplemental-labels/supplemental_labels.lua \
+    --csl {csl} \
+    -o {output_file}
+targets: 
+  manuscript:
+    latex_template: /home/nsheff/code/sciquill/tex_templates/shefflab.tex
+    md_template: /home/nsheff/code/sciquill/markmeld_templates/manuscript/manuscript_supplement.jinja
+    output_file: "output/manuscript_{today}.pdf"
+    data_variables:
+      include_supplement: True
+    data_md:
+      manuscript: src/manuscript.md
+      supplement: src/supplement.md      
+    prebuild: 
+      - "figs"
