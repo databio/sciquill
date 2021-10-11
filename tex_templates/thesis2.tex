@@ -15,6 +15,7 @@ $endif$
 %
 
 \documentclass[
+\usepackage[margin=0.5in]{geometry}
 $if(fontsize)$
   $fontsize$,
 $endif$
@@ -43,7 +44,6 @@ $if(background-image)$
   \includegraphics[width=\paperwidth]{$background-image$}%
 }
 $endif$
-\usepackage[margin=0.5in]{geometry}
 \usepackage{pgfpages}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
