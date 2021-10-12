@@ -13,9 +13,7 @@ $if(CJKmainfont)$
 \PassOptionsToPackage{space}{xeCJK}
 $endif$
 %
-
 \documentclass[
-\usepackage[margin=0.5in]{geometry}
 $if(fontsize)$
   $fontsize$,
 $endif$
@@ -454,6 +452,13 @@ $if(logo)$
 \logo{\includegraphics{$logo$}}
 $endif$
 $endif$
+
+\addtolength{\oddsidemargin}{-.875in}
+\addtolength{\evensidemargin}{-.875in}
+\addtolength{\textwidth}{1.75in}
+
+\addtolength{\topmargin}{-.875in}
+\addtolength{\textheight}{1.75in}
 
 \begin{document}
 $if(has-frontmatter)$
