@@ -460,7 +460,9 @@ $endif$
 \addtolength{\topmargin}{-.875in}
 \addtolength{\textheight}{1.75in}
 
-\renewcommand{\figurename}{Dissertation figure}{Subsection figure}
+\makeatletter 
+\renewcommand{\figurename}{Dissertation figure \@arabic\c@figure}
+\makeatother
 
 \begin{document}
 $if(has-frontmatter)$
