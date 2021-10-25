@@ -10,15 +10,19 @@ nav:
     - Overview: README.md
     - Install: install.md
     - Configure: configure.md
-  - Demos:
-    - Figures: figczar.md
+  - Document types:
+    - Letter: letter.md
     - Manuscript: manuscript.md
     - NIH biosketch: biosketch.md
     - Curriculum vitae: cv.md
     - Simple grant: simple_grant.md
     - NIH R01: nih_r01.md
-    - Auto-build with github actions: github_actions.md
+    - Mail merge: mail_merge.md
+  - Pandoc filters:
+    - Figures: figczar.md
     - Marking changes: change_marker.md
+  - Rendering methods:
+    - Auto-build with github actions: github_actions.md
   - Reference:
     - Recipes: recipes.md
     - Changelog: changelog.md

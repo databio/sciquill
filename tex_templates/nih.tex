@@ -3,7 +3,7 @@
 \renewcommand{\rmdefault}{phv} % Arial
 \renewcommand{\sfdefault}{phv} % Arial
 
- \let\tightlist\relax
+\let\tightlist\relax
 
 
 \providecommand{\tightlist}{%
@@ -45,6 +45,8 @@ $endif$
 \usepackage{multicol}
 \usepackage{wrapfig}
 \usepackage[skip=2pt, font=footnotesize, format=plain, labelfont=it, textfont=it, tableposition=below]{caption}
+
+
 
 % longtable is required for markdown-format tables to be rendered in latex
 \usepackage{longtable}
@@ -412,6 +414,8 @@ $endif$
 $for(header-includes)$
 $header-includes$
 $endfor$
+
+
 
 $if(title)$
 \title{$title$}
