@@ -1,7 +1,7 @@
 ---
-{% if manuscript.metadata_yaml is defined and exclude_manuscript is not defined %}{{ manuscript.metadata_yaml }}{% endif %}{% if supplement.metadata_yaml is defined %}{{ supplement.metadata_yaml }}{% endif %}---
+{% if manuscript.metadata_yaml is defined and not exclude_manuscript %}{{ manuscript.metadata_yaml }}{% endif %}{% if supplement.metadata_yaml is defined %}{{ supplement.metadata_yaml }}{% endif %}---
 
 {{ manuscript.content }}
 
-{% if include_supplement is defined %}{{ supplement.content }}{% endif %} 
+{% if include_supplement and supplement is defined %}{{ supplement.content }}{% endif %} 
 
