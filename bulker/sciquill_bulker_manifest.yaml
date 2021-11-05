@@ -5,11 +5,11 @@ manifest:
   - bulker/alpinebase:default
   commands:
   - command: latex
-    docker_image: ghcr.io/databio/sciquill
+    docker_image: databio/sciquill
   - command: git
     docker_image: nsheff/git
   - command: bibtool
-    docker_image: ghcr.io/databio/sciquill
+    docker_image: databio/sciquill
   - command: inkscape
     docker_image: nsheff/vis
   - command: jabref
@@ -28,12 +28,14 @@ manifest:
     docker_command: bash -c "./liquify.rb"
   - command: mkdocs
     docker_image: nsheff/mkdocs
+  - command: mm
+    docker_image: databio/sciquill
   - command: pandoc
-    docker_image: ghcr.io/databio/sciquill
+    docker_image: databio/sciquill
     docker_args: "-i"
   - command: gs
     docker_image: minidocks/ghostscript
   - command: pdflatex
-    docker_image: ghcr.io/databio/sciquill
+    docker_image: databio/sciquill
 
     # eventually switch to: docker.pkg.github.com/databio/sciquill/sciquill:0.0.1
