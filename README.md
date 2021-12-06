@@ -1,18 +1,11 @@
 # <img src="docs/img/sciquill_light.svg" alt="sciquill logo" height="70">
  
-Sciquill helps you use markdown and YAML to write your academic grant, paper, biosketch, or CV.
-Sciquill is a framework that wraps existing tools like `pandoc`, `liquid`, `inkscape`, and `make`. It provides templates, styles, workflows, and scripts that make it simple to go from markdown text and structured YAML data to beautiful PDFs, all from inside GitHub or your local computer.
+Sciquill is an academic publishing system. It helps to author academic documents using `markdown` and `YAML`. Document types include grants, papers, biosketches, CVs, dissertations, letters... anything you might want to write in `markdown`, really.
+Sciquill is more of a publishing philosophy than a piece of software. It contains some scripts to glue together various stages of the authoring pipeline, but primarily it relies on existing tools, notably, [pandoc](http://pandoc.org), [inkscape](http://inkscape.org), and [markmeld](https://github.com/databio/markmeld). It provides templates, styles, workflows, and scripts that make it simple to go from markdown text and structured YAML data to beautiful PDF or other outputs, all from inside GitHub or your local computer.
+Sciquill brings us closer to the goal of authoring all types of scientific documents in markdown to completely [separate content from style](http://databio.org/posts/markdown_style.html).
 
-For details, see the [sciquill documentation](http://sciquill.databio.org).
+For more information, see the [sciquill documentation](http://sciquill.databio.org).
 
-
-# Examples
-
-Sciquill will render these markdown/yaml data files into PDFs:
-
-* [NIH biosketch](/examples/biosketch_simple): Render the [.md biosketch source](examples/biosketch_simple/src/nih_biosketch.md) into [a PDF](examples/biosketch_simple/output/nih_biosketch.pdf)
-* [Grant](/examples/grant) (NIH-formatted):  Render the [.md grant source](examples/grant_simple/src/research_plan.md) into [a PDF](examples/grant_simple/output/research_plan.pdf)
-* CV (pending).
 
 ## Description of repository
 

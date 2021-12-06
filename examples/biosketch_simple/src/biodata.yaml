@@ -1,0 +1,98 @@
+personal:
+  name: Nathan C. Sheffield
+  last_name: Sheffield
+  given_name: Nathan C.
+  title: PhD
+  email: nsheffield@virginia.edu
+  phone: (434) 924-8278
+  web: http://www.databio.org
+  eracommons: NSHEFF
+  github: nsheff
+  google_scholar: "https://scholar.google.com/citations?hl=en&user=OZnytkcAAAAJ&view_op=list_works&sortby=pubdate"
+  h_index: 25
+  orcid: 0000-0001-5643-4068
+nih_biosketch:
+  education_block:
+    - institution: Stanford University
+      location: Stanford, CA
+      degree: Postdoc
+      start_date: 01/2016
+      completion_date: 08/2016
+      field_of_study: Computational Epigenomics
+      level: postgraduate
+      advisor: Howard Chang
+    - institution: Center for Molecular Medicine
+      location: Vienna, Austria
+      degree: Postdoc
+      start_date: 07/2013
+      completion_date: 12/2015
+      field_of_study: Computational Epigenomics
+      level: postgraduate
+      advisor: Christoph Bock
+    - institution: Duke University
+      location: Durham, NC
+      degree: PhD
+      start_date: 08/2008
+      completion_date: 05/2013
+      field_of_study: Bioinformatics and Computational Biology
+      level: graduate
+      advisor: Terry Furey and Greg Crawford
+    - institution: Brigham Young University
+      location: Provo, UT
+      degree: BS
+      start_date: 07/2002
+      completion_date: 04/2008
+      field_of_study: Bioinformatics
+      level: undergraduate
+      advisor: Michael Whiting and Keith Crandall
+      minor: Computer Science
+  honors:
+    - year: 2014
+      title: HFSP Long-term Postdoctoral Fellowship, Human Frontier Science Program
+    - year: 2014
+      title: EMBO Long-term Postdoctoral Fellowship, European Molecular Biology Organization
+    - year: 2011
+      title: Nordic Research Opportunity Award, NSF and Research Council of Norway ($15,000)
+    - year: 2010
+      title: NSF Graduate Research Fellowship ($121,000)
+    - year: 2010
+      title: Duke Graduate School Teaching Mini-grant (for Scientific Writing Resource) ($2,000)
+    - year: 2010
+      title: Duke Primate Genomics Initiative Summer Fellowship ($10,000)
+    - year: 2008
+      title: James B. Duke Graduate Fellowship, Duke University ($19,000)
+    - year: 2008
+      title: Undergraduate Research ORCA Grant, BYU Office of Research and Creative Activities ($1,800)
+    - year: 2002
+      title: Heritage Scholarship, Brigham Young University (4 years full tuition)
+positions:
+  current:
+    rank: Assistant professor
+    department: Center for Public Health Genomics
+    tenure_status: Tenure-track
+  past:
+    - dates: 2020-pres
+      title: Assistant Professor of Data Science
+      institution: University of Virginia
+      location: Charlottesville, VA      
+      type: academic
+    - dates: 2016-pres
+      title: Affiliated Faculty Member, Cancer Center
+      institution: University of Virginia
+      location:  Charlottesville, VA
+      type: academic
+    - dates: 2016-pres
+      title: Affiliated Faculty Member, Child Health Research Center
+      institution: University of Virginia
+      location:  Charlottesville, VA
+      type: academic
+    - dates: 2016-pres
+      title: Assistant Professor of Biomedical Engineering, Public Health Sciences, and Biochemistry and Molecular Genetics
+      institution: University of Virginia
+      location: Charlottesville, VA
+      type: academic
+    - dates: 2016-pres
+      title: Assistant Professor, Center for Public Health Genomics 
+      institution: University of Virginia
+      location: Charlottesville, VA
+      type: academic
