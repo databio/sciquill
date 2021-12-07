@@ -21,6 +21,7 @@ nav:
   - Pandoc filters:
     - Figures: figczar.md
     - Marking changes: change_marker.md
+    - Multiple reference lists: multi_refs.md
   - Rendering methods:
     - Auto-build with github actions: github_actions.md
   - Reference:

@@ -2,11 +2,16 @@
 
 ## Examples of input/output
 
-The [examples](/examples) folder demonstrates what you can produce with mediabuilder. For each example there is a basic `Makefile`, which provides examples of recipes for building different media types. For example, this will render the example manuscript:
+I use markmeld to produce all our lab's preprints. I've made some jinja templates available here:
 
-```
-cd examples/manuscript
-make manuscript
-```
+[https://github.com/databio/mm_templates/tree/master/manuscript](https://github.com/databio/mm_templates/tree/master/manuscript)
 
-* [Manuscript](/examples/manuscript): Render the [.md manuscript source](examples/manuscript/src/manuscript.md) into [a generic manuscript PDF](examples/manuscript/output/manuscript.pdf), or use the [Oxford University Press Bioinformatics Template](examples/manuscript/output/manuscript_bioinformatics.pdf); or use the [Databio lab template](examples/manuscript/output/manuscript_twocol.pdf).
+There are few example repositories showing how this works:
+
+The markmeld repository contains a [demo](https://github.com/databio/markmeld/tree/master/demo).
+
+There's also a standalone demo here that also shows you how to use a github action to build the manuscript:
+
+[https://github.com/databio/sciquill_paper_example](https://github.com/databio/sciquill_paper_example)
+
+I still need to work on a full demo for how to build it on your own, which I plan to put in the examples folder in this repository.
