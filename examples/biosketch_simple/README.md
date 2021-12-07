@@ -14,7 +14,7 @@ The `/src` folder contains the source, which is found in a few files:
 
 ## Building
 
-The markmeld build recipes are specified in [/markmeld.yaml](/markmeld.yaml).
+The markmeld build recipes are specified in [_markmeld.yaml](_markmeld.yaml).
 
 You can build the target like this:
 
@@ -23,4 +23,4 @@ cd sciquill/examples/biosketch_simple
 mm biosketch
 ```
 
-This will produce the output listed in [/output](/output).
+This will produce the output listed in [output](output).
