@@ -295,6 +295,26 @@ $else$
 \makesavenoteenv{longtable}
 $endif$
 $endif$
+
+% for including csv files
+\usepackage{tikz}  % required to fix incompatibility with ctable: https://github.com/T-F-S/csvsimple/issues/9
+\usepackage{csvsimple}
+
+\usepackage{booktabs} % provides toprule and midrule and bottomrule
+
+% formatting csv tables with 'catch-all' variable column widths
+\usepackage{tabularx}
+
+
+\usepackage{needspace}
+
+
+% % make each figure have its own page like this:
+% \renewcommand{\floatpagefraction}{0.01}
+% \makeatletter
+% \@fpsep\textheight
+% \makeatother
+
 $if(graphics)$
 \usepackage{graphicx}
 \makeatletter
