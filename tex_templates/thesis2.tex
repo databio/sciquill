@@ -473,16 +473,44 @@ $if(logo)$
 $endif$
 $endif$
 
-\addtolength{\oddsidemargin}{-.875in}
-\addtolength{\evensidemargin}{-.875in}
-\addtolength{\textwidth}{1.75in}
+% \addtolength{\oddsidemargin}{-.375in}
+% \addtolength{\evensidemargin}{-.875in}
+% \addtolength{\textwidth}{1.75in}
 
-\addtolength{\topmargin}{-.875in}
-\addtolength{\textheight}{1.75in}
+% \addtolength{\topmargin}{-.875in}
+% \addtolength{\textheight}{1.75in}
 
-\renewcommand{\figurename}{Dissertation figure}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=1.5in,
+            right=1in,
+            top=1in,
+            bottom=1in,
+            footskip=.25in]{geometry}
 
+% \renewcommand{\figurename}{Dissertation figure}
+
+\usepackage{/sfs/lustre/bahamut/scratch/jps3dp/tools/databio/sciquill/tex_templates/chngcntr}
+\counterwithin{figure}{section}
+
+\usepackage{setspace}
+
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+\usepackage{/sfs/lustre/bahamut/scratch/jps3dp/tools/databio/sciquill/tex_templates/tocloft}
+
+\renewcommand{\cftfigpresnum}{Figure\ }
+\renewcommand{\cfttabpresnum}{Table\ }
+
+\newlength{\mylenf}
+\settowidth{\mylenf}{\cftfigpresnum}
+\setlength{\cftfignumwidth}{\dimexpr\mylenf+2em}
+\setlength{\cfttabnumwidth}{\dimexpr\mylenf+1.5em}
+
+\pagestyle{myheadings}
 \begin{document}
+\pagenumbering{roman}
 $if(has-frontmatter)$
 \frontmatter
 $endif$
@@ -576,4 +604,5 @@ $for(include-after)$
 $include-after$
 
 $endfor$
+
 \end{document}
