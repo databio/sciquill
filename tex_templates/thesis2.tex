@@ -427,6 +427,7 @@ $if(dir)$
   \newenvironment{LTR}{\beginL}{\endL}
 \fi
 $endif$
+
 $if(natbib)$
 \usepackage[$natbiboptions$]{natbib}
 \bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
@@ -437,9 +438,11 @@ $for(bibliography)$
 \addbibresource{$bibliography$}
 $endfor$
 $endif$
+
 $if(nocite-ids)$
 \nocite{$for(nocite-ids)$$it$$sep$, $endfor$}
 $endif$
+
 $if(csquotes)$
 \usepackage{csquotes}
 $endif$
@@ -569,10 +572,11 @@ $body$
 $if(has-frontmatter)$
 \backmatter
 $endif$
+
 $if(natbib)$
 $if(bibliography)$
 $if(biblio-title)$
-$if(has-chapters)$
+$if(has-sections)$
 \renewcommand\bibname{$biblio-title$}
 $else$
 \renewcommand\refname{$biblio-title$}
@@ -589,20 +593,4 @@ $endif$
 
 $endif$
 $endif$
-$if(biblatex)$
-$if(beamer)$
-\begin{frame}[allowframebreaks]{$biblio-title$}
-  \bibliographytrue
-  \printbibliography[heading=none]
-\end{frame}
-$else$
-\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
-$endif$
-
-$endif$
-$for(include-after)$
-$include-after$
-
-$endfor$
-
 \end{document}
