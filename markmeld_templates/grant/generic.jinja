@@ -1,5 +1,13 @@
 {% if data.metadata_yaml is defined %}---
 {{ data.metadata_yaml }}
+suppress-bibliography: {% if exclude_refs %}True{% else %}False{% endif %}
 ---{% endif %}
 
 {{ data.content }}
+
+{% if not exclude_refs %}
+\newpage
+
+# References
+
+{% endif %}

@@ -3,7 +3,7 @@
 %  small_margin: true
 %  onecol: true
 
-\documentclass[10pt]{article}
+\documentclass[$if(font)$$font$$else$10pt$endif$]{article}
 
 $if(small_margin)$
 \RequirePackage[top=0.6in,left=0.6in,right=0.6in,bottom=0.3in,includefoot]{geometry}
@@ -177,7 +177,7 @@ $endif$
 \fancyhead{} % empty
 \fancyfoot{} % empty out the default, which is page number in center
 \def\middot{\textperiodcentered~}
-\lfoot{\scriptsize \thepage \middot $short_title$ $if(journal_tagline)$\middot \textit{$journal_tagline$} $endif$ $if(date)$ \middot \textsl{$date$} $endif$ $if(copyright)$ \middot \textcopyright $copyright$ $endif$}
+\lfoot{\scriptsize \thepage $if(short_title)$ \middot $short_title$ $endif$ $if(journal_tagline)$\middot \textit{$journal_tagline$} $endif$ $if(date)$ \middot \textsl{$date$} $endif$ $if(copyright)$ \middot \textcopyright $copyright$ $endif$}
 \pagestyle{fancy}
 
 
