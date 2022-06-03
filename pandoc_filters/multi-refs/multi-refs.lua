@@ -171,7 +171,8 @@ local function recurse(content)
   for k,v in pairs(content) do
     -- print(k, type(v))
     if type(v) == 'table' then
-      if v.mode and v.mode == "NormalCitation" then
+      if v.mode then
+      -- if v.mode and (v.mode == "NormalCitation" or v.mode == "AuthorInText") then
         -- print("Found a ref", dump(v.id), dump(v))
         table.insert(accumulated_refids, v.id)
       end
