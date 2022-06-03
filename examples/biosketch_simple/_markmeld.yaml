@@ -1,6 +1,6 @@
 mm_templates: http://databio.org/mm_templates/
 bibdb: src/references.yaml
-csl: ../csl/bioinformatics.csl
+csl: ../../csl/bioinformatics.csl
 targets:
   biosketch:
     md_template: biosketch/nih_biosketch.jinja
