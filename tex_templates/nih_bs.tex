@@ -192,25 +192,34 @@ $endif$
 
 % colors
 
+\definecolor{bluehaze}{RGB}{54,95,145}
+\definecolor{maroonhaze}{RGB}{148,54,52}
+\definecolor{orangehaze}{RGB}{227,108,10}
+\definecolor{black}{RGB}{0,0,0}
+\definecolor{bluetint}{RGB}{0,50,100}
+\definecolor{bluetint2}{RGB}{0,35,65}
+\definecolor{lightblack}{RGB}{75,75,75}
+
+
 %\usepackage{sectsty}% http://ctan.org/pkg/sectsty
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 % \sectionfont{\color{bluehaze}\normalfont\fontsize{12}{3}\selectfont}
 \linespread{1.0}
 
 \titleformat{\section}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\bfseries}{\thesection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{12pt}{12pt}\selectfont\color{bluetint2}\bfseries}{\thesection}{1em}{}
 
 \titleformat{\subsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{20pt}\selectfont\color{black}\bfseries}{\thesubsection}{1em}{}
 
 \titleformat{\subsubsection}
-  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{black}\itshape}{\thesubsubsection}{1em}{}
+  {\normalfont\fontfamily{phv}\fontsize{11pt}{11pt}\selectfont\color{lightblack}\itshape}{\thesubsubsection}{1em}{}
 
 
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
-\titlespacing\section{0pt}{10pt plus 4pt minus 6pt}{-2pt plus 3pt minus 3pt}
-\titlespacing\subsection{0pt}{10pt plus 4pt minus 6pt}{-2pt plus 3pt minus 3pt}
-\titlespacing\subsubsection{0pt}{10pt plus 4pt minus 6pt}{-4pt plus 4pt minus 4pt}
+\titlespacing\section{0pt}{16pt plus 4pt minus 4pt}{0pt plus 3pt minus 1pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 4pt}{0pt plus 3pt minus 3pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 6pt}{-4pt plus 4pt minus 4pt}
 
 
 %\subsectionfont{\color{maroonhaze}}
@@ -234,7 +243,10 @@ Follow this format for each person.  \textbf{DO NOT EXCEED FIVE PAGES}.\\}}
 NAME: $name$\vspace{0.5em}\\
 eRA COMMONS USER NAME (credential, e.g., agency login): $eracommons$\vspace{0.5em}\\
 POSITION TITLE: $position$\vspace{0.5em}\\
-EDUCATION/TRAINING (\textit{Begin with baccalaureate or other initial professional education, such as nursing, include postdoctoral training and residency training if applicable. Add/delete rows as necessary.})\vspace{0.5em}\\}
+EDUCATION/TRAINING \vspace{0.5em}\\}
+
+% Do we really need this note in the form? It looks bad. Let's clean it up and see if anyone complains. 
+% (\textit{Begin with baccalaureate or other initial professional education, such as nursing, include postdoctoral training and residency training if applicable. Add/delete rows as necessary.})
 
 \newenvironment{education}
 {%
