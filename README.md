@@ -36,7 +36,7 @@ output:
 
 By default, pandoc will include your references cited just right at the end of
 the document. That works for some grants, but others want a separate reference
-document. To accomodate this, we need to do 2 things: 1) make a
+document. To accommodate this, we need to do 2 things: 1) make a
 bibliography-only file; 2) suppress the bibliography in the main file.
 
 
@@ -44,7 +44,7 @@ bibliography-only file; 2) suppress the bibliography in the main file.
 
 I wrote a script that does this: [bin/getrefs](bin/getrefs)
 
-You can run getrefs on your markdown files, and pipe the results pandoc:
+You can run getrefs on your markdown files, and pipe the results to pandoc:
 
 ``` getrefs document.md | pandoc ...```
 
