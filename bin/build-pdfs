@@ -32,7 +32,7 @@ do
   if [ ! -f $pdffile ] || [ "${svghashnew}" != "${svghashold}" ];
   then
     echo "Changed. new: $svghashnew; old: $svghashold. Building $pdffile"
-    inkscape --export-pdf "$pdffile" "${currdir}/$svgpath" 2> /dev/null
+    inkscape --export-filename "$pdffile" "${currdir}/$svgpath"
     echo $svghashnew > ${hashfile}
   else
     echo "Checksums match: $svghashnew" 
