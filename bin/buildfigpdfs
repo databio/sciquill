@@ -25,6 +25,6 @@ do
   if [ ! -f $pdffile ] || [ ${srcdate} -ge ${destdate} ];
   then
   echo "Detected change in $svgfile. svg-date: $srcdate; pdf-date: $destdate"
-  inkscape --export-pdf "${currdir}/$pdffile" "${currdir}/$svgfile"
+  inkscape --export-filename "${currdir}/$pdffile" "${currdir}/$svgfile"
 fi
 done
