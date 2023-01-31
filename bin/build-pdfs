@@ -33,7 +33,13 @@ do
   then
     echo "Changed. new: $svghashnew; old: $svghashold. Building $pdffile"
     inkscape --export-filename "$pdffile" "${currdir}/$svgpath"
-    echo $svghashnew > ${hashfile}
+    exit_status=$?
+    if [ $exit_status -eq 0 ];
+    then
+      echo $svghashnew > ${hashfile}
+    else
+      echo "Failed to build file, check inkscape"
+    fi
   else
     echo "Checksums match: $svghashnew" 
   fi
