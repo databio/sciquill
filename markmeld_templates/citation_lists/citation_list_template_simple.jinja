@@ -1,3 +1,3 @@
-{% for pub in publications %}{% if selection is defined and selection in pub.groups %}
+{% for pub in references %}{% if selection is defined and selection in pub.groups %}
 <li><b>{{ pub.author_short }} ({{ pub. year }}). </b>{%- if pub.title != "" -%}<i>{{ pub.title }}</i>{% endif %} {% if pub.doi != "" %}
 <br>{% if pub.journal != "" %}<i>{{ pub.journal }}</i>. {% endif %} <span class="doi">DOI: <a href="http://dx.doi.org/{{ pub.doi }}">{{ pub.doi }}</a></span>{% endif %}</li>{% endif %}{% endfor %}
