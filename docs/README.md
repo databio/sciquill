@@ -1,3 +1,12 @@
+---
+hide:
+  - navigation
+  - toc
+  - navigation.footer
+---
+<p align="center"><img align="center" src="/img/sciquill_light.svg" width="400">
+</p>
+
 # Sciquill
 
 <span style="color:red">NOTE! Sciquill is currently fully functional and I've been using it for years to build all kinds of documents, from grants to manuscripts to NIH biosketches and more. However, it's under constant development and I haven't had time to document everything, as this is a side project. So, this documentation is provided as a work in progress. If you are interested in using or contributing to this system, please contact me and I'm happy to update things as needed.</span>
