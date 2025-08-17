@@ -10,6 +10,22 @@
 echo "Build pdfs"
 currdir="`pwd`"
 outdir="$currdir/output"
+
+# if cant find md5sum or cut, exit
+if ! [ -x "$(command -v md5sum)" ]; then
+  echo 'md5sum is not installed.' >&2
+  exit 1
+fi
+
+if ! [ -x "$(command -v cut)" ]; then
+  echo 'cut is not installed.' >&2
+  exit 1
+fi
+
+# get path to md5sum and cut
+md5sum=`which md5sum`
+cut=`which cut`
+
 mkdir -p $1/digest
 figdir=$1
 mkdir -p $1/pdf
@@ -21,7 +37,7 @@ do
   hashfile="${figdir}/digest/${svgfile/svg/digest}"
   # srcdate=`stat -c %Y $svgfile`
   # destdate=`stat -c %Y $pdffile 2>/dev/null`
-  svghashnew=`/usr/bin/md5sum $svgpath | /usr/bin/cut -f1 -d' '`
+  svghashnew=`$md5sum $svgpath | $cut -f1 -d' '`
   # echo $svghashnew
   if [ -f $hashfile ];
   then
