@@ -1,34 +1,92 @@
 site_name: Sciquill
-site_logo: img/sciquill_light.svg
 site_url: http://sciquill.databio.org
 repo_url: http://github.com/databio/sciquill
-theme: databio
-# paper_link: https://doi.org/10.1101/698704
+
+theme:
+  logo: img/sciquill_light.svg
+  favicon: img/bb_docs.svg
+  name: material
+
+  features:
+    - header.autohide
+    - navigation.sections
+    # - navigation.expand
+    - navigation.footer
+    - navigation.indexes 
+    - toc.follow
+    - content.action.edit
+    - content.action.view
+    - navigation.tabs
+    - navigation.top
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: "!!python/name:pymdownx.superfences.fence_code_format"
+
+extra_css:
+  - stylesheets/extra.css
+extra:
+  generator: false  # turn off theme link
+copyright: >
+    <a class="" href="http://databio.org/">
+      <img src="https://databio.org/images/logo/logo_databio_long.svg"
+        style="height:60px;"
+        alt="Databio logo">
+    </a>
 
 nav:
-  - Introduction:
-    - Overview: README.md
-    - Install: install.md
-    - Configure: configure.md
-  - Document types:
-    - Letter: letter.md
-    - Manuscript: manuscript.md
-    - NIH biosketch: biosketch.md
-    - Curriculum vitae: cv.md
-    - Simple grant: simple_grant.md
-    - NIH R01: nih_r01.md
-    - Mail merge: mail_merge.md
-  - Pandoc filters:
-    - Figures: figczar.md
-    - Marking changes: change_marker.md
-    - Multiple reference lists: multi_refs.md
-  - Rendering methods:
-    - Auto-build with github actions: github_actions.md
-  - Reference:
-    - Recipes: recipes.md
-    - Changelog: changelog.md
-    
-plugins:
-  - databio
-  - search
-
+  - Home: README.md
+  - Sciquill: 
+    - Sciquill: sciquill/README.md
+    - Introduction:
+      - Overview: sciquill/README.md
+      - Install: sciquill/install.md
+      - Configure: sciquill/configure.md
+    - Document types:
+      - Letter: sciquill/letter.md
+      - Manuscript: sciquill/manuscript.md
+      - NIH biosketch: sciquill/biosketch.md
+      - Curriculum vitae: sciquill/cv.md
+      - Simple grant: sciquill/simple_grant.md
+      - NIH R01: sciquill/nih_r01.md
+      - Mail merge: sciquill/mail_merge.md
+    - Pandoc filters:
+      - Figures: sciquill/figczar.md
+      - Marking changes: sciquill/change_marker.md
+      - Multiple reference lists: sciquill/multi_refs.md
+    - Rendering methods:
+      - Auto-build with github actions: sciquill/github_actions.md
+    - Reference:
+      - Recipes: sciquill/recipes.md
+      - Changelog: sciquill/changelog.md
+  - Markmeld:
+    - Getting Started:
+      - Introduction: markmeld/README.md
+      - Install: markmeld/install.md
+      - Simple example tutorial: markmeld/simple_example.md
+      - Markmeld configuration: markmeld/config_specification.md
+    - How-to guides:
+      - Customizing commands: commands.md
+      - Writing jinja templates: markmeld/jinja_template.md
+      - Importing external files: markmeld/imports.md
+      - Inheriting from targets: markmeld/inheriting.md
+      - Prebuild and postbuild targets: markmeld/side_targets.md
+      - Multi-output targets: markmeld/multi_output_targets.md
+      - Target factories: markmeld/target_factories.md
+      - Advanced variable templates: markmeld/variable_variables.md
+      - Recursive rendering: markmeld/recursive_rendering.md
+      - Remote templates: markmeld/remote_templates.md
+      - Mail merges: markmeld/mail_merge.md
+      - Prevent auto-open: markmeld/prevent_opening.md
+      - Using as a Python library: markmeld/use_as_library.md
+    - Reference:
+      - Changelog: markmeld/changelog.md
