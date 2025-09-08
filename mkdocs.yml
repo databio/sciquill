@@ -88,5 +88,6 @@ nav:
       - Mail merges: markmeld/mail_merge.md
       - Prevent auto-open: markmeld/prevent_opening.md
       - Using as a Python library: markmeld/use_as_library.md
+      - Using Google docs as source: markmeld/google_drive_processor.md
     - Reference:
       - Changelog: markmeld/changelog.md

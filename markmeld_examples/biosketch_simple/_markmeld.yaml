@@ -3,24 +3,26 @@ bibdb: src/references.yaml
 csl: ../../csl/bioinformatics.csl
 targets:
   biosketch:
-    md_template: biosketch/nih_biosketch.jinja
+    # jinja_template: biosketch/nih_biosketch.jinja
     output_file: "output/nih_biosketch_{today}.pdf"
     latex_template: ../../tex_templates/nih_bs.tex
-    data_md:
-      personal_statement: src/personal_statement.md
-    data_variables:
-      contribution_list:
-        - cancer
-    data_yaml:
-      - src/biodata.yaml
-      - src/references.yaml
-    data_md_globs: # globs of markdown files
-      - src/contributions/*.md
+    data:
+      md_files:
+        personal_statement: src/personal_statement.md
+      variables:
+        contribution_list:
+          - cancer
+      yaml_globs_unkeyed:
+        - src/biodata.yaml
+        - src/references.yaml
+      md_globs: # globs of markdown files
+        - src/contributions/*.md
     command: |
       pandoc \
         --template {latex_template} \
         --bibliography {bibdb} \
         --citeproc \
         --csl {csl} \
+        --lua-filter {mm-multi-refs} \
         --metadata suppress-bibliography=true \
         -o {output_file}
